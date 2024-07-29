@@ -156,7 +156,7 @@ const Orders = (): JSX.Element => {
         </Box>
         <Button
           component={Link}
-          href={'/demos/ecommerce/order-complete'}
+          href={'/order-complete'}
           variant={'contained'}
           size={'large'}
           fullWidth

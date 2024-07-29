@@ -10,12 +10,10 @@ interface Props {
   // eslint-disable-next-line @typescript-eslint/ban-types
   onSidebarOpen: () => void;
   pages: {
-    landings: Array<PageItem>;
+    home: Array<PageItem>;
     company: Array<PageItem>;
     account: Array<PageItem>;
-    secondary: Array<PageItem>;
-    blog: Array<PageItem>;
-    portfolio: Array<PageItem>;
+    contact: Array<PageItem>;
   };
   colorInvert?: boolean;
 }
@@ -28,12 +26,10 @@ const Topbar = ({
   const theme = useTheme();
   const { mode } = theme.palette;
   const {
-    landings: landingPages,
-    secondary: secondaryPages,
+    home: landingPages,
     company: companyPages,
     account: accountPages,
-    portfolio: portfolioPages,
-    blog: blogPages,
+    contact: contactPages,
   } = pages;
 
   return (
@@ -64,8 +60,8 @@ const Topbar = ({
       <Box sx={{ display: { xs: 'none', md: 'flex' } }} alignItems={'center'}>
         <Box>
           <NavItem
-            title={'Landings'}
-            id={'landing-pages'}
+            title={'Home'}
+            id={'home-page'}
             items={landingPages}
             colorInvert={colorInvert}
           />
@@ -80,33 +76,17 @@ const Topbar = ({
         </Box>
         <Box marginLeft={4}>
           <NavItem
+            title={'Contact'}
+            id={'contact-pages'}
+            items={contactPages}
+            colorInvert={colorInvert}
+          />
+        </Box>
+        <Box marginLeft={4}>
+          <NavItem
             title={'Account'}
             id={'account-pages'}
             items={accountPages}
-            colorInvert={colorInvert}
-          />
-        </Box>
-        <Box marginLeft={4}>
-          <NavItem
-            title={'Pages'}
-            id={'secondary-pages'}
-            items={secondaryPages}
-            colorInvert={colorInvert}
-          />
-        </Box>
-        <Box marginLeft={4}>
-          <NavItem
-            title={'Blog'}
-            id={'blog-pages'}
-            items={blogPages}
-            colorInvert={colorInvert}
-          />
-        </Box>
-        <Box marginLeft={4}>
-          <NavItem
-            title={'Portfolio'}
-            id={'portfolio-pages'}
-            items={portfolioPages}
             colorInvert={colorInvert}
           />
         </Box>
@@ -115,11 +95,10 @@ const Topbar = ({
             variant="contained"
             color="primary"
             component="a"
-            target="blank"
-            href="https://mui.com/store/items/the-front-landing-page/"
+            href="/signin-simple"
             size="large"
           >
-            Buy now
+            Sign In
           </Button>
         </Box>
       </Box>

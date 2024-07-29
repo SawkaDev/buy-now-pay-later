@@ -13,7 +13,7 @@ const mock = [
     description:
       'All orders will be shipped with DHL Express, including On Demand Delivery service.',
     image: 'https://assets.maccarianagency.com/backgrounds/img64.png',
-    href: '/demos/ecommerce/product-overview',
+    href: '/product-overview',
   },
   {
     caption: 'Top price',
@@ -21,7 +21,7 @@ const mock = [
     description:
       'We only accept items that are 100% authentic. All items must first be checked carefully.',
     image: 'https://assets.maccarianagency.com/backgrounds/img65.png',
-    href: '/demos/ecommerce/product-overview',
+    href: '/product-overview',
   },
   {
     caption: 'New arrival',
@@ -29,7 +29,7 @@ const mock = [
     description:
       'Our shoes are always unworn and supplied in the original shoe box.',
     image: 'https://assets.maccarianagency.com/backgrounds/img66.png',
-    href: '/demos/ecommerce/product-overview',
+    href: '/product-overview',
   },
 ];
 

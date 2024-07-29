@@ -12,7 +12,7 @@ const mock = [
   {
     title: 'Sweatshirts',
     price: '$39.20',
-    href: '/demos/ecommerce/listing',
+    href: '/listing',
     images: [
       {
         title: '',
@@ -31,7 +31,7 @@ const mock = [
   {
     title: 'Sport shoes',
     price: '$89.00',
-    href: '/demos/ecommerce/listing',
+    href: '/listing',
     images: [
       {
         title: '',
@@ -50,7 +50,7 @@ const mock = [
   {
     title: 'Jeans',
     price: '$29.40',
-    href: '/demos/ecommerce/listing',
+    href: '/listing',
     images: [
       {
         title: '',

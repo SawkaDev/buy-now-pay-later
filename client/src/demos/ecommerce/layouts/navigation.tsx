@@ -1,7 +1,7 @@
 const pages = [
   {
     title: 'Home',
-    href: '/demos/ecommerce',
+    href: '/',
     id: 'demo__ecommerece-home',
   },
   {
@@ -10,19 +10,19 @@ const pages = [
     children: [
       {
         title: 'Search Listing',
-        href: '/demos/ecommerce/listing',
+        href: '/listing',
         id: 'demo__ecommerece-listing--search',
       },
       {
         title: 'Promotions',
-        href: '/demos/ecommerce/promotions',
+        href: '/promotions',
         id: 'demo__ecommerece-listing--promotions',
       },
     ],
   },
   {
     title: 'Product Overview',
-    href: '/demos/ecommerce/product-overview',
+    href: '/product-overview',
     id: 'demo__ecommerece-product-overview',
   },
   {
@@ -31,22 +31,22 @@ const pages = [
     children: [
       {
         title: 'Cart',
-        href: '/demos/ecommerce/cart',
+        href: '/cart',
         id: 'demo__ecommerece-pages--cart',
       },
       {
         title: 'Checkout',
-        href: '/demos/ecommerce/checkout',
+        href: '/checkout',
         id: 'demo__ecommerece-pages--checkout',
       },
       {
         title: 'Empty Cart',
-        href: '/demos/ecommerce/empty-cart',
+        href: '/empty-cart',
         id: 'demo__ecommerece-pages--empty-cart',
       },
       {
         title: 'Order Complete',
-        href: '/demos/ecommerce/order-complete',
+        href: '/order-complete',
         id: 'demo__ecommerece-pages--order-complete',
       },
     ],

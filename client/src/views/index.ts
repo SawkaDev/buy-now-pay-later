@@ -1,5 +1,4 @@
 export { default as Faq } from './Faq';
-export { default as Ecommerce } from './Ecommerce';
 export { default as About } from './About';
 export { default as CompanyTerms } from './CompanyTerms';
 export { default as ContactPageCover } from './ContactPageCover';

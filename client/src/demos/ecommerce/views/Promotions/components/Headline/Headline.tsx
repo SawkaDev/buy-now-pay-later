@@ -9,7 +9,7 @@ const Headline = (): JSX.Element => {
       <Link underline="hover" color="primary" href="/demos/ecommerce">
         Home
       </Link>
-      <Link underline="hover" color="primary" href="/demos/ecommerce/listing">
+      <Link underline="hover" color="primary" href="/listing">
         Listing
       </Link>
       <Typography color="text.primary">Products</Typography>

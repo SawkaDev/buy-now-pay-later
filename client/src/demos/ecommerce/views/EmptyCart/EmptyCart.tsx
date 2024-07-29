@@ -57,7 +57,7 @@ const EmptyCart = (): JSX.Element => {
           </Typography>
           <Button
             component={Link}
-            href={'/demos/ecommerce/listing'}
+            href={'/listing'}
             variant={'contained'}
             size={'large'}
             sx={{ marginTop: 4 }}

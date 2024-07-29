@@ -1,10 +1,10 @@
 'use client'; // This is a client component 👈🏽
 
 import React from 'react';
-import Ecommerce from 'views/Ecommerce';
+import IndexView from 'demos/ecommerce/views/IndexView';
 
 const IndexPage = (): JSX.Element => {
-  return <Ecommerce />;
+  return <IndexView />;
 };
 
 export default IndexPage;

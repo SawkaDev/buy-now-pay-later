@@ -7,6 +7,12 @@ import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
+interface PageItem {
+  title: string;
+  href: string;
+  isNew?: boolean;
+}
+
 interface Props {
   title: string;
   id: string;
@@ -22,11 +28,14 @@ const NavItem = ({
 }: Props): JSX.Element => {
   const theme = useTheme();
 
-  const [anchorEl, setAnchorEl] = useState(null);
-  const [openedPopoverId, setOpenedPopoverId] = useState(null);
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const [openedPopoverId, setOpenedPopoverId] = useState<null | string>(null);
 
-  const handleClick = (event, popoverId) => {
-    setAnchorEl(event.target);
+  const handleClick = (
+    event: React.MouseEvent<HTMLElement>,
+    popoverId: string,
+  ) => {
+    setAnchorEl(event.currentTarget);
     setOpenedPopoverId(popoverId);
   };
 
@@ -35,7 +44,7 @@ const NavItem = ({
     setOpenedPopoverId(null);
   };
 
-  const [activeLink, setActiveLink] = useState('');
+  const [activeLink, setActiveLink] = useState<string>('');
   useEffect(() => {
     setActiveLink(window && window.location ? window.location.pathname : '');
   }, []);
@@ -43,6 +52,37 @@ const NavItem = ({
   const hasActiveLink = () => items.find((i) => i.href === activeLink);
   const linkColor = colorInvert ? 'common.white' : 'text.primary';
 
+  if (items.length === 1) {
+    // Single item case
+    const singleItem = items[0];
+    return (
+      <Box
+        display={'flex'}
+        alignItems={'center'}
+        aria-describedby={id}
+        sx={{ cursor: 'pointer' }}
+      >
+        <Button
+          component="a"
+          href={singleItem.href}
+          sx={{
+            fontWeight: hasActiveLink() ? 700 : 400,
+            color: linkColor,
+            textDecoration: 'none',
+          }}
+        >
+          <Typography
+            fontWeight={hasActiveLink() ? 700 : 400}
+            color={linkColor}
+          >
+            {singleItem.title}
+          </Typography>
+        </Button>
+      </Box>
+    );
+  }
+
+  // Multi-item case (dropdown)
   return (
     <Box>
       <Box

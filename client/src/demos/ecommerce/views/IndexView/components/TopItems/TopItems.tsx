@@ -13,20 +13,20 @@ const mock = [
     title: 'Adidas shoes',
     description:
       'Discover the new collection of Adidas. Starting at just $39.20',
-    href: '/demos/ecommerce/product-overview',
+    href: '/product-overview',
     image: 'https://assets.maccarianagency.com/backgrounds/img56.jpg',
   },
   {
     title: 'Nike',
     description: 'New arrivals of Nike sport shoes. Starting at just $59.20',
-    href: '/demos/ecommerce/product-overview',
+    href: '/product-overview',
     image: 'https://assets.maccarianagency.com/backgrounds/img57.jpg',
   },
   {
     title: 'Sneakers',
     description:
       'Trendy Sneakers designed for everyone. The price is as low as $42.20',
-    href: '/demos/ecommerce/product-overview',
+    href: '/product-overview',
     image: 'https://assets.maccarianagency.com/backgrounds/img58.jpg',
   },
 ];

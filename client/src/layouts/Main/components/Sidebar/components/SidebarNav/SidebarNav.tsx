@@ -7,12 +7,10 @@ import NavItem from './components/NavItem';
 
 interface Props {
   pages: {
-    landings: Array<PageItem>;
+    home: Array<PageItem>;
     company: Array<PageItem>;
     account: Array<PageItem>;
-    secondary: Array<PageItem>;
-    blog: Array<PageItem>;
-    portfolio: Array<PageItem>;
+    contact: Array<PageItem>;
   };
 }
 
@@ -21,12 +19,10 @@ const SidebarNav = ({ pages }: Props): JSX.Element => {
   const { mode } = theme.palette;
 
   const {
-    landings: landingPages,
-    secondary: secondaryPages,
+    home: landingPages,
     company: companyPages,
     account: accountPages,
-    portfolio: portfolioPages,
-    blog: blogPages,
+    contact: contactPages,
   } = pages;
 
   return (
@@ -53,34 +49,16 @@ const SidebarNav = ({ pages }: Props): JSX.Element => {
       </Box>
       <Box paddingX={2} paddingY={2}>
         <Box>
-          <NavItem title={'Landings'} items={landingPages} />
+          <NavItem title={'Home'} items={landingPages} />
         </Box>
         <Box>
           <NavItem title={'Company'} items={companyPages} />
         </Box>
         <Box>
-          <NavItem title={'Pages'} items={secondaryPages} />
-        </Box>
-        <Box>
           <NavItem title={'Account'} items={accountPages} />
         </Box>
         <Box>
-          <NavItem title={'Blog'} items={blogPages} />
-        </Box>
-        <Box>
-          <NavItem title={'Portfolio'} items={portfolioPages} />
-        </Box>
-        <Box marginTop={2}>
-          <Button
-            size={'large'}
-            variant="outlined"
-            fullWidth
-            component="a"
-            href="https://thefront.maccarianagency.com/docs/introduction"
-            target={'blank'}
-          >
-            Documentation
-          </Button>
+          <NavItem title={'Contact'} items={contactPages} />
         </Box>
         <Box marginTop={1}>
           <Button
@@ -92,7 +70,7 @@ const SidebarNav = ({ pages }: Props): JSX.Element => {
             target="blank"
             href="https://mui.com/store/items/the-front-landing-page/"
           >
-            Purchase now
+            Sign In
           </Button>
         </Box>
       </Box>

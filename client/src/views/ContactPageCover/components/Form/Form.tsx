@@ -28,10 +28,7 @@ const validationSchema = yup.object({
     .trim()
     .email('Please enter a valid email address')
     .required('Email is required.'),
-  message: yup
-    .string()
-    .trim()
-    .required('Please specify your message'),
+  message: yup.string().trim().required('Please specify your message'),
 });
 
 const Contact = (): JSX.Element => {

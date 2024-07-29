@@ -10,7 +10,11 @@ import 'slick-carousel/slick/slick-theme.css';
 import 'aos/dist/aos.css';
 
 /* eslint-disable react/prop-types */
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <html lang="en">
       <head>
@@ -53,11 +57,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         />
       </head>
       <body>
-        <Page>
-          {children}
-        </Page>
+        <Page>{children}</Page>
       </body>
     </html>
   );
 }
-  

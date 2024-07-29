@@ -21,10 +21,7 @@ const validationSchema = yup.object({
       'Credit card number is invalid',
       (value) => valid.number(value).isValid,
     ),
-  name: yup
-    .string()
-    .trim()
-    .required('Please specify your name on the card'),
+  name: yup.string().trim().required('Please specify your name on the card'),
   date: yup
     .string()
     .typeError('Not a valid expiration date. Example: MM/YY')

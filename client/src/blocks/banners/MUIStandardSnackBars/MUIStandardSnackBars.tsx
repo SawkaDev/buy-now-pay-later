@@ -6,12 +6,11 @@ import Snackbar from '@mui/material/Snackbar';
 
 import Container from 'components/Container';
 
-const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
-  props,
-  ref,
-) {
-  return <MuiAlert elevation={1} ref={ref} variant="filled" {...props} />;
-});
+const Alert = React.forwardRef<HTMLDivElement, AlertProps>(
+  function Alert(props, ref) {
+    return <MuiAlert elevation={1} ref={ref} variant="filled" {...props} />;
+  },
+);
 
 const MUIStandardSnackBars = (): JSX.Element => {
   const [open, setOpen] = React.useState(false);
@@ -20,7 +19,10 @@ const MUIStandardSnackBars = (): JSX.Element => {
     setOpen(true);
   };
 
-  const handleClose = (event: React.SyntheticEvent<any> | Event, reason: ('timeout' | 'clickaway' | 'escapeKeyDown')): void => {
+  const handleClose = (
+    event: React.SyntheticEvent<any> | Event,
+    reason: 'timeout' | 'clickaway' | 'escapeKeyDown',
+  ): void => {
     if (reason === 'clickaway') {
       return;
     }

@@ -31,20 +31,18 @@ const IndexView = (): JSX.Element => {
   });
 
   const scrollTo = (id): void => {
-    setTimeout(
-      () => {
-        const element: HTMLElement = document.querySelector(`#${id}`)!;
-        if (!element) {
-          return;
-        }
+    setTimeout(() => {
+      const element: HTMLElement = document.querySelector(`#${id}`)!;
+      if (!element) {
+        return;
+      }
 
-        window.scrollTo({
-          left: 0,
-          top: element.offsetTop,
-          behavior: 'smooth',
-        });
-      },
-    );
+      window.scrollTo({
+        left: 0,
+        top: element.offsetTop,
+        behavior: 'smooth',
+      });
+    });
   };
 
   return (

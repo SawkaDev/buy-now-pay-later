@@ -84,7 +84,9 @@ const HeroWithIllustrationAndCta = (): JSX.Element => {
                 >
                   <Button
                     component={'a'}
-                    href={'https://thefront.maccarianagency.com/docs/introduction'}
+                    href={
+                      'https://thefront.maccarianagency.com/docs/introduction'
+                    }
                     target={'blank'}
                     variant="outlined"
                     color="primary"

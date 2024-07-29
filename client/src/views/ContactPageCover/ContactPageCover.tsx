@@ -21,12 +21,7 @@ const ContactPageCover = (): JSX.Element => {
       position={'sticky'}
       top={0}
     >
-      <Box
-        display={'flex'}
-        alignItems={'center'}
-        height={1}
-        width={1}
-      >
+      <Box display={'flex'} alignItems={'center'} height={1} width={1}>
         <Box
           component={'img'}
           loading="lazy"

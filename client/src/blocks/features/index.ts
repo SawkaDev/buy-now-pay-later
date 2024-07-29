@@ -15,5 +15,4 @@ export { default as FeaturesWithMobileScreenshot } from './FeaturesWithMobileScr
 export { default as FeatureCardWithCtaButton } from './FeatureCardWithCtaButton';
 export { default as FeatureGridWithBackgrounds } from './FeatureGridWithBackgrounds';
 export { default as FeaturesWithMasonryCardsAndCheckIcons } from './FeaturesWithMasonryCardsAndCheckIcons';
-export { default as FeatureListWithDesktopAppScreenshot } from './FeatureListWithDesktopAppScreenshot';
 export { default as FeaturesWithSimpleLeftAlignedIcons } from './FeaturesWithSimpleLeftAlignedIcons';

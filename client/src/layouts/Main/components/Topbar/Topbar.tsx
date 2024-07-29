@@ -1,36 +1,32 @@
 import React from 'react';
 import Box from '@mui/material/Box';
+import Link from '@mui/material/Link';
 import Button from '@mui/material/Button';
 import { alpha, useTheme } from '@mui/material/styles';
 import MenuIcon from '@mui/icons-material/Menu';
 
 import { NavItem } from './components';
 
-interface Props {
-  // eslint-disable-next-line @typescript-eslint/ban-types
-  onSidebarOpen: () => void;
-  pages: {
-    home: Array<PageItem>;
-    company: Array<PageItem>;
-    account: Array<PageItem>;
-    contact: Array<PageItem>;
-  };
-  colorInvert?: boolean;
+interface NavItemProps {
+  title: string;
+  id: string;
+  href: string;
 }
 
-const Topbar = ({
-  onSidebarOpen,
-  pages,
-  colorInvert = false,
-}: Props): JSX.Element => {
+interface Props {
+  // eslint-disable-next-line @typescript-eslint/ban-types
+  handleMobileMenuClick: () => void;
+  pages: Array<{
+    title: string;
+    id: string;
+    href?: string;
+    children?: Array<NavItemProps>;
+  }>;
+}
+
+const Topbar = ({ handleMobileMenuClick, pages = [] }: Props): JSX.Element => {
   const theme = useTheme();
   const { mode } = theme.palette;
-  const {
-    home: landingPages,
-    company: companyPages,
-    account: accountPages,
-    contact: contactPages,
-  } = pages;
 
   return (
     <Box
@@ -49,7 +45,7 @@ const Topbar = ({
         <Box
           component={'img'}
           src={
-            mode === 'light' && !colorInvert
+            mode === 'light'
               ? 'https://assets.maccarianagency.com/the-front/logos/logo.svg'
               : 'https://assets.maccarianagency.com/the-front/logos/logo-negative.svg'
           }
@@ -58,53 +54,42 @@ const Topbar = ({
         />
       </Box>
       <Box sx={{ display: { xs: 'none', md: 'flex' } }} alignItems={'center'}>
-        <Box>
-          <NavItem
-            title={'Home'}
-            id={'home-page'}
-            items={landingPages}
-            colorInvert={colorInvert}
-          />
-        </Box>
-        <Box marginLeft={4}>
-          <NavItem
-            title={'Company'}
-            id={'company-pages'}
-            items={companyPages}
-            colorInvert={colorInvert}
-          />
-        </Box>
-        <Box marginLeft={4}>
-          <NavItem
-            title={'Contact'}
-            id={'contact-pages'}
-            items={contactPages}
-            colorInvert={colorInvert}
-          />
-        </Box>
-        <Box marginLeft={4}>
-          <NavItem
-            title={'Account'}
-            id={'account-pages'}
-            items={accountPages}
-            colorInvert={colorInvert}
-          />
-        </Box>
-        <Box marginLeft={4}>
+        {pages.map((p, i) => (
+          <Box key={i} marginLeft={3}>
+            {!p.children ? (
+              <Link
+                href={p.href}
+                color={'text.primary'}
+                underline={'none'}
+                sx={{
+                  '&:hover': {
+                    color: 'primary.main',
+                  },
+                }}
+              >
+                {p.title}
+              </Link>
+            ) : (
+              <NavItem title={p.title} items={p.children} id={p.id} />
+            )}
+          </Box>
+        ))}
+        <Box marginLeft={3}>
           <Button
             variant="contained"
             color="primary"
             component="a"
-            href="/signin-simple"
+            target="blank"
+            href="https://mui.com/store/items/the-front-landing-page/"
             size="large"
           >
-            Sign In
+            Buy now
           </Button>
         </Box>
       </Box>
-      <Box sx={{ display: { xs: 'flex', md: 'none' } }} alignItems={'center'}>
+      <Box sx={{ display: { xs: 'block', md: 'none' } }} alignItems={'center'}>
         <Button
-          onClick={() => onSidebarOpen()}
+          onClick={() => handleMobileMenuClick()}
           aria-label="Menu"
           variant={'outlined'}
           sx={{

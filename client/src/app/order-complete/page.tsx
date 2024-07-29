@@ -1,7 +1,7 @@
 'use client'; // This is a client component 👈🏽
 
 import React from 'react';
-import OrderCompleteView from 'demos/ecommerce/views/OrderComplete';
+import OrderCompleteView from 'views/OrderComplete';
 
 const OrderCompletePage = (): JSX.Element => {
   return <OrderCompleteView />;

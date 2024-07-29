@@ -1,7 +1,7 @@
 'use client'; // This is a client component 👈🏽
 
 import React from 'react';
-import ProductOverviewView from 'demos/ecommerce/views/ProductOverview';
+import ProductOverviewView from 'views/ProductOverview';
 
 const ProductOverviewPage = (): JSX.Element => {
   return <ProductOverviewView />;

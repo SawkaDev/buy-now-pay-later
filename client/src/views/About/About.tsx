@@ -17,7 +17,7 @@ import {
 
 const About = (): JSX.Element => {
   return (
-    <Main colorInvert={true}>
+    <Main>
       <Hero />
       <Container>
         <Story />

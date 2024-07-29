@@ -1,7 +1,7 @@
 'use client'; // This is a client component 👈🏽
 
 import React from 'react';
-import PromotionsView from 'demos/ecommerce/views/Promotions';
+import PromotionsView from 'views/Promotions';
 
 const PromotionsPage = (): JSX.Element => {
   return <PromotionsView />;

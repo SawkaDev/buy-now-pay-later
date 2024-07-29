@@ -1,7 +1,7 @@
 'use client'; // This is a client component 👈🏽
 
 import React from 'react';
-import EmptyCartView from 'demos/ecommerce/views/EmptyCart';
+import EmptyCartView from 'views/EmptyCart';
 
 const EmptyCartPage = (): JSX.Element => {
   return <EmptyCartView />;

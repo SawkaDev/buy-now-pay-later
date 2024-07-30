@@ -5,20 +5,9 @@ const pages = [
     id: 'demo__ecommerece-home',
   },
   {
-    title: 'Listing',
+    title: 'Shop',
     id: 'demo__ecommerece-listing',
-    children: [
-      {
-        title: 'Search Listing',
-        href: '/listing',
-        id: 'demo__ecommerece-listing--search',
-      },
-      {
-        title: 'Promotions',
-        href: '/promotions',
-        id: 'demo__ecommerece-listing--promotions',
-      },
-    ],
+    href: '/listing',
   },
   {
     title: 'Product Overview',

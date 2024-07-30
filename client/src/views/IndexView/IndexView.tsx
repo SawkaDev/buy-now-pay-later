@@ -12,9 +12,9 @@ import {
   Categories,
   TopItems,
   TrendingItems,
-  Newsletter,
-  Partners,
 } from './components';
+import Newsletter from 'components/Newsletter';
+import Partners from 'components/Partners';
 
 const IndexView = (): JSX.Element => {
   return (

@@ -4,14 +4,9 @@ import Box from '@mui/material/Box';
 import Main from 'layouts/Main';
 import Container from 'components/Container';
 
-import {
-  Headline,
-  Banner,
-  Products,
-  SidebarFilters,
-  Newsletter,
-  Partners,
-} from './components';
+import { Headline, Products, SidebarFilters } from './components';
+import Partners from 'components/Partners';
+import Newsletter from 'components/Newsletter';
 
 const Listing = (): JSX.Element => {
   return (
@@ -21,9 +16,6 @@ const Listing = (): JSX.Element => {
           <Headline />
         </Container>
       </Box>
-      <Container paddingBottom={'0 !important'}>
-        <Banner />
-      </Container>
       <Container>
         <SidebarFilters>
           <Products />

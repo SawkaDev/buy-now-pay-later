@@ -9,11 +9,11 @@ import {
   Details,
   Reviews,
   SimilarProducts,
-  Newsletter,
 } from './components';
 
 import Main from 'layouts/Main';
 import Container from 'components/Container';
+import Newsletter from 'components/Newsletter';
 
 const mock = {
   images: [

@@ -50,18 +50,6 @@ const Footer = (): JSX.Element => {
                 Home
               </Link>
             </Box>
-            <Box marginTop={1} marginRight={2}>
-              <Link
-                underline="none"
-                component="a"
-                href="https://thefront.maccarianagency.com/docs/introduction"
-                target={'blank'}
-                color="text.primary"
-                variant={'subtitle2'}
-              >
-                Documentation
-              </Link>
-            </Box>
             <Box marginTop={1}>
               <Button
                 variant="outlined"
@@ -71,7 +59,7 @@ const Footer = (): JSX.Element => {
                 href="https://mui.com/store/items/the-front-landing-page/"
                 size="small"
               >
-                Purchase now
+                Sign In
               </Button>
             </Box>
           </Box>
@@ -84,7 +72,7 @@ const Footer = (): JSX.Element => {
           color="text.secondary"
           gutterBottom
         >
-          &copy; theFront. 2021, Maccarian. All rights reserved
+          &copy; BNPL Merchant. 2024. All rights reserved
         </Typography>
         <Typography
           align={'center'}

@@ -7,7 +7,8 @@ import Link from '@mui/material/Link';
 import Main from 'layouts/Main';
 import Container from 'components/Container';
 
-import { Newsletter, Partners } from './components';
+import Newsletter from 'components/Newsletter';
+import Partners from 'components/Partners';
 
 const OrderComplete = (): JSX.Element => {
   return (

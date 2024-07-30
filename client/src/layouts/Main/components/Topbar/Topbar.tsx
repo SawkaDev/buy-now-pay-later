@@ -83,7 +83,7 @@ const Topbar = ({ handleMobileMenuClick, pages = [] }: Props): JSX.Element => {
             href="https://mui.com/store/items/the-front-landing-page/"
             size="large"
           >
-            Buy now
+            Sign In
           </Button>
         </Box>
       </Box>

@@ -52,7 +52,7 @@ const SimilarProducts = (): JSX.Element => {
     <Grid container spacing={4}>
       <Grid item xs={12}>
         <Typography variant={'h5'} fontWeight={700}>
-          Similar products
+          Similar Products
         </Typography>
       </Grid>
       {mock.map((item, i) => (

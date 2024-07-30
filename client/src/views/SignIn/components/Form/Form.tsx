@@ -134,7 +134,7 @@ const Form = (): JSX.Element => {
                   <Link
                     component={'a'}
                     color={'primary'}
-                    href={'/signup-simple'}
+                    href={'/sign-up'}
                     underline={'none'}
                   >
                     Sign up here.

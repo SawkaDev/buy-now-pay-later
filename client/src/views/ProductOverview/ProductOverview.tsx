@@ -3,13 +3,7 @@ import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
 import Grid from '@mui/material/Grid';
 
-import {
-  Headline,
-  Image,
-  Details,
-  Reviews,
-  SimilarProducts,
-} from './components';
+import { Headline, Image, Details, SimilarProducts } from './components';
 
 import Main from 'layouts/Main';
 import Container from 'components/Container';
@@ -47,20 +41,13 @@ const ProductOverview = (): JSX.Element => {
                 title={mock.title}
                 description={mock.description}
                 price={mock.price}
-                reviewCount={mock.reviewCount}
                 reviewScore={mock.reviewScore}
               />
             </Grid>
           </Grid>
         </Box>
       </Container>
-      <Container paddingY={4} id="reviews">
-        <Divider />
-      </Container>
-      <Container>
-        <Reviews />
-      </Container>
-      <Container paddingY={4}>
+      <Container paddingY={0}>
         <Divider />
       </Container>
       <Container>

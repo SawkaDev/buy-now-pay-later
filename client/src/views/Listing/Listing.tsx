@@ -5,7 +5,6 @@ import Main from 'layouts/Main';
 import Container from 'components/Container';
 
 import { Headline, Products, SidebarFilters } from './components';
-import Partners from 'components/Partners';
 import Newsletter from 'components/Newsletter';
 
 const Listing = (): JSX.Element => {
@@ -26,9 +25,6 @@ const Listing = (): JSX.Element => {
           <Newsletter />
         </Container>
       </Box>
-      <Container>
-        <Partners />
-      </Container>
     </Main>
   );
 };

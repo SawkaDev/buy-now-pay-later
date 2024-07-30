@@ -3,7 +3,6 @@ import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
-import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Card from '@mui/material/Card';
 import CardMedia from '@mui/material/CardMedia';
@@ -52,51 +51,11 @@ const mock = [
     reviewCount: 6,
     isNew: true,
   },
-  {
-    media: 'https://assets.maccarianagency.com/backgrounds/img53.jpg',
-    title: 'White sweatshirts',
-    description: 'Discover the new collection of White.',
-    price: '$40.90',
-    oldPrice: '$60.00',
-    href: '/product-overview',
-    reviewScore: 4,
-    reviewCount: 12,
-  },
-  {
-    media: 'https://assets.maccarianagency.com/backgrounds/img60.jpg',
-    title: 'Jojo jeans',
-    description: 'Discover the new collection of Jojo jeans.',
-    price: '$29.90',
-    href: '/product-overview',
-    reviewScore: 4,
-    reviewCount: 12,
-    isNew: true,
-  },
-  {
-    media: 'https://assets.maccarianagency.com/backgrounds/img57.jpg',
-    title: 'Nike',
-    description: 'New arrivals of Nike sport shoes.',
-    price: '$49.90',
-    oldPrice: '$70.00',
-    href: '/product-overview',
-    reviewScore: 5,
-    reviewCount: 8,
-    isNew: true,
-  },
-  {
-    media: 'https://assets.maccarianagency.com/backgrounds/img54.jpg',
-    title: 'OFF white',
-    description: 'Discover the new collection of OFF white.',
-    price: '$69.90',
-    href: '/product-overview',
-    reviewScore: 5,
-    reviewCount: 12,
-    isNew: true,
-  },
 ];
 
 const TrendingItems = (): JSX.Element => {
   const theme = useTheme();
+
   return (
     <Box>
       <Box marginBottom={4}>
@@ -269,6 +228,8 @@ const TrendingItems = (): JSX.Element => {
                     size={'large'}
                     fullWidth
                     sx={{ bgcolor: alpha(theme.palette.primary.light, 0.1) }}
+                    //@ts-ignore
+                    onClick={() => {}}
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -277,42 +238,15 @@ const TrendingItems = (): JSX.Element => {
                       width={20}
                       height={20}
                     >
+                      <path d="M10 12a2 2 0 100-4 2 2 0 000 4z" />
                       <path
                         fillRule="evenodd"
-                        d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z"
+                        d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z"
                         clipRule="evenodd"
                       />
                     </svg>
                   </Button>
                 </Stack>
-                <Button
-                  component={Link}
-                  href={item.href}
-                  size={'large'}
-                  sx={{
-                    color: theme.palette.text.primary,
-                    marginTop: 1,
-                    justifyContent: 'space-between',
-                  }}
-                  fullWidth
-                  endIcon={
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 20 20"
-                      fill="currentColor"
-                      width={20}
-                      height={20}
-                    >
-                      <path
-                        fillRule="evenodd"
-                        d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                        clipRule="evenodd"
-                      />
-                    </svg>
-                  }
-                >
-                  See the details
-                </Button>
               </Card>
             </Box>
           </Grid>

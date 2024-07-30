@@ -50,13 +50,23 @@ const Footer = (): JSX.Element => {
                 Home
               </Link>
             </Box>
+            <Box marginTop={1} marginRight={2}>
+              <Link
+                underline="none"
+                component="a"
+                href="/faq"
+                color="text.primary"
+                variant={'subtitle2'}
+              >
+                FAQ
+              </Link>
+            </Box>
             <Box marginTop={1}>
               <Button
                 variant="outlined"
                 color="primary"
                 component="a"
-                target="blank"
-                href="https://mui.com/store/items/the-front-landing-page/"
+                href="/sign-in"
                 size="small"
               >
                 Sign In

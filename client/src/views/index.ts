@@ -1,11 +1,8 @@
 export { default as Faq } from './Faq';
-export { default as About } from './About';
-export { default as CompanyTerms } from './CompanyTerms';
-export { default as ContactPageCover } from './ContactPageCover';
 export { default as PasswordResetCover } from './PasswordResetCover';
 export { default as PasswordResetSimple } from './PasswordResetSimple';
-export { default as SigninSimple } from './SigninSimple';
-export { default as SignupSimple } from './SignupSimple';
+export { default as SigninSimple } from './SignIn';
+export { default as SignupSimple } from './SignUp';
 export { default as AccountBilling } from './Account/Billing';
 export { default as AccountGeneral } from './Account/General';
 export { default as AccountNotifications } from './Account/Notifications';

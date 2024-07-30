@@ -1,7 +1,7 @@
 'use client'; // This is a client component 👈🏽
 
 import React from 'react';
-import SigninSimple from 'views/SigninSimple';
+import SigninSimple from 'views/SignIn';
 
 const SigninSimplePage = (): JSX.Element => {
   return <SigninSimple />;

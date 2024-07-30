@@ -7,7 +7,6 @@ import Link from '@mui/material/Link';
 import Main from 'layouts/Main';
 import Container from 'components/Container';
 import Newsletter from 'components/Newsletter';
-import Partners from 'components/Partners';
 
 const EmptyCart = (): JSX.Element => {
   return (
@@ -71,9 +70,6 @@ const EmptyCart = (): JSX.Element => {
           <Newsletter />
         </Container>
       </Box>
-      <Container>
-        <Partners />
-      </Container>
     </Main>
   );
 };

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { alpha, useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
@@ -7,9 +7,6 @@ import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
 import Card from '@mui/material/Card';
 import CardMedia from '@mui/material/CardMedia';
-import Link from '@mui/material/Link';
-
-import { ProductQuickViewDialog } from './components';
 
 const mock = [
   {
@@ -124,7 +121,6 @@ const mock = [
 
 const Products = (): JSX.Element => {
   const theme = useTheme();
-  const [openId, setOpenId] = useState(null);
 
   return (
     <Grid container spacing={{ xs: 4, md: 2 }}>
@@ -229,7 +225,12 @@ const Products = (): JSX.Element => {
                   {item.reviewCount} reviews
                 </Typography>
               </Box>
-              <Stack marginTop={2} spacing={1} direction={'row'}>
+              <Stack
+                marginTop={2}
+                marginBottom={2}
+                spacing={1}
+                direction={'row'}
+              >
                 <Button
                   variant={'contained'}
                   color={'primary'}
@@ -250,9 +251,10 @@ const Products = (): JSX.Element => {
                   color={'primary'}
                   size={'large'}
                   fullWidth
+                  href="\product-overview"
                   sx={{ bgcolor: alpha(theme.palette.primary.light, 0.1) }}
                   //@ts-ignore
-                  onClick={() => setOpenId(i)}
+                  onClick={() => {}}
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -270,48 +272,7 @@ const Products = (): JSX.Element => {
                   </svg>
                 </Button>
               </Stack>
-              <Button
-                component={Link}
-                href={item.href}
-                size={'large'}
-                sx={{
-                  color: theme.palette.text.primary,
-                  marginTop: 1,
-                  justifyContent: 'space-between',
-                }}
-                fullWidth
-                endIcon={
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 20 20"
-                    fill="currentColor"
-                    width={20}
-                    height={20}
-                  >
-                    <path
-                      fillRule="evenodd"
-                      d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                      clipRule="evenodd"
-                    />
-                  </svg>
-                }
-              >
-                See the details
-              </Button>
             </Card>
-            <ProductQuickViewDialog
-              open={openId === i}
-              onClose={() => setOpenId(null)}
-              imageSrc={item.media}
-              details={{
-                title: item.title,
-                description: item.description,
-                price: item.price,
-                href: item.href,
-                reviewScore: 5,
-                reviewCount: 12,
-              }}
-            />
           </Box>
         </Grid>
       ))}

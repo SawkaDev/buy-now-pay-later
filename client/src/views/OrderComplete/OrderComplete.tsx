@@ -8,7 +8,6 @@ import Main from 'layouts/Main';
 import Container from 'components/Container';
 
 import Newsletter from 'components/Newsletter';
-import Partners from 'components/Partners';
 
 const OrderComplete = (): JSX.Element => {
   return (
@@ -74,9 +73,6 @@ const OrderComplete = (): JSX.Element => {
           <Newsletter />
         </Container>
       </Box>
-      <Container>
-        <Partners />
-      </Container>
     </Main>
   );
 };

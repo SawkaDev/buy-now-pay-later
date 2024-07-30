@@ -1,20 +1,11 @@
 import React from 'react';
 import Box from '@mui/material/Box';
-import Divider from '@mui/material/Divider';
-import Typography from '@mui/material/Typography';
 
 import Main from 'layouts/Main';
 import Container from 'components/Container';
 
-import {
-  PromoGrid,
-  Features,
-  Categories,
-  TopItems,
-  TrendingItems,
-} from './components';
+import { PromoGrid, Features, TrendingItems } from './components';
 import Newsletter from 'components/Newsletter';
-import Partners from 'components/Partners';
 
 const IndexView = (): JSX.Element => {
   return (
@@ -27,33 +18,16 @@ const IndexView = (): JSX.Element => {
       <Container>
         <Features />
       </Container>
-      <Divider />
-      <Container paddingBottom={'0 !important'}>
-        <Typography variant={'h4'} fontWeight={700} align={'center'}>
-          The better way to shop with our online
-          <br />
-          e-commerce website
-        </Typography>
-      </Container>
-      <Container>
-        <Categories />
-      </Container>
       <Box bgcolor={'alternate.main'}>
         <Container>
-          <TopItems />
+          <TrendingItems />
         </Container>
       </Box>
-      <Container>
-        <TrendingItems />
-      </Container>
-      <Box bgcolor={'alternate.main'}>
+      <Box>
         <Container>
           <Newsletter />
         </Container>
       </Box>
-      <Container>
-        <Partners />
-      </Container>
     </Main>
   );
 };

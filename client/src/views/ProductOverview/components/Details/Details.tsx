@@ -60,18 +60,11 @@ const mock = [
 interface Props {
   title: string;
   description: string;
-  price: string;
-  reviewScore: number;
+  price: number;
 }
 
-const Details = ({
-  title,
-  description,
-  price,
-  reviewScore,
-}: Props): JSX.Element => {
+const Details = ({ title, description, price }: Props): JSX.Element => {
   const theme = useTheme();
-  const [size, setSize] = useState('M');
   const [color, setColor] = useState('white');
 
   return (
@@ -81,33 +74,8 @@ const Details = ({
           {title}
         </Typography>
         <Typography fontWeight={700} noWrap>
-          {price}
+          ${price.toFixed(2)}
         </Typography>
-      </Box>
-      <Box display={'flex'} alignItems={'center'} marginTop={2}>
-        <Typography marginRight={1} fontWeight={700} color={'text.secondary'}>
-          {reviewScore}.0
-        </Typography>
-        <Box display={'flex'} justifyContent={'flex-start'}>
-          {[1, 2, 3, 4, 5].map((item) => (
-            <Box
-              key={item}
-              color={item <= reviewScore ? 'secondary.main' : 'divider'}
-              display={'flex'}
-              alignItems={'center'}
-            >
-              <svg
-                width={18}
-                height={18}
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 20 20"
-                fill="currentColor"
-              >
-                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-              </svg>
-            </Box>
-          ))}
-        </Box>
       </Box>
       <Box marginTop={4}>
         <Typography>Color</Typography>
@@ -139,30 +107,7 @@ const Details = ({
           ))}
         </Stack>
       </Box>
-      <Box marginTop={4}>
-        <Typography>Size</Typography>
-        <Stack direction={'row'} spacing={1} marginTop={1}>
-          {['XXS', 'XS', 'S', 'M', 'L', 'XL', 'XXL'].map((item) => (
-            <Box
-              key={item}
-              onClick={() => setSize(item)}
-              sx={{
-                width: 1,
-                borderRadius: 2,
-                padding: 1,
-                border: `2px solid ${
-                  size === item
-                    ? theme.palette.primary.main
-                    : theme.palette.divider
-                }`,
-                cursor: 'pointer',
-              }}
-            >
-              <Typography align={'center'}>{item}</Typography>
-            </Box>
-          ))}
-        </Stack>
-      </Box>
+
       <Box marginTop={4}>
         <Button
           component={Link}
@@ -186,49 +131,6 @@ const Details = ({
         </Typography>
       </Box>
       <Divider sx={{ marginTop: 4 }} />
-      <Box marginTop={4}>
-        <Typography>Fabric & care</Typography>
-        <Box marginTop={1}>
-          <ul>
-            <li>
-              <Typography
-                variant={'subtitle2'}
-                color={'text.secondary'}
-                marginTop={1}
-              >
-                Only the best materials
-              </Typography>
-            </li>
-            <li>
-              <Typography
-                variant={'subtitle2'}
-                color={'text.secondary'}
-                marginTop={1}
-              >
-                Ethically and locally made
-              </Typography>
-            </li>
-            <li>
-              <Typography
-                variant={'subtitle2'}
-                color={'text.secondary'}
-                marginTop={1}
-              >
-                Pre-washed and pre-shrunk
-              </Typography>
-            </li>
-            <li>
-              <Typography
-                variant={'subtitle2'}
-                color={'text.secondary'}
-                marginTop={1}
-              >
-                Machine wash cold only with similar colors
-              </Typography>
-            </li>
-          </ul>
-        </Box>
-      </Box>
       <Box marginTop={4}>
         <Grid container spacing={2}>
           {mock.map((item, i) => (

@@ -10,30 +10,9 @@ const pages = [
     href: '/listing',
   },
   {
-    title: 'Store Pages',
-    id: 'demo__ecommerece-pages',
-    children: [
-      {
-        title: 'Cart',
-        href: '/cart',
-        id: 'demo__ecommerece-pages--cart',
-      },
-      {
-        title: 'Checkout',
-        href: '/checkout',
-        id: 'demo__ecommerece-pages--checkout',
-      },
-      {
-        title: 'Empty Cart',
-        href: '/empty-cart',
-        id: 'demo__ecommerece-pages--empty-cart',
-      },
-      {
-        title: 'Order Complete',
-        href: '/order-complete',
-        id: 'demo__ecommerece-pages--order-complete',
-      },
-    ],
+    title: 'Cart',
+    href: '/cart',
+    id: 'demo__ecommerece-pages--cart',
   },
 ];
 

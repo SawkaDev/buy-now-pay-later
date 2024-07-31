@@ -12,6 +12,7 @@ import {
 import React from 'react';
 import { useRouter } from 'next/navigation';
 import { ProductType } from 'types/products';
+import { useCart } from 'contexts/CartContext';
 
 interface Props {
   item: ProductType;
@@ -21,6 +22,7 @@ interface Props {
 const ProductThumbnail = ({ item, rowSize = 4 }: Props) => {
   const theme = useTheme();
   const router = useRouter();
+  const { addItem } = useCart();
 
   return (
     <Grid item xs={12} sm={6} md={rowSize}>
@@ -136,6 +138,17 @@ const ProductThumbnail = ({ item, rowSize = 4 }: Props) => {
               color={'primary'}
               size={'large'}
               fullWidth
+              onClick={() =>
+                addItem({
+                  id: item.id,
+                  title: item.title,
+                  price: item.price,
+                  media: item.media,
+                  quantity: 1,
+                  description: item.description,
+                  isNew: item.isNew,
+                })
+              }
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"

@@ -1,6 +1,5 @@
 import React from 'react';
 import Box from '@mui/material/Box';
-import Link from '@mui/material/Link';
 import Divider from '@mui/material/Divider';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
@@ -8,6 +7,8 @@ import Grid from '@mui/material/Grid';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
+import { useCart } from 'contexts/CartContext';
+import { ProductType } from 'types/products';
 
 const mock = [
   {
@@ -55,21 +56,21 @@ const mock = [
   },
 ];
 
-interface Props {
-  title: string;
-  description: string;
-  price: number;
+interface DetailsProps {
+  product: ProductType;
 }
 
-const Details = ({ title, description, price }: Props): JSX.Element => {
+const Details = ({ product }: DetailsProps): JSX.Element => {
+  const { addItem } = useCart();
+
   return (
     <Box>
       <Box display={'flex'} justifyContent={'space-between'}>
         <Typography fontWeight={700} noWrap>
-          {title}
+          {product.title}
         </Typography>
         <Typography fontWeight={700} noWrap>
-          ${price.toFixed(2)}
+          ${product.price.toFixed(2)}
         </Typography>
       </Box>
       <Box marginTop={4}>
@@ -79,13 +80,22 @@ const Details = ({ title, description, price }: Props): JSX.Element => {
           color={'text.secondary'}
           marginTop={1}
         >
-          {description}
+          {product.description}
         </Typography>
       </Box>
       <Box marginTop={4}>
         <Button
-          component={Link}
-          href={'/cart'}
+          onClick={() =>
+            addItem({
+              id: product.id,
+              title: product.title,
+              price: product.price,
+              media: product.media,
+              quantity: 1,
+              description: product.description,
+              isNew: product.isNew,
+            })
+          }
           variant={'contained'}
           color={'primary'}
           size={'large'}

@@ -6,4 +6,5 @@ export interface ProductType {
   price: number;
   oldPrice?: number;
   isNew: boolean;
+  quantity: number;
 }

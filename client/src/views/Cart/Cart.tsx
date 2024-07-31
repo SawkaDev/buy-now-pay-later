@@ -10,8 +10,21 @@ import Main from 'layouts/Main';
 import Container from 'components/Container';
 
 import { Orders, SummeryBox } from './components';
+import { useCart } from 'contexts/CartContext';
+import EmptyCart from 'views/EmptyCart';
 
 const Cart = (): JSX.Element => {
+  const { items } = useCart();
+
+  const total = items.reduce(
+    (sum, item) => sum + item.price * item.quantity,
+    0,
+  );
+
+  if (items.length == 0) {
+    return <EmptyCart />;
+  }
+
   return (
     <Main>
       <Container>
@@ -19,9 +32,9 @@ const Cart = (): JSX.Element => {
           <Grid container spacing={4}>
             <Grid item xs={12} md={8}>
               <Typography variant="h6" fontWeight={700} marginBottom={4}>
-                Shopping cart
+                Shopping Cart
               </Typography>
-              <Orders />
+              <Orders items={items} />
             </Grid>
             <Grid item xs={12} md={4}>
               <Card
@@ -34,7 +47,7 @@ const Cart = (): JSX.Element => {
                 <Typography variant="h6" fontWeight={700} marginBottom={4}>
                   Order summary
                 </Typography>
-                <SummeryBox />
+                <SummeryBox subTotal={total} />
               </Card>
               <Box marginTop={4}>
                 <Typography gutterBottom>Need help?</Typography>

@@ -49,11 +49,7 @@ const ProductOverview = ({ slug }: ProductOverviewProps) => {
               <Image image={product.media} title={product.title} />
             </Grid>
             <Grid item xs={12} md={5}>
-              <Details
-                title={product.title}
-                description={product.description}
-                price={product.price}
-              />
+              <Details product={product} />
             </Grid>
           </Grid>
         </Box>

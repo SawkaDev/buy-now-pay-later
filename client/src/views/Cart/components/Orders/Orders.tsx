@@ -2,56 +2,39 @@ import React from 'react';
 import { useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
-import Link from '@mui/material/Link';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
+import { ProductType } from 'types/products';
+import { useCart } from 'contexts/CartContext';
+import { Button } from '@mui/material';
 
-const mock = [
-  {
-    title: 'Adidas shoes',
-    size: '41',
-    price: '$69.90',
-    code: 'D5268X149',
-    image: 'https://assets.maccarianagency.com/backgrounds/img56.jpg',
-    gender: 'Male',
-  },
-  {
-    title: 'Nike',
-    size: '41',
-    price: '$49.90',
-    code: 'P8763Y435',
-    image: 'https://assets.maccarianagency.com/backgrounds/img57.jpg',
-    gender: 'Female',
-  },
-  {
-    title: 'Sneakers',
-    size: '41',
-    price: '$59.90',
-    code: 'A1356F865',
-    image: 'https://assets.maccarianagency.com/backgrounds/img58.jpg',
-    gender: 'Unisex',
-  },
-];
-
-const Orders = (): JSX.Element => {
+interface OrdersProp {
+  items: ProductType[];
+}
+const Orders = ({ items }: OrdersProp): JSX.Element => {
   const theme = useTheme();
+  const { removeItem } = useCart();
   return (
     <Box>
-      {mock.map((item, i) => (
+      {items.map((item, i) => (
         <Box key={i}>
           <Box display={'flex'}>
             <Box
               component={'img'}
-              src={item.image}
+              src={item.media}
               alt={item.title}
               sx={{
                 borderRadius: 2,
                 width: 1,
                 height: 1,
-                maxWidth: { xs: 120, sm: 200 },
+                maxWidth: { xs: 500, sm: 100 },
+                minWidth: { sm: 100 },
+                minHeight: { sm: 100 },
+                maxHeight: { sm: 100 },
+
                 marginRight: 2,
                 filter:
                   theme.palette.mode === 'dark' ? 'brightness(0.7)' : 'none',
@@ -71,47 +54,17 @@ const Orders = (): JSX.Element => {
                 <Typography
                   color={'text.secondary'}
                   variant={'subtitle2'}
-                  gutterBottom
-                >
-                  Size:{' '}
-                  <Typography
-                    variant={'inherit'}
-                    component={'span'}
-                    color={'inherit'}
-                    fontWeight={700}
-                  >
-                    {item.size}
-                  </Typography>
-                </Typography>
-                <Typography
-                  color={'text.secondary'}
-                  variant={'subtitle2'}
-                  gutterBottom
-                >
-                  Gender:{' '}
-                  <Typography
-                    variant={'inherit'}
-                    component={'span'}
-                    color={'inherit'}
-                    fontWeight={700}
-                  >
-                    {item.gender}
-                  </Typography>
-                </Typography>
-                <Typography
-                  color={'text.secondary'}
-                  variant={'subtitle2'}
                   noWrap={true}
                   gutterBottom
                 >
-                  Code:{' '}
+                  ID:{' '}
                   <Typography
                     variant={'inherit'}
                     component={'span'}
                     color={'inherit'}
                     fontWeight={700}
                   >
-                    {item.code}
+                    {item.id}
                   </Typography>
                 </Typography>
               </Box>
@@ -121,11 +74,10 @@ const Orders = (): JSX.Element => {
                 marginTop={{ xs: 2, sm: 0 }}
                 sx={{ order: { xs: 3, sm: 2 } }}
               >
-                <Link
-                  href={'#'}
-                  underline={'none'}
-                  variant={'subtitle2'}
-                  noWrap={true}
+                <Button
+                  onClick={() => {
+                    removeItem(item.id);
+                  }}
                   sx={{
                     display: 'flex',
                     alignItems: 'center',
@@ -133,6 +85,8 @@ const Orders = (): JSX.Element => {
                     '&:hover': {
                       color: 'primary.main',
                     },
+                    m: 0.5,
+                    p: 0.5,
                   }}
                 >
                   <Box
@@ -153,40 +107,7 @@ const Orders = (): JSX.Element => {
                     />
                   </Box>
                   Remove
-                </Link>
-                <Link
-                  href={'#'}
-                  underline={'none'}
-                  variant={'subtitle2'}
-                  noWrap={true}
-                  sx={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    color: 'text.secondary',
-                    '&:hover': {
-                      color: 'primary.main',
-                    },
-                  }}
-                >
-                  <Box
-                    component={'svg'}
-                    xmlns="http://www.w3.org/2000/svg"
-                    width={20}
-                    height={20}
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                    marginRight={0.5}
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
-                    />
-                  </Box>
-                  Save
-                </Link>
+                </Button>
               </Stack>
               <Stack
                 spacing={1}
@@ -197,7 +118,8 @@ const Orders = (): JSX.Element => {
               >
                 <FormControl fullWidth>
                   <Select
-                    defaultValue={1}
+                    disabled
+                    value={item.quantity}
                     sx={{
                       '& .MuiSelect-select': {
                         paddingY: 0.5,
@@ -212,7 +134,7 @@ const Orders = (): JSX.Element => {
                   </Select>
                 </FormControl>
                 <Typography fontWeight={700} marginLeft={2}>
-                  {item.price}
+                  ${(item.price * item.quantity).toFixed(2)}
                 </Typography>
               </Stack>
             </Box>
@@ -220,7 +142,7 @@ const Orders = (): JSX.Element => {
           <Divider
             sx={{
               marginY: { xs: 2, sm: 4 },
-              display: i === mock.length - 1 ? 'none' : 'block',
+              display: i === items.length - 1 ? 'none' : 'block',
             }}
           />
         </Box>

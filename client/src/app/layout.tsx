@@ -9,6 +9,9 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import 'aos/dist/aos.css';
 import { Providers } from './Providers';
+import { CartProvider } from 'contexts/CartContext';
+import { SnackbarProvider } from 'contexts/SnackbarContext';
+import SnackbarNotification from 'components/Snackbar/Snackbar';
 
 /* eslint-disable react/prop-types */
 export default function RootLayout({
@@ -58,9 +61,14 @@ export default function RootLayout({
         />
       </head>
       <body>
-        <Providers>
-          <Page>{children}</Page>
-        </Providers>
+        <SnackbarProvider>
+          <CartProvider>
+            <Providers>
+              <Page>{children}</Page>
+              <SnackbarNotification />
+            </Providers>
+          </CartProvider>
+        </SnackbarProvider>
       </body>
     </html>
   );

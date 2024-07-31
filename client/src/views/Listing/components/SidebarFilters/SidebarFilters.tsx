@@ -2,9 +2,7 @@ import React, { useState } from 'react';
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import Box from '@mui/material/Box';
-import Pagination from '@mui/material/Pagination';
-
-import { Topbar, Sidebar } from './components';
+import { Sidebar, Topbar } from './components';
 
 interface Props {
   children: React.ReactNode;
@@ -38,9 +36,9 @@ const SidebarFilters = ({ children }: Props): JSX.Element => {
       <Box marginLeft={{ xs: 0, md: 4 }} width={1}>
         <Topbar onSidebarOpen={handleSidebarOpen} />
         <Box paddingY={4}>{children}</Box>
-        <Box display={'flex'} justifyContent={'center'} width={1}>
+        {/* <Box display={'flex'} justifyContent={'center'} width={1}>
           <Pagination count={10} size={'large'} color="primary" />
-        </Box>
+        </Box> */}
       </Box>
     </Box>
   );

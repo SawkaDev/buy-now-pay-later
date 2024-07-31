@@ -9,9 +9,9 @@ import Main from 'layouts/Main';
 import Container from 'components/Container';
 import Newsletter from 'components/Newsletter';
 import NotFoundPage from 'app/not-found';
-import { TrendingItems } from 'views/IndexView/components';
 import { getProduct } from 'app/lib/ProductWrapper';
 import { useQuery } from '@tanstack/react-query';
+import TrendingItems from 'components/TrendingItems';
 
 interface ProductOverviewProps {
   slug: string;

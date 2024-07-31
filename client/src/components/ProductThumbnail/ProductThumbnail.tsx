@@ -15,14 +15,15 @@ import { ProductType } from 'types/products';
 
 interface Props {
   item: ProductType;
+  rowSize?: number;
 }
 
-const ProductThumbnail = ({ item }: Props) => {
+const ProductThumbnail = ({ item, rowSize = 4 }: Props) => {
   const theme = useTheme();
   const router = useRouter();
 
   return (
-    <Grid item xs={12} sm={6} md={3}>
+    <Grid item xs={12} sm={6} md={rowSize}>
       <Box display={'block'} width={1} height={1}>
         <Card
           sx={{

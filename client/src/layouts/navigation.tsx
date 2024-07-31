@@ -10,11 +10,6 @@ const pages = [
     href: '/listing',
   },
   {
-    title: 'Product Page',
-    href: '/product-overview',
-    id: 'demo__ecommerece-product-overview',
-  },
-  {
     title: 'Store Pages',
     id: 'demo__ecommerece-pages',
     children: [

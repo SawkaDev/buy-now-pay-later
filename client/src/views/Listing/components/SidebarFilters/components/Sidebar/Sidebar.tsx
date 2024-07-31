@@ -4,14 +4,7 @@ import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
 import Button from '@mui/material/Button';
 
-import {
-  FilterSize,
-  FilterBrand,
-  FilterColor,
-  FilterPrice,
-  FilterGender,
-  FilterCategory,
-} from './components';
+import { FilterPrice, FilterCategory } from './components';
 
 interface Props {
   // eslint-disable-next-line @typescript-eslint/ban-types
@@ -42,14 +35,6 @@ const Sidebar = ({ open, variant, onClose }: Props): JSX.Element => {
         <FilterPrice />
         <Divider sx={{ my: 3 }} />
         <FilterCategory />
-        <Divider sx={{ my: 3 }} />
-        <FilterGender />
-        <Divider sx={{ my: 3 }} />
-        <FilterBrand />
-        <Divider sx={{ my: 3 }} />
-        <FilterSize />
-        <Divider sx={{ my: 3 }} />
-        <FilterColor />
         <Button variant={'outlined'} size={'large'} fullWidth sx={{ mt: 3 }}>
           Reset all
         </Button>

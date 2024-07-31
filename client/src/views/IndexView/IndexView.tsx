@@ -4,8 +4,9 @@ import Box from '@mui/material/Box';
 import Main from 'layouts/Main';
 import Container from 'components/Container';
 
-import { PromoGrid, Features, TrendingItems } from './components';
+import { PromoGrid, Features } from './components';
 import Newsletter from 'components/Newsletter';
+import TrendingItems from 'components/TrendingItems';
 
 const IndexView = (): JSX.Element => {
   return (

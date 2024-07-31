@@ -35,22 +35,12 @@ const FilterCategory = (): JSX.Element => {
         marginBottom={1}
         onClick={() => handleClick()}
       >
-        <Typography fontWeight={700}>Gender</Typography>
+        <Typography fontWeight={700}>Category</Typography>
         {open ? <ExpandLess /> : <ExpandMore />}
       </Box>
       <Collapse in={open} timeout="auto" unmountOnExit>
         <Stack spacing={1}>
-          {[
-            'T-shirts',
-            'Sweatshirts',
-            'Shoes',
-            'Sport shoes',
-            'Accessories',
-            'Tops',
-            'Shorts',
-            'Hats',
-            'Socks',
-          ].map((item) => (
+          {['Example 1', 'Example 2', 'Example 3', 'Example 4'].map((item) => (
             <Box key={item}>
               <FormControlLabel
                 sx={{ marginLeft: 0 }}

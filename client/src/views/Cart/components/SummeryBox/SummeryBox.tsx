@@ -77,7 +77,7 @@ const SummeryBox = (): JSX.Element => {
         </Box>
         <Button
           component={Link}
-          href={'/demos/ecommerce/checkout'}
+          href={'/checkout'}
           variant={'contained'}
           size={'large'}
           fullWidth

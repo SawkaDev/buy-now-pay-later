@@ -33,7 +33,7 @@ const TrendingItems = (): JSX.Element => {
       </Box>
       <Grid container spacing={4}>
         {products.map((item, i) => (
-          <ProductThumbnail key={i} item={item} />
+          <ProductThumbnail key={i} item={item} rowSize={3} />
         ))}
       </Grid>
     </Box>

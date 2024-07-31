@@ -1,9 +1,7 @@
-import React, { useState } from 'react';
-import { useTheme } from '@mui/material/styles';
+import React from 'react';
 import Box from '@mui/material/Box';
 import Link from '@mui/material/Link';
 import Divider from '@mui/material/Divider';
-import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
@@ -64,9 +62,6 @@ interface Props {
 }
 
 const Details = ({ title, description, price }: Props): JSX.Element => {
-  const theme = useTheme();
-  const [color, setColor] = useState('white');
-
   return (
     <Box>
       <Box display={'flex'} justifyContent={'space-between'}>
@@ -78,36 +73,15 @@ const Details = ({ title, description, price }: Props): JSX.Element => {
         </Typography>
       </Box>
       <Box marginTop={4}>
-        <Typography>Color</Typography>
-        <Stack direction={'row'} spacing={1} marginTop={1}>
-          {['black', 'gray', 'white'].map((item) => (
-            <Box
-              key={item}
-              onClick={() => setColor(item)}
-              sx={{
-                borderRadius: '100%',
-                padding: '2px',
-                border: `2px solid ${
-                  color === item
-                    ? theme.palette.primary.main
-                    : theme.palette.divider
-                }`,
-                cursor: 'pointer',
-              }}
-            >
-              <Box
-                sx={{
-                  borderRadius: '100%',
-                  padding: 2,
-                  bgcolor: item,
-                  border: `1px solid ${theme.palette.divider}`,
-                }}
-              />
-            </Box>
-          ))}
-        </Stack>
+        <Typography>Description</Typography>
+        <Typography
+          variant={'subtitle2'}
+          color={'text.secondary'}
+          marginTop={1}
+        >
+          {description}
+        </Typography>
       </Box>
-
       <Box marginTop={4}>
         <Button
           component={Link}
@@ -119,16 +93,6 @@ const Details = ({ title, description, price }: Props): JSX.Element => {
         >
           Add to cart
         </Button>
-      </Box>
-      <Box marginTop={4}>
-        <Typography>Description</Typography>
-        <Typography
-          variant={'subtitle2'}
-          color={'text.secondary'}
-          marginTop={1}
-        >
-          {description}
-        </Typography>
       </Box>
       <Divider sx={{ marginTop: 4 }} />
       <Box marginTop={4}>

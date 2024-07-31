@@ -4,7 +4,7 @@ services:
     container_name: nextapp
     image: nextapp:1.0.0
     build:
-      context: ./client
+      context: ./merchant-frontend
       dockerfile: next.dockerfile
     ports:
       - 3000:3000

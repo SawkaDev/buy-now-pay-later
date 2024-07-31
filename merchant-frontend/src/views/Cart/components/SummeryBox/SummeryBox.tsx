@@ -10,7 +10,7 @@ interface SummeryBoxProps {
   subTotal: number;
 }
 const SummeryBox = ({ subTotal }: SummeryBoxProps): JSX.Element => {
-  const tax = (subTotal * 0.07).toFixed(2);
+  const tax = subTotal * 0.07;
 
   return (
     <Box>
@@ -22,18 +22,18 @@ const SummeryBox = ({ subTotal }: SummeryBoxProps): JSX.Element => {
           </Typography>
         </Box>
         <Box display={'flex'} justifyContent={'space-between'}>
-          <Typography color={'text.secondary'}>Taxes</Typography>
+          <Typography color={'text.secondary'}>Taxes (7%)</Typography>
           <Typography color={'text.secondary'} fontWeight={700}>
-            ${tax}
+            ${tax.toFixed(2)}
           </Typography>
         </Box>
         <Divider />
         <Box display={'flex'} justifyContent={'space-between'}>
           <Typography variant={'h6'} fontWeight={700}>
-            Order total
+            Order Total
           </Typography>
           <Typography variant={'h6'} fontWeight={700}>
-            $215,64
+            ${(subTotal + tax).toFixed(2)}
           </Typography>
         </Box>
         <Button

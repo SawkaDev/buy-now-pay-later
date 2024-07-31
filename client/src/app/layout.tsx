@@ -8,6 +8,7 @@ import Page from '../components/Page';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import 'aos/dist/aos.css';
+import { Providers } from './Providers';
 
 /* eslint-disable react/prop-types */
 export default function RootLayout({
@@ -57,7 +58,9 @@ export default function RootLayout({
         />
       </head>
       <body>
-        <Page>{children}</Page>
+        <Providers>
+          <Page>{children}</Page>
+        </Providers>
       </body>
     </html>
   );

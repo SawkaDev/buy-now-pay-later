@@ -2,10 +2,28 @@ import React from 'react';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
-import { products } from 'types/products';
 import ProductThumbnail from 'components/ProductThumbnail/ProductThumbnail';
+import { getProducts } from 'app/lib/ProductWrapper';
+import { useQuery } from '@tanstack/react-query';
 
 const TrendingItems = (): JSX.Element => {
+  const {
+    data: products,
+    error,
+    isLoading,
+  } = useQuery({
+    queryKey: ['products'],
+    queryFn: getProducts,
+  });
+
+  if (isLoading) {
+    return <Typography>Loading...</Typography>;
+  }
+
+  if (error) {
+    return <Typography>Error: {error.message}</Typography>;
+  }
+
   return (
     <Box>
       <Box marginBottom={4}>

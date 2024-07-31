@@ -1,5 +1,3 @@
-// 'use client'; // This is a client component 👈🏽
-
 import React from 'react';
 import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
@@ -10,21 +8,30 @@ import { Headline, Image, Details } from './components';
 import Main from 'layouts/Main';
 import Container from 'components/Container';
 import Newsletter from 'components/Newsletter';
-import { useParams } from 'next/navigation';
-import { findProductById } from 'utils/helpers';
 import NotFoundPage from 'app/not-found';
 import { TrendingItems } from 'views/IndexView/components';
+import { getProduct } from 'app/lib/ProductWrapper';
+import { useQuery } from '@tanstack/react-query';
 
-const ProductOverview = (): JSX.Element => {
-  const router = useParams();
+interface ProductOverviewProps {
+  slug: string;
+}
 
-  // This would normally be an API call to database
-  let product: any = undefined;
-  if (router && router.slug) {
-    product = findProductById(parseInt(router.slug as string));
+const ProductOverview = ({ slug }: ProductOverviewProps) => {
+  const {
+    data: product,
+    error,
+    isLoading,
+  } = useQuery({
+    queryKey: ['product', slug],
+    queryFn: () => getProduct(slug),
+  });
+
+  if (isLoading) {
+    return <div></div>;
   }
 
-  if (!product) {
+  if (error || !product) {
     return <NotFoundPage />;
   }
 

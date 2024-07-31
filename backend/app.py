@@ -90,3 +90,6 @@ def delete_user(id):
     return make_response(jsonify({'message': 'user not found'}), 404) 
   except Exception as e:
     return make_response(jsonify({'message': 'error deleting user', 'error': str(e)}), 500)   
+
+if __name__ == '__main__':
+    app.run(debug=True, host='0.0.0.0', port=4000)

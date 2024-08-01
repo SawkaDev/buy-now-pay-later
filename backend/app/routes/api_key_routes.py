@@ -32,16 +32,3 @@ def generate_key():
     db.session.commit()
 
     return jsonify({'message': 'API key generated successfully', 'api_key': new_key.json()}), 201
-
-@api_key_bp.route('/keys/<int:user_id>', methods=['GET'])
-def get_keys(user_id):
-    user = User.query.get(user_id)
-    if not user:
-        return jsonify({'message': 'User not found'}), 404
-
-    api_keys = APIKey.query.filter_by(user_id=user_id).all()
-  
-    return jsonify({
-        'user_id': user_id,
-        'api_keys': [key.json() for key in api_keys]
-    }), 200

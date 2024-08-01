@@ -9,6 +9,7 @@ import Page from 'components/Page';
 import MainCard from 'components/MainCard';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import APIKeyService from 'utils/database-services/APIKey';
+import UserService from 'utils/database-services/User';
 
 // ==============================|| SAMPLE PAGE ||============================== //
 
@@ -17,7 +18,7 @@ const APIKeys = () => {
 
   const { data } = useQuery({
     queryKey: ['myData'],
-    queryFn: APIKeyService.get
+    queryFn: UserService.getKeys
   });
 
   const { mutate: tester } = useMutation({
@@ -44,7 +45,7 @@ const APIKeys = () => {
                   {JSON.stringify(key.is_active)}
                 </Grid>
                 <Grid item xs={2}>
-                  User_Id: {JSON.stringify(data.user_id)}
+                  User_Id: {JSON.stringify(data.user.name)}
                 </Grid>
                 <Grid item xs={4}>
                   {key.key}

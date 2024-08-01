@@ -52,3 +52,15 @@ def delete_user(id):
         return jsonify({'message': 'user deleted'}), 200
     except Exception as e:
         return make_response(jsonify({'message': 'error deleting user', 'error': str(e)}), 500)
+
+@user_bp.route('/user/<int:user_id>/api_keys', methods=['GET'])
+def get_api_keys_for_user(user_id):
+    user = User.query.get(user_id)
+    if not user:
+        return jsonify({'error': 'User not found'}), 404
+    
+    api_keys = [key.json() for key in user.api_keys]
+    return jsonify({
+        'user': user.json(),
+        'api_keys': api_keys
+    }), 200

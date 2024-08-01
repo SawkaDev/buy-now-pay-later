@@ -1,17 +1,19 @@
-import { ReactElement } from 'react';
-
-// material-ui
-import { Button, Grid, Typography } from '@mui/material';
-
-// project imports
+import { ReactElement, useMemo } from 'react';
+import { Grid, Tooltip } from '@mui/material';
 import Layout from 'layout';
 import Page from 'components/Page';
 import MainCard from 'components/MainCard';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import APIKeyService from 'utils/database-services/APIKey';
 import UserService from 'utils/database-services/User';
-
-// ==============================|| SAMPLE PAGE ||============================== //
+import { Chip } from '@mui/material';
+import { Column } from 'react-table';
+import { Stack } from '@mui/material';
+import { IconButton } from '@mui/material';
+import { DeleteTwoTone } from '@ant-design/icons';
+import { ReactTable } from 'components/ui/Tables/ReactTable';
+import TextFieldCopy from 'components/ui/Elements/TextFieldCopy';
+import { ShowSnackBar } from 'utils/global-helpers';
 
 const APIKeys = () => {
   const queryClient = useQueryClient();
@@ -21,48 +23,91 @@ const APIKeys = () => {
     queryFn: UserService.getKeys
   });
 
-  const { mutate: tester } = useMutation({
+  const { mutate: generateNewAPIKey } = useMutation({
     mutationFn: APIKeyService.create,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['myData'] });
+      ShowSnackBar('New API Key Generated', 'success');
     }
   });
 
+  const columns: Column[] = useMemo(() => {
+    var localCol = [
+      {
+        Header: 'ID',
+        accessor: 'id'
+      },
+      {
+        Header: 'key',
+        accessor: 'key',
+        Cell: ({ row }: any) => <TextFieldCopy value={`${row.original.key}`} />
+      },
+      {
+        Header: 'Created',
+        accessor: 'created_at',
+        className: 'cell-left',
+        Cell: ({ value }: any) => <>{new Date(value).toLocaleDateString()}</>
+      },
+      {
+        Header: 'Expires',
+        accessor: 'expires_at',
+        className: 'cell-left',
+        Cell: ({ value }: any) => <>{new Date(value).toLocaleDateString()}</>
+      },
+      {
+        Header: 'Active',
+        accessor: 'is_active',
+        Cell: ({ value }: any) => {
+          switch (value) {
+            case value == true:
+              return <Chip color="success" label="True" size="small" variant="light" />;
+            case value == false:
+              return <Chip color="error" label="False" size="small" variant="light" />;
+            default:
+              return <Chip color="info" label="n/a" size="small" variant="light" />;
+          }
+        }
+      },
+      {
+        Header: 'Actions',
+        className: 'cell-center',
+        disableSortBy: true,
+        Cell: ({ row }: any) => {
+          return (
+            <Stack direction="row" alignItems="center" justifyContent="center" spacing={0}>
+              <Tooltip title="Delete">
+                <IconButton
+                  color="primary"
+                  onClick={(e: any) => {
+                    e.stopPropagation();
+                    // localDelete(row.original._id);
+                  }}
+                >
+                  <DeleteTwoTone twoToneColor="red" />
+                </IconButton>
+              </Tooltip>
+            </Stack>
+          );
+        }
+      }
+    ];
+    return localCol;
+  }, []);
+
   return (
     <Page title="API Keys">
-      <MainCard title="Sample Card">
-        {data &&
-          data.api_keys.map((key: any) => {
-            return (
-              <Grid container>
-                <Grid item xs={2}>
-                  {key.created_at}
-                </Grid>
-                <Grid item xs={2}>
-                  {key.expires_at}
-                </Grid>
-                <Grid item xs={2}>
-                  {JSON.stringify(key.is_active)}
-                </Grid>
-                <Grid item xs={2}>
-                  User_Id: {JSON.stringify(data.user.name)}
-                </Grid>
-                <Grid item xs={4}>
-                  {key.key}
-                </Grid>
-              </Grid>
-            );
-          })}
-        <Typography variant="body2">
-          <Button
-            variant="contained"
-            onClick={() => {
-              tester();
+      <MainCard title="" content={false}>
+        <Grid item xs={12}>
+          <ReactTable
+            columns={columns}
+            data={data ? data : []}
+            getHeaderProps={(column: any) => column.getSortByToggleProps()}
+            handleAdd={() => {
+              generateNewAPIKey();
             }}
-          >
-            Create Key
-          </Button>
-        </Typography>
+            addButtonText="Generate New Key"
+          />
+        </Grid>
       </MainCard>
     </Page>
   );

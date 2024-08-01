@@ -60,7 +60,4 @@ def get_api_keys_for_user(user_id):
         return jsonify({'error': 'User not found'}), 404
     
     api_keys = [key.json() for key in user.api_keys]
-    return jsonify({
-        'user': user.json(),
-        'api_keys': api_keys
-    }), 200
+    return jsonify(api_keys), 200

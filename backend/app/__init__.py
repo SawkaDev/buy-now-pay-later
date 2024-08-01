@@ -2,7 +2,7 @@ import os
 from flask import Flask
 from flask_cors import CORS
 from config import config
-from app.models import User,APIKey
+from app.models import User, APIKey
 from app.routes import blueprints
 from app.extensions import db, migrate
 

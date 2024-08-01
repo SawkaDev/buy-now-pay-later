@@ -16,7 +16,7 @@ def create_app(config_name='default'):
     migrate.init_app(app, db)
     CORS(app)
 
-    from models import User  # Change this line
+    from models import User, APIKey  # Change this line
     from routes import user_bp  # Change this line
 
     app.register_blueprint(user_bp, url_prefix='/api/flask')

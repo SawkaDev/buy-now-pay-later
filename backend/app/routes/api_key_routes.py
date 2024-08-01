@@ -24,7 +24,7 @@ def generate_key():
 
     new_key = APIKey(
         key=generate_api_key(),
-        user_id=user_id,
+        user=user,
         expires_at=datetime.utcnow() + timedelta(days=30)  # Key expires in 30 days
     )
 

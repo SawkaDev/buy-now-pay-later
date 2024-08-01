@@ -9,6 +9,7 @@ class APIKey(db.Model):
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     expires_at = db.Column(db.DateTime, nullable=False)
     is_active = db.Column(db.Boolean, default=True)
+    user = db.relationship('User', back_populates='api_keys')
 
     def json(self):
         return {

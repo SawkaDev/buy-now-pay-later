@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const serverBaseUrl = 'http://localhost:4000';
 const get = async () => {
-  let { data } = await axios.get(`${serverBaseUrl}/api/flask/users`);
+  let { data } = await axios.get(`${serverBaseUrl}/api/flask/keys/1`);
   return data;
 };
 

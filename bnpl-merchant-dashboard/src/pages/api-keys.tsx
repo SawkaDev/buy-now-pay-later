@@ -1,35 +1,57 @@
 import { ReactElement } from 'react';
 
 // material-ui
-import { Button, Typography } from '@mui/material';
+import { Button, Grid, Typography } from '@mui/material';
 
 // project imports
 import Layout from 'layout';
 import Page from 'components/Page';
 import MainCard from 'components/MainCard';
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import APIKeyService from 'utils/database-services/APIKey';
 
 // ==============================|| SAMPLE PAGE ||============================== //
 
 const APIKeys = () => {
-  const { data, isLoading, error } = useQuery({
+  const queryClient = useQueryClient();
+
+  const { data } = useQuery({
     queryKey: ['myData'],
     queryFn: APIKeyService.get
   });
 
   const { mutate: tester } = useMutation({
     mutationFn: APIKeyService.create,
-    onSuccess: (data) => {
-      // Invalidate and refetch
-      console.log('New API Key:', data.api_key);
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['myData'] });
     }
   });
 
   return (
     <Page title="API Keys">
       <MainCard title="Sample Card">
-        {JSON.stringify(data)}
+        {data &&
+          data.api_keys.map((key: any) => {
+            return (
+              <Grid container>
+                <Grid item xs={2}>
+                  {key.created_at}
+                </Grid>
+                <Grid item xs={2}>
+                  {key.expires_at}
+                </Grid>
+                <Grid item xs={2}>
+                  {JSON.stringify(key.is_active)}
+                </Grid>
+                <Grid item xs={2}>
+                  User_Id: {JSON.stringify(data.user_id)}
+                </Grid>
+                <Grid item xs={4}>
+                  {key.key}
+                </Grid>
+              </Grid>
+            );
+          })}
         <Typography variant="body2">
           <Button
             variant="contained"

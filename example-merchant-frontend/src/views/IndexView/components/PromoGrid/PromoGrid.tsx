@@ -9,7 +9,7 @@ import Grid from '@mui/material/Grid';
 const mock = [
   {
     caption: 'New in store',
-    title: 'ggAir Jordan 1 Mid Banned',
+    title: 'Air Jordan 1 Mid Banned',
     description:
       'All orders will be shipped with DHL Express, including On Demand Delivery service.',
     image: 'https://assets.maccarianagency.com/backgrounds/img64.png',

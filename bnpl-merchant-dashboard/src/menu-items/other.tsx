@@ -8,6 +8,7 @@ import {
   ChromeOutlined,
   DeploymentUnitOutlined,
   GatewayOutlined,
+  KeyOutlined,
   MenuUnfoldOutlined,
   QuestionOutlined,
   SmileOutlined,
@@ -27,7 +28,8 @@ const icons = {
   MenuUnfoldOutlined,
   QuestionOutlined,
   StopOutlined,
-  SmileOutlined
+  SmileOutlined,
+  KeyOutlined
 };
 
 // ==============================|| MENU ITEMS - SUPPORT ||============================== //
@@ -38,33 +40,18 @@ const other: NavItemType = {
   type: 'group',
   children: [
     {
+      id: 'api-keys',
+      title: <FormattedMessage id="api-keys" />,
+      type: 'item',
+      url: '/api-keys',
+      icon: icons.KeyOutlined
+    },
+    {
       id: 'sample-page',
       title: <FormattedMessage id="sample-page" />,
       type: 'item',
       url: '/sample-page',
       icon: icons.ChromeOutlined
-    },
-    {
-      id: 'disabled-menu',
-      title: <FormattedMessage id="disabled-menu" />,
-      type: 'item',
-      url: '#',
-      icon: icons.StopOutlined,
-      disabled: true
-    },
-    {
-      id: 'documentation',
-      title: <FormattedMessage id="documentation" />,
-      type: 'item',
-      url: 'https://codedthemes.gitbook.io/mantis/',
-      icon: icons.QuestionOutlined,
-      external: true,
-      target: true,
-      chip: {
-        label: 'gitbook',
-        color: 'secondary',
-        size: 'small'
-      }
     }
   ]
 };

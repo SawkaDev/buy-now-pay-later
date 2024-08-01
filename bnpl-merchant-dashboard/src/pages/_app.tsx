@@ -27,6 +27,7 @@ import Notistack from 'components/third-party/Notistack';
 
 import { store } from 'store';
 import ThemeCustomization from 'themes';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 // types
 type LayoutProps = NextPage & {
@@ -37,6 +38,8 @@ interface Props {
   Component: LayoutProps;
   pageProps: any;
 }
+
+const queryClient = new QueryClient();
 
 export default function App({ Component, pageProps }: AppProps & Props) {
   const getLayout = Component.getLayout ?? ((page: any) => page);
@@ -52,7 +55,7 @@ export default function App({ Component, pageProps }: AppProps & Props) {
               <>
                 <Notistack>
                   <Snackbar />
-                  {getLayout(<Component {...pageProps} />)}
+                  <QueryClientProvider client={queryClient}>{getLayout(<Component {...pageProps} />)}</QueryClientProvider>
                 </Notistack>
               </>
             </SessionProvider>

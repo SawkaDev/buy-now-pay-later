@@ -5,7 +5,7 @@ const serverBaseUrl = 'http://localhost:4000';
 const create = async () => {
   try {
     const response = await axios.post(
-      `${serverBaseUrl}/api/flask/generate_key`,
+      `${serverBaseUrl}/api/flask/key/generate`,
       { user_id: 1 },
       {
         headers: {

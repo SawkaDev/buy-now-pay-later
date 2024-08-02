@@ -10,10 +10,11 @@ import { Chip } from '@mui/material';
 import { Column } from 'react-table';
 import { Stack } from '@mui/material';
 import { IconButton } from '@mui/material';
-import { DeleteTwoTone } from '@ant-design/icons';
+import { CloseCircleTwoTone } from '@ant-design/icons';
 import { ReactTable } from 'components/ui/Tables/ReactTable';
 import TextFieldCopy from 'components/ui/Elements/TextFieldCopy';
 import { ShowSnackBar } from 'utils/global-helpers';
+import { APIErrorResponse } from 'types/database';
 
 const APIKeys = () => {
   const queryClient = useQueryClient();
@@ -28,6 +29,11 @@ const APIKeys = () => {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['myData'] });
       ShowSnackBar('New API Key Generated', 'success');
+    },
+    onError: (error: APIErrorResponse) => {
+      // Handle errors, including the case where the user has reached the maximum number of API keys
+      const errorMessage = error.response?.data?.message || 'Failed to generate API key';
+      ShowSnackBar(errorMessage, 'error');
     }
   });
 
@@ -69,13 +75,13 @@ const APIKeys = () => {
         }
       },
       {
-        Header: 'Actions',
+        Header: 'Expire API Key',
         className: 'cell-center',
         disableSortBy: true,
         Cell: ({ row }: any) => {
           return (
             <Stack direction="row" alignItems="center" justifyContent="center" spacing={0}>
-              <Tooltip title="Delete">
+              <Tooltip title="Expire API Key">
                 <IconButton
                   color="primary"
                   onClick={(e: any) => {
@@ -83,7 +89,7 @@ const APIKeys = () => {
                     // localDelete(row.original._id);
                   }}
                 >
-                  <DeleteTwoTone twoToneColor="red" />
+                  <CloseCircleTwoTone twoToneColor="red" />
                 </IconButton>
               </Tooltip>
             </Stack>

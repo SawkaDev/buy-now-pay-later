@@ -11,11 +11,26 @@ class APIKey(db.Model):
     is_active = db.Column(db.Boolean, default=True)
     user = db.relationship('User', back_populates='api_keys')
 
+    @property
+    def is_expired(self):
+        return datetime.utcnow() > self.expires_at
+
+    def check_expiration(self):
+        if self.is_expired and self.is_active:
+            self.is_active = False
+            try:
+                db.session.commit()
+            except Exception as e:
+                db.session.rollback()   
+                         
     def json(self):
+        self.check_expiration()  # Ensure status is up-to-date
         return {
             'id': self.id,
             'key': self.key,
             'created_at': self.created_at.isoformat(),
             'expires_at': self.expires_at.isoformat(),
-            'is_active': self.is_active
+            'is_active': self.is_active,
+            'is_expired': self.is_expired
         }
+

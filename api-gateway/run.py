@@ -7,13 +7,19 @@ from flask_limiter.util import get_remote_address
 from flask_cors import CORS
 import jwt
 import requests
+import time
+import uuid
 
 # Initialize Flask app
 app = Flask(__name__)
 CORS(app)
 
 # Set up logging
-logging.basicConfig(level=logging.INFO)
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+    datefmt='%Y-%m-%d %H:%M:%S'
+)
 logger = logging.getLogger(__name__)
 
 # Configuration
@@ -40,6 +46,25 @@ limiter.init_app(app)
 def get_service_limits():
     service = request.view_args.get('service')
     return services.get(service, {}).get("limits", ["10 per minute"])
+
+def log_request_info(request_id, service, path):
+    logger.info(
+        f"Request: {request_id} | "
+        f"Method: {request.method} | "
+        f"Service: {service} | "
+        f"Path: {path} | "
+        f"IP: {request.remote_addr} | "
+        f"User-Agent: {request.headers.get('User-Agent')} | "
+        f"Payload: {request.get_data(as_text=True)}"
+    )
+
+def log_response_info(request_id, service, status_code, response_time):
+    logger.info(
+        f"Response: {request_id} | "
+        f"Service: {service} | "
+        f"Status: {status_code} | "
+        f"Time: {response_time:.2f}s"
+    )
 
 # Decorators
 def token_required(f):
@@ -74,8 +99,13 @@ def ratelimit_handler(e):
 # @token_required  # Uncomment this if you want to require authentication for all API calls
 @apply_rate_limits
 def gateway(service, path):
-    logger.info(f"Accessing service: {service}, path: {path}")
+    request_id = str(uuid.uuid4())
+    start_time = time.time()
+    
+    log_request_info(request_id, service, path)
+    
     if service not in services:
+        logger.warning(f"Request: {request_id} | Service not found: {service}")
         return jsonify({'error': 'Service not found'}), 404
 
     url = f"{services[service]['url']}/{path}"
@@ -90,16 +120,19 @@ def gateway(service, path):
             allow_redirects=False
         )
         
-        logger.info(f"Response from {service}: Status {response.status_code}")
+        end_time = time.time()
+        response_time = end_time - start_time
+        
+        log_response_info(request_id, service, response.status_code, response_time)
+        
         return (response.content, response.status_code, response.headers.items())
     except requests.RequestException as e:
-        logger.error(f"Service unavailable: {service}. Error: {str(e)}")
+        logger.error(f"Request: {request_id} | Service unavailable: {service}. Error: {str(e)}")
         return jsonify({'error': 'Service unavailable'}), 503
 
 # Main execution
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8080, debug=True)
-
 
 # TODO: Rate limit based on user
 # # Function to get the current user's identity or IP

@@ -1,6 +1,7 @@
 import CopyOutlined from '@ant-design/icons/CopyOutlined';
 import { IconButton, InputAdornment, Stack, TextField, Tooltip } from '@mui/material';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
+import { ShowSnackBar } from 'utils/global-helpers';
 
 interface TextFieldCopyProps {
   value: string;
@@ -17,8 +18,7 @@ const TextFieldCopy = ({ value }: TextFieldCopyProps) => {
         InputProps={{
           endAdornment: (
             <InputAdornment position="end">
-              {/* onCopy={() => ShowSnackBar('Survey Data Copied', 'success')} */}
-              <CopyToClipboard text={value} onCopy={() => {}}>
+              <CopyToClipboard text={value} onCopy={() => ShowSnackBar('API Key Copied', 'success')}>
                 <Tooltip title="Copy">
                   <IconButton aria-label="Copy from another element" color="secondary" edge="end" size="large">
                     <CopyOutlined />

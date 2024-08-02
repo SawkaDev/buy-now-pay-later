@@ -1,7 +1,6 @@
 import { dispatch } from 'store';
 import { openSnackbar } from 'store/reducers/snackbar';
 
-
 export function ShowSnackBar(message: string, type: 'error' | 'success') {
   dispatch(
     openSnackbar({

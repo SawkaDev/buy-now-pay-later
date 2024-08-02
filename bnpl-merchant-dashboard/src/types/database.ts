@@ -1,7 +1,8 @@
 import { AxiosError } from 'axios';
 
-interface APIError {
-  message: string;
+interface APIResponses {
+  message?: string;
+  error?: string;
 }
 
-export type APIErrorResponse = AxiosError<APIError>;
+export type APIResponse = AxiosError<APIResponses>;

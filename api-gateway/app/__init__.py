@@ -1,7 +1,7 @@
 from flask import Flask
 from flask_cors import CORS
 from .utils.rate_limiting import limiter
-from .api.routes import api_bp
+from .routes.routes import api_bp
 
 def create_app():
     app = Flask(__name__)

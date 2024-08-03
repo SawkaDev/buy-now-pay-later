@@ -2,6 +2,9 @@ import logging
 from flask import request
 
 logger = logging.getLogger(__name__)
+logger.setLevel(logging.WARNING)
+# Change Werkzeug Logging
+# logging.getLogger('werkzeug').setLevel(logging.WARNING)
 
 def log_request_info(request_id, service, path):
     logger.info(

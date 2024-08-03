@@ -2,9 +2,10 @@ from flask import Blueprint, request, jsonify
 import requests
 import time
 import uuid
-from ..utils.logging_utils import log_request_info, log_response_info
 import logging
-from ..utils.rate_limiting import limiter
+from app.utils.logging_utils import log_request_info, log_response_info
+from app.services.service_registry import services
+from app.utils.rate_limiting import limiter
 
 logger = logging.getLogger(__name__)
 

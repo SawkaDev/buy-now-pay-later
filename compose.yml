@@ -29,7 +29,25 @@ services:
       - FLASK_ENV=development
       - FLASK_DEBUG=1
     volumes:
-      - ./backend:/app  # Mount your local backend directory to the container for hot reload
+      - ./backend:/app
+    depends_on:
+      - db
+
+  # New UserService
+  userservice:
+    container_name: userservice
+    image: userservice:1.0.0
+    build:
+      context: ./user-service
+      dockerfile: user.dockerfile
+    ports:
+      - 4001:4000
+    environment:
+      - DATABASE_URL=postgresql://postgres:postgres@db:5432/user_service_db
+      - FLASK_ENV=development
+      - FLASK_DEBUG=1
+    volumes:
+      - ./user-service:/app
     depends_on:
       - db
 
@@ -59,6 +77,6 @@ services:
       - 5432:5432
     volumes:
       - pgdata:/var/lib/postgresql/data
-
+      
 volumes:
   pgdata: {}

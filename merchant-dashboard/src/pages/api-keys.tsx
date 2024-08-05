@@ -14,26 +14,26 @@ import { ReactTable } from 'components/ui/Tables/ReactTable';
 import TextFieldCopy from 'components/ui/Elements/TextFieldCopy';
 import { ShowSnackBar } from 'utils/global-helpers';
 import { APIResponse } from 'types/database';
-import { useSession } from 'next-auth/react';
+// import { useSession } from 'next-auth/react';
 
 // https://www.perplexity.ai/search/i-am-using-nextjs-and-next-aut-YvS6FrK0SIirsZphPjvDDA
 const APIKeys = () => {
   const queryClient = useQueryClient();
-  const { data: session } = useSession();
-  const { data } = useQuery({
-    queryKey: ['userData'],
+  // const { data: session } = useSession();
+  const { data: apiKeys } = useQuery({
+    queryKey: ['apiKeys'],
     queryFn: APIKeyService.getKeys
   });
 
   const { mutate: generateNewAPIKey } = useMutation({
     mutationFn: APIKeyService.create,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['userData'] });
+      queryClient.invalidateQueries({ queryKey: ['apiKeys'] });
       ShowSnackBar('New API Key Generated', 'success');
     },
     onError: (error: APIResponse) => {
       // Handle errors, including the case where the user has reached the maximum number of API keys
-      const errorMessage = error.response?.data?.error || 'Failed to generate API key';
+      const errorMessage = error.response?.data?.error || 'Failed to generate API key.';
       ShowSnackBar(errorMessage, 'error');
     }
   });
@@ -41,7 +41,7 @@ const APIKeys = () => {
   const { mutate: revokeKey } = useMutation({
     mutationFn: APIKeyService.revoke,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['userData'] });
+      queryClient.invalidateQueries({ queryKey: ['apiKeys'] });
       ShowSnackBar('API Key Revoked', 'success');
     },
     onError: (error: APIResponse) => {
@@ -125,7 +125,7 @@ const APIKeys = () => {
         <Grid item xs={12}>
           <ReactTable
             columns={columns}
-            data={data ? data.api_keys : []}
+            data={apiKeys ? apiKeys.api_keys : []}
             getHeaderProps={(column: any) => column.getSortByToggleProps()}
             handleAdd={() => {
               generateNewAPIKey();

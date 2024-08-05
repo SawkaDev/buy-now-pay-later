@@ -46,4 +46,5 @@ def gateway(service, path):
 
 @api_bp.errorhandler(429)
 def ratelimit_handler(e):
-    return jsonify(error="Rate limit exceeded", description=str(e.description)), 429
+    return jsonify({'error': 'Rate limit Exceeded'}), 429
+    # return jsonify(error="Rate limit exceeded", description=str(e.description)), 429

@@ -1,6 +1,5 @@
 from flask import Blueprint, jsonify, request
 from app.models.api_key import APIKey
-from app.models.user import User
 from app.extensions import db
 from datetime import datetime, timedelta
 import secrets
@@ -18,18 +17,14 @@ def generate_api_key():
     if not user_id:
         return jsonify({'error': 'User ID is required'}), 400
 
-    user = User.query.get(user_id)
-    if not user:
-        return jsonify({'error': 'User not found'}), 404
-
-    active_api_keys_count = APIKey.query.filter_by(user_id=user.id, is_active=True).count()
+    active_api_keys_count = APIKey.query.filter_by(user_id=user_id, is_active=True).count()
 
     if active_api_keys_count >= 5:
         return jsonify({'error': 'Maximum number of active API keys has been reached.'}), 400
 
     new_key = APIKey(
         key=create_api_key_token(),
-        user=user,
+        user_id=user_id,
         expires_at=datetime.utcnow() + timedelta(days=30)  # Key expires in 30 days
     )
 
@@ -46,12 +41,11 @@ def validate_api_key():
     if not api_key_value:
         return jsonify({"error": "API key is required"}), 400
 
-    api_key = APIKey.query.filter_by(id=api_key_id).first()
+    api_key = APIKey.query.filter_by(key=api_key_value).first()
 
     if api_key:
         api_key.check_expiration()
         if api_key.is_active:
-            # Use the API key
             return jsonify({"message": "API key is valid"}), 200
         else:
             return jsonify({"error": "API key has expired"}), 403
@@ -76,3 +70,11 @@ def revoke_api_key():
     db.session.commit()
 
     return jsonify({'message': 'API key revoked successfully'}), 200
+
+@api_key_bp.route('/keys/<int:user_id>', methods=['GET'])
+def get_api_keys_for_user(user_id):
+    api_keys = APIKey.query.filter_by(user_id=user_id).all()
+    if not api_keys:
+        return jsonify({'error': 'No API keys found for the user'}), 404
+
+    return jsonify({'api_keys': [key.json() for key in api_keys]}), 200

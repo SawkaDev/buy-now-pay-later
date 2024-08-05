@@ -13,30 +13,30 @@ services:
   #   environment:
   #   - NEXT_PUBLIC_API_URL=http://localhost:4000
   #   depends_on:
-  #     - flaskapp
+  #     - api-key-service
 
   # flask service
-  flaskapp:
-    container_name: flaskapp
-    image: flaskapp:1.0.0
+  api-key-service:
+    container_name: api-key-service
+    image: api-key-service:1.0.0
     build:
-      context: ./backend
-      dockerfile: flask.dockerfile
+      context: ./api-key-service
+      dockerfile: api-key.dockerfile
     ports:
       - 4000:4000
     environment:
-      - DATABASE_URL=postgresql://postgres:postgres@db:5432/postgres
+      - DATABASE_URL=postgresql://postgres:postgres@db:5432/api_key_service_db
       - FLASK_ENV=development
       - FLASK_DEBUG=1
     volumes:
-      - ./backend:/app
+      - ./api-key-service:/app
     depends_on:
       - db
 
-  # New UserService
-  userservice:
-    container_name: userservice
-    image: userservice:1.0.0
+  # New user-service
+  user-service:
+    container_name: user-service
+    image: user-service:1.0.0
     build:
       context: ./user-service
       dockerfile: user.dockerfile

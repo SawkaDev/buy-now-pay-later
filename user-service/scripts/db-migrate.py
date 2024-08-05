@@ -11,11 +11,11 @@ def run_command(command):
 
 def migrate(message):
     print(f"Running migration with message: {message}")
-    migrate_output = run_command(f'docker-compose exec -T flaskapp flask db migrate -m "{message}"')
+    migrate_output = run_command(f'docker-compose exec -T api-key-service flask db migrate -m "{message}"')
     print(migrate_output)
 
     print("Migration successful. Running upgrade...")
-    upgrade_output = run_command('docker-compose exec -T flaskapp flask db upgrade')
+    upgrade_output = run_command('docker-compose exec -T api-key-service flask db upgrade')
     print(upgrade_output)
 
     print("Migration process completed.")

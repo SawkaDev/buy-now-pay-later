@@ -5,7 +5,6 @@ import Page from 'components/Page';
 import MainCard from 'components/MainCard';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import APIKeyService from 'utils/database-services/APIKey';
-import UserService from 'utils/database-services/User';
 import { Chip } from '@mui/material';
 import { Column, Row } from 'react-table';
 import { Stack } from '@mui/material';
@@ -19,12 +18,11 @@ import { useSession } from 'next-auth/react';
 
 // https://www.perplexity.ai/search/i-am-using-nextjs-and-next-aut-YvS6FrK0SIirsZphPjvDDA
 const APIKeys = () => {
-
   const queryClient = useQueryClient();
-  const {data: session} = useSession()
+  const { data: session } = useSession();
   const { data } = useQuery({
     queryKey: ['userData'],
-    queryFn: UserService.getKeys
+    queryFn: APIKeyService.getKeys
   });
 
   const { mutate: generateNewAPIKey } = useMutation({
@@ -125,10 +123,9 @@ const APIKeys = () => {
     <Page title="API Keys">
       <MainCard title="" content={false}>
         <Grid item xs={12}>
-          {JSON.stringify(session?.tocken.accessToken)}
           <ReactTable
             columns={columns}
-            data={data ? data : []}
+            data={data ? data.api_keys : []}
             getHeaderProps={(column: any) => column.getSortByToggleProps()}
             handleAdd={() => {
               generateNewAPIKey();

@@ -22,7 +22,7 @@ def gateway(service, path):
         logger.warning(f"Request: {request_id} | Service not found: {service}")
         return jsonify({'error': 'Service not found'}), 404
 
-    url = f"{services[service]['url']}/{path}"
+    url = f"{services[service]['url']}/{service}/{path}"
     
     try:
         response = requests.request(

@@ -15,7 +15,6 @@ api_bp = Blueprint('api', __name__)
 def gateway(service, path):
     request_id = str(uuid.uuid4())
     start_time = time.time()
-    
     log_request_info(request_id, service, path)
     
     if service not in services:

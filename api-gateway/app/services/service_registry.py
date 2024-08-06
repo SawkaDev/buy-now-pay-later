@@ -4,4 +4,7 @@ services = {
     "api-key-service": {
         "url": "http://api-key-service:4000",
     },
+    "user-service": {
+        "url": "http://user-service:4000",
+    },
 }

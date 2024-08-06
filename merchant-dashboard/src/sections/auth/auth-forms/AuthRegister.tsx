@@ -84,11 +84,12 @@ const AuthRegister = ({ providers, csrfToken }: any) => {
         })}
         onSubmit={(values, { setErrors, setSubmitting }) => {
           signIn('register', {
-            redirect: false,
+            // should be false? what if error
+            redirect: true,
             name: values.name,
             email: values.email,
             password: values.password,
-            callbackUrl: APP_DEFAULT_PATH
+            callbackUrl: '/login'
           }).then((res: any) => {
             if (res?.error) {
               setErrors({ submit: res.error });

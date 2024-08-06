@@ -2,29 +2,23 @@ import axios from 'axios';
 
 const serverBaseUrl = 'http://localhost:8080';
 
-const register = async (values: any) => {
-  try {
-    const response = await axios.post(`${serverBaseUrl}/api/user-service/auth/register`, { ...values });
-    return response.data;
-  } catch (error) {
-    console.error('Error Registering User:', error);
-    throw error;
-  }
-};
+const axiosInstance = axios.create({
+  baseURL: serverBaseUrl,
+  withCredentials: true
+});
 
-const login = async (values: any) => {
+const checkSession = async () => {
   try {
-    const response = await axios.post(`${serverBaseUrl}/api/user-service/auth/login`, { ...values });
+    const response = await axiosInstance.get(`/auth/session`);
     return response.data;
   } catch (error) {
-    console.error('Error Logging In User:', error);
+    console.error('Error checking session In User:', error);
     throw error;
   }
 };
 
 const UserService = {
-  register,
-  login
+  checkSession
 };
 
 export default UserService;

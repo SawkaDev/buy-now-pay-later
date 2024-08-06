@@ -45,23 +45,9 @@ def login():
 
     user = User.query.filter_by(email=email).first()
     if user and check_password_hash(user.password, password):
-        session['user_id'] = user.id
-        session['user_email'] = user.email
         return jsonify({
             'message': 'Login successful',
             'user': user.json()
         }), 200
     
     return jsonify({'message': 'Invalid credentials'}), 401
-
-@auth_bp.route('/auth/logout', methods=['POST'])
-def logout():
-    session.pop('user', None)
-    return jsonify({"message": "Logged out"}), 200
-
-@auth_bp.route('/auth/session', methods=['GET'])
-def get_session():
-    user = session.get('user')
-    if user:
-        return jsonify(user), 200
-    return jsonify({"error": "No active session"}), 401

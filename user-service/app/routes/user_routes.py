@@ -52,3 +52,35 @@ def delete_user(id):
         return jsonify({'message': 'user deleted'}), 200
     except Exception as e:
         return make_response(jsonify({'message': 'error deleting user', 'error': str(e)}), 500)
+
+@user_bp.route('/user/register', methods=['POST'])
+def register():
+    data = request.json
+    email = data.get('email')
+    password = data.get('password')
+    name = data.get('name')
+    
+    if not email or not password or not name:
+        return jsonify({"error": "Email, password, and name are required"}), 400
+    
+    hashed_password = generate_password_hash(password)
+    
+    new_user = User(
+        email=email,
+        password=hashed_password,
+        name=name
+    )
+    
+    try:
+        db.session.add(new_user)
+        db.session.commit()
+        return jsonify({
+            "message": "User registered successfully",
+            "user": new_user.json()
+        }), 201
+    except IntegrityError:
+        db.session.rollback()
+        return jsonify({"error": "User already exists"}), 400
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({"error": str(e)}), 500

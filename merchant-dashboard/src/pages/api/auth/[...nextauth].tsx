@@ -1,6 +1,11 @@
 import NextAuth from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
-import axios from 'utils/axios';
+import axios from 'axios'; // Import axios directly
+
+const axiosInstance = axios.create({
+  baseURL: 'http://localhost:8080',
+  withCredentials: true
+});
 
 export default NextAuth({
   secret: process.env.NEXTAUTH_SECRET_KEY,
@@ -14,16 +19,13 @@ export default NextAuth({
       },
       async authorize(credentials) {
         try {
-          const response = await axios.post('http://localhost:8080/api/user-service/auth/login', {
+          const response = await axiosInstance.post('/auth/login', {
             password: credentials?.password,
             email: credentials?.email
           });
 
           if (response.data && response.data.user) {
-            return {
-              ...response.data.user,
-              accessToken: response.data.serviceToken
-            };
+            return { ...response.data.user, sessionData: response.headers['set-cookie'] };
           }
           return null;
         } catch (error: any) {
@@ -41,7 +43,7 @@ export default NextAuth({
       },
       async authorize(credentials) {
         try {
-          const response = await axios.post('http://localhost:8080/api/user-service/auth/register', {
+          const response = await axiosInstance.post('/auth/register', {
             name: credentials?.name,
             password: credentials?.password,
             email: credentials?.email
@@ -60,18 +62,25 @@ export default NextAuth({
   callbacks: {
     jwt: async ({ token, user, account }) => {
       if (user) {
-        token.accessToken = user.accessToken;
         token.id = user.id;
-        token.provider = account?.provider;
+        token.name = user.name;
+        token.email = user.email;
+        token.image = user.image;
+        // @ts-ignore
+        token.sessionData = user.sessionData;
       }
       return token;
     },
     session: ({ session, token }) => {
-      if (token) {
-        session.id = token.id;
-        session.provider = token.provider;
-        session.tocken = token;
-      }
+      session.user = {
+        id: token.id,
+        name: token.name,
+        email: token.email,
+        // @ts-ignore
+        image: token.image
+      };
+      // @ts-ignore
+      session.sessionData = token.sessionData;
       return session;
     }
   },

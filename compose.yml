@@ -11,9 +11,9 @@ services:
   #   ports:
   #     - 3000:3000
   #   environment:
-  #   - NEXT_PUBLIC_API_URL=http://localhost:4000
+  #     - NEXT_PUBLIC_API_URL=http://api-gateway:8080
   #   depends_on:
-  #     - api-key-service
+  #     - api-gateway
 
   # flask service
   api-key-service:
@@ -62,8 +62,13 @@ services:
       - 8080:8080
     environment:
       - JWT_SECRET=your-secret-key
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - REDIS_PASSWORD=yourredispassword
     volumes:
       - ./api-gateway:/app  # Mount your local backend directory to the container for hot reload
+    depends_on:
+      - redis  
 
   # db service
   db:
@@ -78,5 +83,17 @@ services:
     volumes:
       - pgdata:/var/lib/postgresql/data
       
+  # Add this new Redis service
+  redis:
+    image: redis:6.2-alpine
+    container_name: redis
+    restart: always
+    ports:
+      - '6379:6379'
+    command: redis-server --save 20 1 --loglevel warning --requirepass yourredispassword
+    volumes:
+      - redis_data:/data
+
 volumes:
   pgdata: {}
+  redis_data: {}  # Add this new volume for Redis data persistence

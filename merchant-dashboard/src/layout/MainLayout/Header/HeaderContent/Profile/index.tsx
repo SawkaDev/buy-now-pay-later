@@ -36,6 +36,7 @@ import { LogoutOutlined, SettingOutlined, UserOutlined } from '@ant-design/icons
 
 // types
 import { ThemeMode } from 'types/config';
+import axios from 'axios';
 
 interface TabPanelProps {
   children?: ReactNode;
@@ -71,16 +72,20 @@ const Profile = () => {
   const { data: session } = useSession();
   const provider = session?.provider;
 
-  const handleLogout = () => {
+  const axiosInstance = axios.create({
+    baseURL: 'http://localhost:8080',
+    withCredentials: true
+  });
+
+  const handleLogout = async () => {
     switch (provider) {
-      case 'auth0':
-        signOut({ callbackUrl: `${process.env.NEXTAUTH_URL}/api/auth/logout/auth0` });
-        break;
-      case 'cognito':
-        signOut({ callbackUrl: `${process.env.NEXTAUTH_URL}/api/auth/logout/cognito` });
-        break;
       default:
-        signOut({ redirect: false });
+        await axiosInstance.post('/auth/logout');
+        // Manually clear cookies
+        document.cookie.split(';').forEach((c) => {
+          document.cookie = c.trim().split('=')[0] + '=;expires=Thu, 01 Jan 1970 00:00:00 UTC;path=/';
+        });
+        await signOut({ redirect: false });
     }
 
     router.push({

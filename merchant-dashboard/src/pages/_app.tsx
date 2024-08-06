@@ -28,6 +28,7 @@ import Notistack from 'components/third-party/Notistack';
 import { store } from 'store';
 import ThemeCustomization from 'themes';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import SessionCookieWrapper from 'contexts/SessionCookieWrapper';
 
 // types
 type LayoutProps = NextPage & {
@@ -52,12 +53,12 @@ export default function App({ Component, pageProps }: AppProps & Props) {
         <Locales>
           <ScrollTop>
             <SessionProvider session={pageProps.session} refetchInterval={0}>
-              <>
+              <SessionCookieWrapper>
                 <Notistack>
                   <Snackbar />
                   <QueryClientProvider client={queryClient}>{getLayout(<Component {...pageProps} />)}</QueryClientProvider>
                 </Notistack>
-              </>
+              </SessionCookieWrapper>
             </SessionProvider>
           </ScrollTop>
         </Locales>

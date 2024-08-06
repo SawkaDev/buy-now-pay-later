@@ -14,15 +14,20 @@ import { ReactTable } from 'components/ui/Tables/ReactTable';
 import TextFieldCopy from 'components/ui/Elements/TextFieldCopy';
 import { ShowSnackBar } from 'utils/global-helpers';
 import { APIResponse } from 'types/database';
-// import { useSession } from 'next-auth/react';
+import UserService from 'utils/database-services/Auth';
 
 // https://www.perplexity.ai/search/i-am-using-nextjs-and-next-aut-YvS6FrK0SIirsZphPjvDDA
 const APIKeys = () => {
   const queryClient = useQueryClient();
-  // const { data: session } = useSession();
+
   const { data: apiKeys } = useQuery({
     queryKey: ['apiKeys'],
     queryFn: APIKeyService.getKeys
+  });
+
+  const { data: tester } = useQuery({
+    queryKey: ['sdfsd'],
+    queryFn: UserService.checkSession
   });
 
   const { mutate: generateNewAPIKey } = useMutation({
@@ -123,6 +128,7 @@ const APIKeys = () => {
     <Page title="API Keys">
       <MainCard title="" content={false}>
         <Grid item xs={12}>
+          {JSON.stringify(tester)}
           <ReactTable
             columns={columns}
             data={apiKeys ? apiKeys.api_keys : []}

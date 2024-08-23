@@ -36,5 +36,5 @@ def logout():
 @auth_bp.route('/auth/session', methods=['GET'])
 def get_session():
     if 'user_id' in session:
-        return jsonify({'message:': "successful: " + str(session['user_id'])})
+        return jsonify(session['user_id'])
     return jsonify({'message': 'No valid session'}), 401

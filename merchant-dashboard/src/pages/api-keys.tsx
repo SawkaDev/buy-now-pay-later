@@ -14,24 +14,20 @@ import { ReactTable } from 'components/ui/Tables/ReactTable';
 import TextFieldCopy from 'components/ui/Elements/TextFieldCopy';
 import { ShowSnackBar } from 'utils/global-helpers';
 import { APIResponse } from 'types/database';
-import UserService from 'utils/database-services/Auth';
+import useUser, { UserProps } from 'hooks/useUser';
 
-// https://www.perplexity.ai/search/i-am-using-nextjs-and-next-aut-YvS6FrK0SIirsZphPjvDDA
 const APIKeys = () => {
   const queryClient = useQueryClient();
+  const user = useUser();
 
   const { data: apiKeys } = useQuery({
-    queryKey: ['apiKeys'],
-    queryFn: APIKeyService.getKeys
-  });
-
-  const { data: tester } = useQuery({
-    queryKey: ['sdfsd'],
-    queryFn: UserService.checkSession
+    queryKey: ['apiKeys', (user as UserProps).id],
+    queryFn: () => APIKeyService.getKeys((user as UserProps).id),
+    enabled: !!user && !!user.id
   });
 
   const { mutate: generateNewAPIKey } = useMutation({
-    mutationFn: APIKeyService.create,
+    mutationFn: () => APIKeyService.create((user as UserProps).id),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['apiKeys'] });
       ShowSnackBar('New API Key Generated', 'success');
@@ -128,7 +124,6 @@ const APIKeys = () => {
     <Page title="API Keys">
       <MainCard title="" content={false}>
         <Grid item xs={12}>
-          {JSON.stringify(tester)}
           <ReactTable
             columns={columns}
             data={apiKeys ? apiKeys.api_keys : []}

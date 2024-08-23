@@ -2,9 +2,9 @@ import axios from 'axios';
 
 const serverBaseUrl = 'http://localhost:8080';
 
-const create = async () => {
+const create = async (userId: number) => {
   try {
-    const response = await axios.post(`${serverBaseUrl}/api/api-key-service/key/generate`, { user_id: 1 });
+    const response = await axios.post(`${serverBaseUrl}/api/api-key-service/key/generate`, { user_id: userId });
     return response.data;
   } catch (error) {
     console.error('Error generating API key:', error);
@@ -22,8 +22,8 @@ const revoke = async (keyId: string) => {
   }
 };
 
-const getKeys = async () => {
-  let { data } = await axios.get(`${serverBaseUrl}/api/api-key-service/keys/1`);
+const getKeys = async (userId: number) => {
+  let { data } = await axios.get(`${serverBaseUrl}/api/api-key-service/keys/${userId}`);
   return data;
 };
 

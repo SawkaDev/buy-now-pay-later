@@ -45,16 +45,17 @@ export default NextAuth({
         try {
           const response = await axiosInstance.post('/auth/register', {
             name: credentials?.name,
-            password: credentials?.password,
-            email: credentials?.email
+            email: credentials?.email,
+            password: credentials?.password
           });
 
-          if (response.data && response.data.user) {
-            return response.data.user;
+          if (response.status === 201) {
+            return null;
+          } else {
+            throw new Error(response?.data?.error || 'Registration failed');
           }
-          return null;
         } catch (error: any) {
-          throw new Error(error.response?.data?.message || 'Registration failed');
+          throw new Error(error.response?.data?.error || 'Registration failed');
         }
       }
     })

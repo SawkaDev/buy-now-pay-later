@@ -33,12 +33,14 @@ import { APP_DEFAULT_PATH } from 'config';
 import IconButton from 'components/@extended/IconButton';
 import AnimateButton from 'components/@extended/AnimateButton';
 import { strengthColor, strengthIndicator } from 'utils/password-strength';
+import { useRouter } from 'next/router';
 
 // assets
 import { EyeOutlined, EyeInvisibleOutlined } from '@ant-design/icons';
 
 // types
 import { StringColorProps } from 'types/password';
+import { ShowSnackBar } from 'utils/global-helpers';
 
 const Auth0 = '/assets/images/icons/auth0.svg';
 const Cognito = '/assets/images/icons/aws-cognito.svg';
@@ -48,7 +50,7 @@ const Google = '/assets/images/icons/google.svg';
 
 const AuthRegister = ({ providers, csrfToken }: any) => {
   const matchDownSM = useMediaQuery((theme: Theme) => theme.breakpoints.down('sm'));
-
+  const router = useRouter();
   const [level, setLevel] = React.useState<StringColorProps>();
   const [showPassword, setShowPassword] = React.useState(false);
   const handleClickShowPassword = () => {
@@ -82,20 +84,30 @@ const AuthRegister = ({ providers, csrfToken }: any) => {
           email: Yup.string().email('Must be a valid email').max(255).required('Email is required'),
           password: Yup.string().max(255).required('Password is required')
         })}
-        onSubmit={(values, { setErrors, setSubmitting }) => {
-          signIn('register', {
-            // should be false? what if error
-            redirect: true,
-            name: values.name,
-            email: values.email,
-            password: values.password,
-            callbackUrl: '/login'
-          }).then((res: any) => {
-            if (res?.error) {
-              setErrors({ submit: res.error });
-              setSubmitting(false);
+        onSubmit={async (values, { setErrors, setSubmitting }) => {
+          try {
+            const result = await signIn('register', {
+              redirect: false, // Change this to false
+              name: values.name,
+              email: values.email,
+              password: values.password
+            });
+
+            if (result?.error === 'CredentialsSignin') {
+              // This error occurs because NextAuth tries to sign in after registration
+              // In this case, we consider it a successful registration
+              router.push('/login?registered=true');
+              ShowSnackBar('Registration Successful! Please Login', 'success');
+            } else if (result?.error) {
+              setErrors({ submit: result.error });
+            } else {
+              router.push('/login?registered=true');
             }
-          });
+          } catch (error) {
+            setErrors({ submit: 'Registration failed' });
+          } finally {
+            setSubmitting(false);
+          }
         }}
       >
         {({ errors, handleBlur, handleChange, handleSubmit, isSubmitting, touched, values }) => (

@@ -31,7 +31,7 @@ def register():
         return jsonify({"message": "User registered successfully"}), 201
     except IntegrityError:
         db.session.rollback()
-        return jsonify({"error": "User already exists"}), 400
+        return jsonify({"error": "User already exists. Please return to login."}), 400
     except Exception as e:
         db.session.rollback()
         return jsonify({"error": str(e)}), 500

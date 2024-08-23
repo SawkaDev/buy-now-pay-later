@@ -27,7 +27,7 @@ function Error500() {
       <Grid container direction="column" alignItems="center" justifyContent="center" sx={{ minHeight: '100vh' }}>
         <Grid item xs={12}>
           <Box sx={{ width: { xs: 350, sm: 396 } }}>
-            <Image src={error500} alt="mantis" layout="fixed" width={matchDownSM ? 350 : 396} height={matchDownSM ? 325 : 370} />
+            <Image src={error500} alt="bnpl" layout="fixed" width={matchDownSM ? 350 : 396} height={matchDownSM ? 325 : 370} />
           </Box>
         </Grid>
         <Grid item xs={12}>

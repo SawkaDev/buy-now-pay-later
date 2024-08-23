@@ -18,7 +18,7 @@ const LogoIcon = () => {
     /**
      * if you want to use image instead of svg uncomment following, and comment out <svg> element.
      *
-     * <Image src={theme.palette.mode === ThemeMode.DARK ? logoIconDark : logoIcon} alt="Mantis" width={129} height={129} />
+     * <Image src={theme.palette.mode === ThemeMode.DARK ? logoIconDark : logoIcon} alt="BNPL" width={129} height={129} />
      *
      */
     <svg width="129" height="129" viewBox="0 0 129 129" fill="none" xmlns="http://www.w3.org/2000/svg">

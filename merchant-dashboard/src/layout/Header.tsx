@@ -112,14 +112,14 @@ const Header = ({ handleDrawerOpen, layout, ...others }: Props) => {
                   </Link>
                 </NextLink>
               )}
-              <Link className="header-link" color="white" href="https://codedthemes.gitbook.io/mantis/" target="_blank" underline="none">
+              <Link className="header-link" color="white" href="" target="_blank" underline="none">
                 Documentation
               </Link>
               <Box sx={{ display: 'inline-block' }}>
                 <AnimateButton>
                   <Button
                     component={Link}
-                    href="https://mui.com/store/items/mantis-react-admin-dashboard-template/"
+                    href=""
                     disableElevation
                     color="primary"
                     variant="contained"
@@ -201,7 +201,7 @@ const Header = ({ handleDrawerOpen, layout, ...others }: Props) => {
                     </Link>
                     <Link
                       style={{ textDecoration: 'none' }}
-                      href="https://github.com/codedthemes/mantis-free-react-admin-template"
+                      href=""
                       target="_blank"
                     >
                       <ListItemButton component="span">
@@ -211,7 +211,7 @@ const Header = ({ handleDrawerOpen, layout, ...others }: Props) => {
                         <ListItemText primary="Free Version" primaryTypographyProps={{ variant: 'h6', color: 'text.primary' }} />
                       </ListItemButton>
                     </Link>
-                    <Link style={{ textDecoration: 'none' }} href="https://codedthemes.gitbook.io/mantis/" target="_blank">
+                    <Link style={{ textDecoration: 'none' }} href="" target="_blank">
                       <ListItemButton component="span">
                         <ListItemIcon>
                           <LineOutlined />
@@ -229,7 +229,7 @@ const Header = ({ handleDrawerOpen, layout, ...others }: Props) => {
                     </Link>
                     <Link
                       style={{ textDecoration: 'none' }}
-                      href="https://mui.com/store/items/mantis-react-admin-dashboard-template/"
+                      href=""
                       target="_blank"
                     >
                       <ListItemButton component="span">

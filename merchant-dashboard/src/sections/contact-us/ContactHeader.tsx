@@ -62,7 +62,7 @@ function ContactHeader() {
               background: theme.palette.mode === ThemeMode.DARK ? theme.palette.grey.A700 : theme.palette.grey[100]
             }}
           >
-            <Image src={worldMap} alt="mantis" layout="fixed" width={imagWidth} height={imagHight} priority />
+            <Image src={worldMap} alt="bnpl" layout="fixed" width={imagWidth} height={imagHight} priority />
           </Box>
         </Stack>
       </Container>

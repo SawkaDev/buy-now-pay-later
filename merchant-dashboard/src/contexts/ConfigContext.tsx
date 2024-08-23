@@ -29,7 +29,7 @@ type ConfigProviderProps = {
 };
 
 function ConfigProvider({ children }: ConfigProviderProps) {
-  const [config, setConfig] = useLocalStorage('mantis-react-next-ts-config', initialState);
+  const [config, setConfig] = useLocalStorage('bnpl-react-next-ts-config', initialState);
 
   const onChangeContainer = () => {
     setConfig({

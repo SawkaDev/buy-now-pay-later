@@ -17,7 +17,7 @@ const AuthFooter = () => {
       >
         <Typography variant="subtitle2" color="secondary" component="span">
           This site is protected by{' '}
-          <Typography component={Link} variant="subtitle2" href="#mantis-privacy" target="_blank" underline="hover">
+          <Typography component={Link} variant="subtitle2" href="#bnpl-privacy" target="_blank" underline="hover">
             Privacy Policy
           </Typography>
         </Typography>

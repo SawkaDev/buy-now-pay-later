@@ -71,8 +71,8 @@ const AuthLogin = ({ providers, csrfToken }: any) => {
     <>
       <Formik
         initialValues={{
-          email: '',
-          password: '',
+          email: 'matt@gmail.com',
+          password: 'matt',
           submit: null
         }}
         validationSchema={Yup.object().shape({

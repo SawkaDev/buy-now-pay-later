@@ -17,7 +17,7 @@ interface Props extends BoxProps {
 const Page = forwardRef<HTMLDivElement, Props>(({ children, title = '', meta, ...other }: Props, ref: Ref<HTMLDivElement>) => (
   <>
     <Head>
-      <title>{`${title} | Mantis React Admin`}</title>
+      <title>{`${title} | BNPL Dashboard`}</title>
       {meta}
     </Head>
 

@@ -32,4 +32,3 @@ class APIKey(db.Model):
             'is_active': self.is_active,
             'is_expired': self.is_expired
         }
-

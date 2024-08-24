@@ -79,15 +79,16 @@ def update_webhook(webhook_id):
         return jsonify({'error': 'Database error occurred', 'details': str(e)}), 500
 
 @webhook_bp.route('/webhooks/<int:webhook_id>', methods=['DELETE'])
-def delete_webhook(webhook_id):
+def disable_webhook(webhook_id):
     webhook = Webhook.query.get(webhook_id)
-    if not webhook:
-        return jsonify({'error': 'Webhook not found'}), 404
 
-    try:
-        db.session.delete(webhook)
-        db.session.commit()
-        return jsonify({'message': 'Webhook successfully deleted'}), 200
-    except SQLAlchemyError as e:
-        db.session.rollback()
-        return jsonify({'error': 'Database error occurred', 'details': str(e)}), 500
+    if not webhook:
+        return jsonify({'error': 'Webhook is required'}), 400
+
+    if not webhook.is_active:
+        return jsonify({'error': 'Webhook is already inactive'}), 400
+
+    webhook.is_active = False
+    db.session.commit()
+
+    return jsonify({'message': 'Webhook revoked successfully'}), 200

@@ -4,49 +4,37 @@ import Layout from 'layout';
 import Page from 'components/Page';
 import MainCard from 'components/MainCard';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import APIKeyService from 'utils/database-services/APIKey';
 import { Chip } from '@mui/material';
 import { Column, Row } from 'react-table';
 import { Stack } from '@mui/material';
 import { IconButton } from '@mui/material';
 import { CloseCircleTwoTone } from '@ant-design/icons';
 import { ReactTable } from 'components/ui/Tables/ReactTable';
-import TextFieldCopy from 'components/ui/Elements/TextFieldCopy';
 import { ShowSnackBar } from 'utils/global-helpers';
 import { APIResponse } from 'types/database';
 import useUser, { UserProps } from 'hooks/useUser';
+import { useRouter } from 'next/router';
+import WebhookService from 'utils/database-services/Webhook';
 
 const APIKeys = () => {
   const queryClient = useQueryClient();
   const user = useUser();
+  const router = useRouter();
 
-  const { data: apiKeys } = useQuery({
-    queryKey: ['apiKeys', (user as UserProps).id],
-    queryFn: () => APIKeyService.getKeys((user as UserProps).id),
+  const { data: webhooks } = useQuery({
+    queryKey: ['webhooks', (user as UserProps).id],
+    queryFn: () => WebhookService.getWebhooks((user as UserProps).id),
     enabled: !!user && !!user.id
   });
 
-  const { mutate: generateNewAPIKey } = useMutation({
-    mutationFn: () => APIKeyService.create((user as UserProps).id),
+  const { mutate: disableWebHook } = useMutation({
+    mutationFn: WebhookService.disableWebhooks,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['apiKeys'] });
-      ShowSnackBar('New API Key Generated', 'success');
+      queryClient.invalidateQueries({ queryKey: ['webhooks'] });
+      ShowSnackBar('Webhook Disabled', 'success');
     },
     onError: (error: APIResponse) => {
-      // Handle errors, including the case where the user has reached the maximum number of API keys
-      const errorMessage = error.response?.data?.error || 'Failed to generate API key.';
-      ShowSnackBar(errorMessage, 'error');
-    }
-  });
-
-  const { mutate: revokeKey } = useMutation({
-    mutationFn: APIKeyService.revoke,
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['apiKeys'] });
-      ShowSnackBar('API Key Revoked', 'success');
-    },
-    onError: (error: APIResponse) => {
-      const errorMessage = error.response?.data?.error || 'Failed to Revoke API Key' + JSON.stringify(error);
+      const errorMessage = error.response?.data?.error || 'Failed to Diabled Webhook' + JSON.stringify(error);
       ShowSnackBar(errorMessage, 'error');
     }
   });
@@ -58,9 +46,8 @@ const APIKeys = () => {
         accessor: 'id'
       },
       {
-        Header: 'API Key',
-        accessor: 'key',
-        Cell: ({ row }: any) => <TextFieldCopy value={`${row.original.key}`} />
+        Header: 'URL',
+        accessor: 'url'
       },
       {
         Header: 'Is Active',
@@ -89,24 +76,18 @@ const APIKeys = () => {
         Cell: ({ value }: any) => <>{new Date(value).toLocaleDateString()}</>
       },
       {
-        Header: 'Expires At',
-        accessor: 'expires_at',
-        className: 'cell-left',
-        Cell: ({ value }: any) => <>{new Date(value).toLocaleDateString()}</>
-      },
-      {
-        Header: 'Revoke',
+        Header: 'Disable',
         className: 'cell-center',
         disableSortBy: true,
         Cell: ({ row }: any) => {
           return (
             <Stack direction="row" alignItems="center" justifyContent="center" spacing={0}>
-              <Tooltip title="Revoke API Key">
+              <Tooltip title="Disable Webhook">
                 <IconButton
                   disabled={!row.original.is_active}
                   onClick={(e: any) => {
                     e.stopPropagation();
-                    revokeKey(row.original.id);
+                    disableWebHook(row.original.id);
                   }}
                 >
                   <CloseCircleTwoTone twoToneColor={row.original.is_active ? 'red' : '#d9d9d9'} />
@@ -121,17 +102,17 @@ const APIKeys = () => {
   }, []);
 
   return (
-    <Page title="API Keys">
+    <Page title="Webhooks">
       <MainCard title="" content={false}>
         <Grid item xs={12}>
           <ReactTable
             columns={columns}
-            data={apiKeys ? apiKeys.api_keys : []}
+            data={webhooks ? webhooks.webhooks : []}
             getHeaderProps={(column: any) => column.getSortByToggleProps()}
             handleAdd={() => {
-              generateNewAPIKey();
+              router.push('/webhooks/add');
             }}
-            addButtonText="Generate New Key"
+            addButtonText="Add Endpoint"
           />
         </Grid>
       </MainCard>

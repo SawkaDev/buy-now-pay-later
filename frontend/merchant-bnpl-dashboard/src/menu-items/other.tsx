@@ -9,10 +9,11 @@ import {
   DeploymentUnitOutlined,
   GatewayOutlined,
   KeyOutlined,
+  LinkOutlined,
   MenuUnfoldOutlined,
   QuestionOutlined,
   SmileOutlined,
-  StopOutlined
+  StopOutlined,
 } from '@ant-design/icons';
 
 // type
@@ -29,7 +30,8 @@ const icons = {
   QuestionOutlined,
   StopOutlined,
   SmileOutlined,
-  KeyOutlined
+  KeyOutlined,
+  LinkOutlined
 };
 
 // ==============================|| MENU ITEMS - SUPPORT ||============================== //
@@ -45,6 +47,13 @@ const other: NavItemType = {
       type: 'item',
       url: '/api-keys',
       icon: icons.KeyOutlined
+    },
+    {
+      id: 'webhooks',
+      title: <FormattedMessage id="webhooks" />,
+      type: 'item',
+      url: '/webhooks',
+      icon: icons.LinkOutlined
     },
     {
       id: 'sample-page',

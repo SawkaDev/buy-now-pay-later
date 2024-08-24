@@ -23,34 +23,13 @@ const AuthFooter = () => {
         </Typography>
 
         <Stack direction={matchDownSM ? 'column' : 'row'} spacing={matchDownSM ? 1 : 3} textAlign={matchDownSM ? 'center' : 'inherit'}>
-          <Typography
-            variant="subtitle2"
-            color="secondary"
-            component={Link}
-            href="https://codedthemes.com"
-            target="_blank"
-            underline="hover"
-          >
+          <Typography variant="subtitle2" color="secondary" component={Link} href="#" underline="hover">
             Terms and Conditions
           </Typography>
-          <Typography
-            variant="subtitle2"
-            color="secondary"
-            component={Link}
-            href="https://codedthemes.com"
-            target="_blank"
-            underline="hover"
-          >
+          <Typography variant="subtitle2" color="secondary" component={Link} href="#" underline="hover">
             Privacy Policy
           </Typography>
-          <Typography
-            variant="subtitle2"
-            color="secondary"
-            component={Link}
-            href="https://codedthemes.com"
-            target="_blank"
-            underline="hover"
-          >
+          <Typography variant="subtitle2" color="secondary" component={Link} href="#" underline="hover">
             CA Privacy Notice
           </Typography>
         </Stack>

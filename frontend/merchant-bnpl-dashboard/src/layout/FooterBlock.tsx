@@ -53,25 +53,7 @@ const FooterBlock = ({ isFull }: showProps) => {
     }
   };
 
-  const frameworks = [
-    { title: 'CodeIgniter', link: 'https://codedthemes.com/item/mantis-codeigniter-admin-template/' },
-    {
-      title: 'React MUI',
-      link: 'https://mui.com/store/items/mantis-react-admin-dashboard-template/'
-    },
-    {
-      title: 'Angular',
-      link: 'https://codedthemes.com/item/mantis-angular-admin-template/'
-    },
-    {
-      title: 'Bootstrap 5',
-      link: 'https://codedthemes.com/item/mantis-bootstrap-admin-dashboard/'
-    },
-    {
-      title: '.Net',
-      link: 'https://codedthemes.com/item/mantis-dotnet-bootstrap-dashboard-template/'
-    }
-  ];
+  const frameworks = [{ title: 'Test', link: '#' }];
 
   return (
     <>
@@ -142,20 +124,13 @@ const FooterBlock = ({ isFull }: showProps) => {
                   </Grid>
                   <Grid item xs={12}>
                     <Typography variant="body1" sx={{ color: theme.palette.common.white }}>
-                      What is next? Checkout the Upcoming release of Mantis React.
+                      What is next? Checkout the Upcoming release.
                     </Typography>
                   </Grid>
                   <Grid item xs={12} sx={{ my: 2 }}>
                     <Box sx={{ display: 'inline-block' }}>
                       <AnimateButton>
-                        <Button
-                          size="large"
-                          variant="contained"
-                          endIcon={<SendOutlined />}
-                          component={Link}
-                          href="https://codedthemes.gitbook.io/mantis/roadmap"
-                          target="_blank"
-                        >
+                        <Button size="large" variant="contained" endIcon={<SendOutlined />} component={Link} href="#">
                           Roadmap
                         </Button>
                       </AnimateButton>
@@ -187,8 +162,7 @@ const FooterBlock = ({ isFull }: showProps) => {
                   </Grid>
                   <Grid item xs={12}>
                     <Typography variant="subtitle1" sx={{ fontWeight: 400, color: theme.palette.common.white }}>
-                      Since 2017, More than 50K+ Developers trust the CodedThemes Digital Product. Mantis React is Manage under their
-                      Experienced Team Players.
+                      Sample footer
                     </Typography>
                   </Grid>
                 </Grid>
@@ -202,16 +176,16 @@ const FooterBlock = ({ isFull }: showProps) => {
                       Help
                     </Typography>
                     <Stack spacing={{ xs: 1.5, md: 2.5 }}>
-                      <FooterLink href="https://blog.mantisdashboard.io/" target="_blank" underline="none">
+                      <FooterLink href="#" underline="none">
                         Blog
                       </FooterLink>
-                      <FooterLink href="https://codedthemes.gitbook.io/mantis/" target="_blank" underline="none">
+                      <FooterLink href="#" underline="none">
                         Documentation
                       </FooterLink>
-                      <FooterLink href="https://codedthemes.gitbook.io/mantis/changelog" target="_blank" underline="none">
+                      <FooterLink href="#" underline="none">
                         Change Log
                       </FooterLink>
-                      <FooterLink href="https://codedthemes.support-hub.io/" target="_blank" underline="none">
+                      <FooterLink href="#" underline="none">
                         Support
                       </FooterLink>
                     </Stack>
@@ -242,7 +216,7 @@ const FooterBlock = ({ isFull }: showProps) => {
                 <Grid item xs={6} sm={3}>
                   <Stack spacing={{ xs: 3, md: 5 }}>
                     <Typography variant="h5" color={textColor} sx={{ fontWeight: 500 }}>
-                      Mantis Eco-System
+                      Eco-System
                     </Typography>
                     <Stack spacing={{ xs: 1.5, md: 2.5 }}>
                       {frameworks.map((item, index) => (
@@ -260,14 +234,8 @@ const FooterBlock = ({ isFull }: showProps) => {
                       More Products
                     </Typography>
                     <Stack spacing={{ xs: 1.5, md: 2.5 }}>
-                      <FooterLink href="http://mui.com/store/previews/berry-react-material-admin/" target="_blank" underline="none">
-                        Berry React Material
-                      </FooterLink>
-                      <FooterLink href="https://mui.com/store/previews/berry-react-material-admin-free/" target="_blank" underline="none">
-                        Free Berry React
-                      </FooterLink>
-                      <FooterLink href="https://github.com/codedthemes/mantis-free-react-admin-template" target="_blank" underline="none">
-                        Free Mantis React
+                      <FooterLink href="#" target="_blank" underline="none">
+                        Test
                       </FooterLink>
                     </Stack>
                   </Stack>
@@ -288,7 +256,7 @@ const FooterBlock = ({ isFull }: showProps) => {
           <Grid container spacing={2}>
             <Grid item xs={12} sm={8}>
               <Typography variant="subtitle2" color="secondary">
-                © Made with love by Team CodedThemes
+                © All rights reserved.
               </Typography>
             </Grid>
             <Grid item xs={12} sm={4}>

@@ -117,13 +117,7 @@ const Header = ({ handleDrawerOpen, layout, ...others }: Props) => {
               </Link>
               <Box sx={{ display: 'inline-block' }}>
                 <AnimateButton>
-                  <Button
-                    component={Link}
-                    href=""
-                    disableElevation
-                    color="primary"
-                    variant="contained"
-                  >
+                  <Button component={Link} href="" disableElevation color="primary" variant="contained">
                     Purchase Now
                   </Button>
                 </AnimateButton>
@@ -199,11 +193,7 @@ const Header = ({ handleDrawerOpen, layout, ...others }: Props) => {
                         <ListItemText primary="All Components" primaryTypographyProps={{ variant: 'h6', color: 'text.primary' }} />
                       </ListItemButton>
                     </Link>
-                    <Link
-                      style={{ textDecoration: 'none' }}
-                      href=""
-                      target="_blank"
-                    >
+                    <Link style={{ textDecoration: 'none' }} href="" target="_blank">
                       <ListItemButton component="span">
                         <ListItemIcon>
                           <LineOutlined />
@@ -219,7 +209,7 @@ const Header = ({ handleDrawerOpen, layout, ...others }: Props) => {
                         <ListItemText primary="Documentation" primaryTypographyProps={{ variant: 'h6', color: 'text.primary' }} />
                       </ListItemButton>
                     </Link>
-                    <Link style={{ textDecoration: 'none' }} href="https://codedthemes.support-hub.io/" target="_blank">
+                    <Link style={{ textDecoration: 'none' }} href="#">
                       <ListItemButton component="span">
                         <ListItemIcon>
                           <LineOutlined />
@@ -227,11 +217,7 @@ const Header = ({ handleDrawerOpen, layout, ...others }: Props) => {
                         <ListItemText primary="Support" primaryTypographyProps={{ variant: 'h6', color: 'text.primary' }} />
                       </ListItemButton>
                     </Link>
-                    <Link
-                      style={{ textDecoration: 'none' }}
-                      href=""
-                      target="_blank"
-                    >
+                    <Link style={{ textDecoration: 'none' }} href="" target="_blank">
                       <ListItemButton component="span">
                         <ListItemIcon>
                           <LineOutlined />

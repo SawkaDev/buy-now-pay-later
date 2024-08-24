@@ -8,18 +8,20 @@ import { Chip } from '@mui/material';
 import { Column, Row } from 'react-table';
 import { Stack } from '@mui/material';
 import { IconButton } from '@mui/material';
-import { CloseCircleTwoTone } from '@ant-design/icons';
+import { CloseCircleTwoTone, EyeOutlined } from '@ant-design/icons';
 import { ReactTable } from 'components/ui/Tables/ReactTable';
 import { ShowSnackBar } from 'utils/global-helpers';
 import { APIResponse } from 'types/database';
 import useUser, { UserProps } from 'hooks/useUser';
 import { useRouter } from 'next/router';
 import WebhookService from 'utils/database-services/Webhook';
+import { useTheme } from '@mui/material';
 
 const APIKeys = () => {
   const queryClient = useQueryClient();
   const user = useUser();
   const router = useRouter();
+  const theme = useTheme();
 
   const { data: webhooks } = useQuery({
     queryKey: ['webhooks', (user as UserProps).id],
@@ -76,12 +78,21 @@ const APIKeys = () => {
         Cell: ({ value }: any) => <>{new Date(value).toLocaleDateString()}</>
       },
       {
-        Header: 'Disable',
+        Header: 'Actions',
         className: 'cell-center',
         disableSortBy: true,
         Cell: ({ row }: any) => {
           return (
             <Stack direction="row" alignItems="center" justifyContent="center" spacing={0}>
+              <Tooltip title="View Activity">
+                <IconButton
+                  onClick={(e: any) => {
+                    e.stopPropagation();
+                  }}
+                >
+                  <EyeOutlined style={{ color: theme.palette.success.main }} />
+                </IconButton>
+              </Tooltip>
               <Tooltip title="Disable Webhook">
                 <IconButton
                   disabled={!row.original.is_active}

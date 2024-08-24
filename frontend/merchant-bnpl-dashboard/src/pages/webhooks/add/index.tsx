@@ -64,7 +64,7 @@ const AddEditWebhook = () => {
       <MainCard title="Add Webhook">
         <FormProvider {...methods}>
           <form onSubmit={methods.handleSubmit(handleSubmit)}>
-            <Grid container>
+            <Grid container spacing={2}>
               <Grid item xs={6}>
                 <TextInputWrapper name="url" label="Endpoint URL" textalign="left" />
               </Grid>

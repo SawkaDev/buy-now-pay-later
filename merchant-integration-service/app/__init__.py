@@ -18,6 +18,6 @@ def create_app(config_name='default'):
     CORS(app)
 
     for blueprint in blueprints:
-        app.register_blueprint(blueprint, url_prefix='/api-key-service')
+        app.register_blueprint(blueprint, url_prefix='/merchant-integration-service')
         
     return app

@@ -4,7 +4,7 @@ const serverBaseUrl = 'http://localhost:8080';
 
 const create = async (userId: number) => {
   try {
-    const response = await axios.post(`${serverBaseUrl}/api/api-key-service/key/generate`, { user_id: userId });
+    const response = await axios.post(`${serverBaseUrl}/api/merchant-integration-service/key/generate`, { user_id: userId });
     return response.data;
   } catch (error) {
     console.error('Error generating API key:', error);
@@ -14,7 +14,7 @@ const create = async (userId: number) => {
 
 const revoke = async (keyId: string) => {
   try {
-    const response = await axios.post(`${serverBaseUrl}/api/api-key-service/key/revoke`, { key_id: keyId });
+    const response = await axios.post(`${serverBaseUrl}/api/merchant-integration-service/key/revoke`, { key_id: keyId });
     return response.data;
   } catch (error) {
     console.error('Error generating API key:', error);
@@ -23,7 +23,7 @@ const revoke = async (keyId: string) => {
 };
 
 const getKeys = async (userId: number) => {
-  let { data } = await axios.get(`${serverBaseUrl}/api/api-key-service/keys/${userId}`);
+  let { data } = await axios.get(`${serverBaseUrl}/api/merchant-integration-service/keys/${userId}`);
   return data;
 };
 

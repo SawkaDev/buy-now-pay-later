@@ -20,7 +20,7 @@ services:
     container_name: merchant-integration-service
     image: merchant-integration-service:1.0.0
     build:
-      context: ./merchant-integration-service
+      context: ./backend/merchant-integration-service
       dockerfile: merchant-integration.dockerfile
     ports:
       - 4000:4000
@@ -29,7 +29,7 @@ services:
       - FLASK_ENV=development
       - FLASK_DEBUG=1
     volumes:
-      - ./merchant-integration-service:/app
+      - ./backend/merchant-integration-service:/app
     depends_on:
       - db
 
@@ -38,7 +38,7 @@ services:
     container_name: user-service
     image: user-service:1.0.0
     build:
-      context: ./user-service
+      context: ./backend/user-service
       dockerfile: user.dockerfile
     ports:
       - 4001:4000
@@ -47,7 +47,7 @@ services:
       - FLASK_ENV=development
       - FLASK_DEBUG=1
     volumes:
-      - ./user-service:/app
+      - ./backend/user-service:/app
     depends_on:
       - db
 
@@ -56,7 +56,7 @@ services:
     container_name: api-gateway
     image: api-gateway:1.0.0
     build:
-      context: ./api-gateway
+      context: ./backend/api-gateway
       dockerfile: api_gateway.dockerfile
     ports:
       - 8080:8080
@@ -66,7 +66,7 @@ services:
       - REDIS_PORT=6379
       - REDIS_PASSWORD=yourredispassword
     volumes:
-      - ./api-gateway:/app  # Mount your local backend directory to the container for hot reload
+      - ./backend/api-gateway:/app  # Mount your local backend directory to the container for hot reload
     depends_on:
       - redis  
 

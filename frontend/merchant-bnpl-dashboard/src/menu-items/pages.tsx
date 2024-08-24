@@ -2,13 +2,13 @@
 import { FormattedMessage } from 'react-intl';
 
 // assets
-import { DollarOutlined, LoginOutlined, PhoneOutlined, RocketOutlined } from '@ant-design/icons';
+import { DashboardOutlined } from '@ant-design/icons';
 
 // type
 import { NavItemType } from 'types/menu';
 
 // icons
-const icons = { DollarOutlined, LoginOutlined, PhoneOutlined, RocketOutlined };
+const icons = { DashboardOutlined };
 
 // ==============================|| MENU ITEMS - PAGES ||============================== //
 
@@ -18,12 +18,11 @@ const pages: NavItemType = {
   type: 'group',
   children: [
     {
-      id: 'contact-us',
-      title: <FormattedMessage id="contact-us" />,
+      id: 'dashboard',
+      title: <FormattedMessage id="dashboard" />,
       type: 'item',
-      url: '/contact-us',
-      icon: icons.PhoneOutlined,
-      target: true
+      url: '/dashboard',
+      icon: icons.DashboardOutlined
     }
   ]
 };

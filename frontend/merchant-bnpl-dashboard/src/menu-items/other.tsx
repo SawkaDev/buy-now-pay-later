@@ -13,7 +13,7 @@ import {
   MenuUnfoldOutlined,
   QuestionOutlined,
   SmileOutlined,
-  StopOutlined,
+  StopOutlined
 } from '@ant-design/icons';
 
 // type
@@ -37,8 +37,8 @@ const icons = {
 // ==============================|| MENU ITEMS - SUPPORT ||============================== //
 
 const other: NavItemType = {
-  id: 'other',
-  title: <FormattedMessage id="others" />,
+  id: 'merchant-integrations',
+  title: <FormattedMessage id="merchant-integrations" />,
   type: 'group',
   children: [
     {
@@ -54,13 +54,6 @@ const other: NavItemType = {
       type: 'item',
       url: '/webhooks',
       icon: icons.LinkOutlined
-    },
-    {
-      id: 'sample-page',
-      title: <FormattedMessage id="sample-page" />,
-      type: 'item',
-      url: '/sample-page',
-      icon: icons.ChromeOutlined
     }
   ]
 };

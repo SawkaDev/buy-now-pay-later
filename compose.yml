@@ -76,8 +76,8 @@ services:
     container_name: api-gateway
     image: api-gateway:1.0.0
     build:
-      context: ./backend/api-gateway
-      dockerfile: api_gateway.dockerfile
+      context: .
+      dockerfile: ./backend/api-gateway/api_gateway.dockerfile
     ports:
       - 8080:8080
     environment:
@@ -87,6 +87,7 @@ services:
       - REDIS_PASSWORD=yourredispassword
     volumes:
       - ./backend/api-gateway:/app  # Mount your local backend directory to the container for hot reload
+      # - ./shared:/shared
     depends_on:
       - redis  
 

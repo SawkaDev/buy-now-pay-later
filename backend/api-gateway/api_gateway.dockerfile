@@ -3,7 +3,9 @@ FROM python:3.9-slim-buster
 
 # Set the working directory in the container
 WORKDIR /app
-COPY requirements.txt .
+COPY /backend/api-gateway/requirements.txt .
+COPY /backend/shared/webhook-client-0.1.1.tar.gz .
+
 RUN pip install -r requirements.txt
 # COPY . .
 

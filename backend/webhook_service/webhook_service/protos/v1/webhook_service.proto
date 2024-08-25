@@ -1,0 +1,49 @@
+// webhook_service.proto
+syntax = "proto3";
+
+package webhook;
+
+service WebhookService {
+  rpc GetWebhooks (GetWebhooksRequest) returns (GetWebhooksResponse) {}
+  rpc CreateWebhook (CreateWebhookRequest) returns (Webhook) {}
+  rpc GetWebhook (GetWebhookRequest) returns (Webhook) {}
+  rpc UpdateWebhook (UpdateWebhookRequest) returns (Webhook) {}
+  rpc DisableWebhook (DisableWebhookRequest) returns (DisableWebhookResponse) {}
+}
+
+message GetWebhooksRequest {
+  int32 user_id = 1;
+}
+
+message GetWebhooksResponse {
+  repeated Webhook webhooks = 1;
+}
+
+message CreateWebhookRequest {
+  int32 user_id = 1;
+  string url = 2;
+}
+
+message GetWebhookRequest {
+  int32 webhook_id = 1;
+}
+
+message UpdateWebhookRequest {
+  int32 webhook_id = 1;
+  string url = 2;
+}
+
+message DisableWebhookRequest {
+  int32 webhook_id = 1;
+}
+
+message DisableWebhookResponse {
+  string message = 1;
+}
+
+message Webhook {
+  int32 id = 1;
+  int32 user_id = 2;
+  string url = 3;
+  bool is_active = 4;
+}

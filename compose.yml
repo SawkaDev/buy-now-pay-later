@@ -33,6 +33,26 @@ services:
     depends_on:
       - db
 
+  # Webhook service
+  webhook-service:
+    container_name: webhook-service
+    image: webhook-service:1.0.0
+    build:
+      context: ./backend/webhook_service
+      dockerfile: webhook.dockerfile
+    ports:
+      - "50051:50051"
+    environment:
+      - DB_HOST=db
+      - DB_PORT=5432
+      - DB_USER=postgres
+      - DB_PASSWORD=postgres
+      - DB_NAME=api_key_service_db
+    volumes:
+      - ./backend/webhook_service:/app
+    depends_on:
+      - db
+
   # New user-service
   user-service:
     container_name: user-service

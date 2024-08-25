@@ -6,17 +6,7 @@ import logging
 from app.utils.logging_utils import log_request_info, log_response_info
 from app.services.service_registry import services
 from app.utils.rate_limiting import limiter
-from client.v1 import WebhookClientV1
-webhook_client = WebhookClientV1(host='merchant-integration-service', port=50051)
-response = webhook_client.create_webhook(
-    url="https://example.com/webhook",
-    user_id=1
-)
-print(f"Created webhook: {response}")
 
-# # # Example: Get all webhooks
-# webhooks = webhook_client.get_webhooks(user_id=148)
-# print(f"All webhooks: {webhooks}")
 logger = logging.getLogger(__name__)
 
 api_bp = Blueprint('api', __name__)
@@ -56,4 +46,3 @@ def gateway(service, path):
 @api_bp.errorhandler(429)
 def ratelimit_handler(e):
     return jsonify({'error': 'Rate limit Exceeded'}), 429
-    # return jsonify(error="Rate limit exceeded", description=str(e.description)), 429

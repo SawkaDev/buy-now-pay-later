@@ -27,7 +27,7 @@ def create_app(config_name='default'):
 def setup_logging(app):
     import logging
     logging.basicConfig(
-        level=logging.INFO,
+        level=app.config['LOGGING_LEVEL'],
         format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
         datefmt='%Y-%m-%d %H:%M:%S'
     )

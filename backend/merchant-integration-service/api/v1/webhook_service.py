@@ -4,6 +4,7 @@ from models.webhooks import Webhook
 from core.db import SessionLocal
 from sqlalchemy.exc import SQLAlchemyError
 from urllib.parse import urlparse
+from google.protobuf.timestamp_pb2 import Timestamp
 
 class WebhookServiceV1(webhook_service_pb2_grpc.WebhookServiceServicer):
     def is_valid_url(self, url):
@@ -103,12 +104,15 @@ class WebhookServiceV1(webhook_service_pb2_grpc.WebhookServiceServicer):
             db.close()
 
     def webhook_to_proto(self, webhook):
-        return webhook_service_pb2.Webhook(
+        proto_webhook = webhook_service_pb2.Webhook(
             id=webhook.id,
             user_id=webhook.user_id,
             url=webhook.url,
-            is_active=webhook.is_active
+            is_active=webhook.is_active,
+            created_at=webhook.created_at.isoformat() if webhook.created_at else None,
+            updated_at=webhook.updated_at.isoformat() if webhook.updated_at else None
         )
+        return proto_webhook
 
 def add_to_server(server):
     webhook_service_pb2_grpc.add_WebhookServiceServicer_to_server(WebhookServiceV1(), server)

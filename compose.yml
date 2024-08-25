@@ -57,7 +57,8 @@ services:
       - ./backend/api-gateway:/app  # Mount local backend directory to the container for hot reload
     depends_on:
       - redis
-      - db  
+      - db
+      - merchant-integration-service
 
   # db service
   db:

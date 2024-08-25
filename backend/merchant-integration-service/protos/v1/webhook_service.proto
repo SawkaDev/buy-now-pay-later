@@ -46,4 +46,6 @@ message Webhook {
   int32 user_id = 2;
   string url = 3;
   bool is_active = 4;
+  string created_at = 5;
+  string updated_at = 6;
 }

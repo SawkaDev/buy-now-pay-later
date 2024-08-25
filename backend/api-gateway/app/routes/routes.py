@@ -6,17 +6,16 @@ import logging
 from app.utils.logging_utils import log_request_info, log_response_info
 from app.services.service_registry import services
 from app.utils.rate_limiting import limiter
-# from webhook_service.client.v1.client import WebhookClientV1
-# webhook_client = WebhookClientV1(host='localhost', port=50051)
-# response = webhook_client.create_webhook(
-#     url="https://example.com/webhook",
-#     events=["order.created", "order.updated"],
-#     metadata={"key": "value"}
-# )
-# print(f"Created webhook: {response}")
+from client.v1 import WebhookClientV1
+webhook_client = WebhookClientV1(host='webhook-service', port=50051)
+response = webhook_client.create_webhook(
+    url="https://example.com/webhook",
+    user_id=1
+)
+print(f"Created webhook: {response}")
 
-# # Example: Get all webhooks
-# webhooks = webhook_client.get_webhooks()
+# # # Example: Get all webhooks
+# webhooks = webhook_client.get_webhooks(user_id=148)
 # print(f"All webhooks: {webhooks}")
 logger = logging.getLogger(__name__)
 

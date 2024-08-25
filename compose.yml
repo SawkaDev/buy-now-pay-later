@@ -1,20 +1,6 @@
 version: '3.8'
 
 services:
-  # nextjs service
-  # nextapp:
-  #   container_name: nextapp
-  #   image: nextapp:1.0.0
-  #   build:
-  #     context: ./example-merchant-frontend
-  #     dockerfile: next.dockerfile
-  #   ports:
-  #     - 3000:3000
-  #   environment:
-  #     - NEXT_PUBLIC_API_URL=http://api-gateway:8080
-  #   depends_on:
-  #     - api-gateway
-
   # flask service
   merchant-integration-service:
     container_name: merchant-integration-service
@@ -86,10 +72,10 @@ services:
       - REDIS_PORT=6379
       - REDIS_PASSWORD=yourredispassword
     volumes:
-      - ./backend/api-gateway:/app  # Mount your local backend directory to the container for hot reload
-      # - ./shared:/shared
+      - ./backend/api-gateway:/app  # Mount local backend directory to the container for hot reload
     depends_on:
-      - redis  
+      - redis
+      - db  
 
   # db service
   db:
@@ -114,6 +100,20 @@ services:
     command: redis-server --save 20 1 --loglevel warning --requirepass yourredispassword
     volumes:
       - redis_data:/data
+
+  # nextjs service
+  # nextapp:
+  #   container_name: nextapp
+  #   image: nextapp:1.0.0
+  #   build:
+  #     context: ./example-merchant-frontend
+  #     dockerfile: next.dockerfile
+  #   ports:
+  #     - 3000:3000
+  #   environment:
+  #     - NEXT_PUBLIC_API_URL=http://api-gateway:8080
+  #   depends_on:
+  #     - api-gateway
 
 volumes:
   pgdata: {}

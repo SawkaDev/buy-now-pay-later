@@ -1,5 +1,5 @@
 import grpc
-from webhook_service.generated.v1 import webhook_service_pb2, webhook_service_pb2_grpc
+from generated.v1 import webhook_service_pb2, webhook_service_pb2_grpc
 
 class WebhookClientV1:
     def __init__(self, host='localhost', port=50051):

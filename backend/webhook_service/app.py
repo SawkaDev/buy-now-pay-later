@@ -3,10 +3,10 @@
 import grpc
 from concurrent import futures
 import logging
-from webhook_service.api.v1 import webhook_service
-from webhook_service.core.config import settings
-from webhook_service.core.db import init_db
-from webhook_service.generated.v1 import webhook_service_pb2_grpc  # Add this import
+from api.v1 import webhook_service
+from core.config import settings
+from core.db import init_db
+from generated.v1 import webhook_service_pb2_grpc  # Add this import
 
 def serve():
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))

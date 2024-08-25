@@ -1,7 +1,7 @@
 import grpc
-from ...generated.v1 import webhook_service_pb2, webhook_service_pb2_grpc
-from webhook_service.models.webhooks import Webhook
-from webhook_service.core.db import SessionLocal
+from generated.v1 import webhook_service_pb2, webhook_service_pb2_grpc
+from models.webhooks import Webhook
+from core.db import SessionLocal
 from sqlalchemy.exc import SQLAlchemyError
 from urllib.parse import urlparse
 

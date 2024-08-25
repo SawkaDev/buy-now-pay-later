@@ -21,4 +21,4 @@ ENV PYTHONPATH=/app
 EXPOSE 50051
 
 # Run the application
-CMD ["python", "-m", "webhook_service.main"]
+CMD ["python", "app.py"]

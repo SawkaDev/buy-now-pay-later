@@ -7,7 +7,7 @@ from app.utils.logging_utils import log_request_info, log_response_info
 from app.services.service_registry import services
 from app.utils.rate_limiting import limiter
 from client.v1 import WebhookClientV1
-webhook_client = WebhookClientV1(host='webhook-service', port=50051)
+webhook_client = WebhookClientV1(host='merchant-integration-service', port=50051)
 response = webhook_client.create_webhook(
     url="https://example.com/webhook",
     user_id=1

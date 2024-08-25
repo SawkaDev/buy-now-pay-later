@@ -1,5 +1,6 @@
-flask
+grpcio
+grpcio-tools
+sqlalchemy
 psycopg2-binary
-Flask-SQLAlchemy
-Flask-CORS
-Flask-Migrate
+pydantic
+pydantic_settings

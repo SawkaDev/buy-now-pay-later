@@ -1,31 +1,13 @@
 version: '3.8'
 
 services:
-  # flask service
+  # Webhook service
   merchant-integration-service:
     container_name: merchant-integration-service
     image: merchant-integration-service:1.0.0
     build:
       context: ./backend/merchant-integration-service
       dockerfile: merchant-integration.dockerfile
-    ports:
-      - 4000:4000
-    environment:
-      - DATABASE_URL=postgresql://postgres:postgres@db:5432/api_key_service_db
-      - FLASK_ENV=development
-      - FLASK_DEBUG=1
-    volumes:
-      - ./backend/merchant-integration-service:/app
-    depends_on:
-      - db
-
-  # Webhook service
-  webhook-service:
-    container_name: webhook-service
-    image: webhook-service:1.0.0
-    build:
-      context: ./backend/webhook_service
-      dockerfile: webhook.dockerfile
     ports:
       - "50051:50051"
     environment:
@@ -35,7 +17,7 @@ services:
       - DB_PASSWORD=postgres
       - DB_NAME=api_key_service_db
     volumes:
-      - ./backend/webhook_service:/app
+      - ./backend/merchant-integration-service:/app
     depends_on:
       - db
 

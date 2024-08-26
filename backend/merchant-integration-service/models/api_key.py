@@ -1,14 +1,15 @@
-from app.extensions import db
 from datetime import datetime
+from sqlalchemy import Column, Integer, String, DateTime, Boolean
+from core.db import Base, SessionLocal
 
-class APIKey(db.Model):
+class APIKey(Base):
     __tablename__ = 'api_keys'
-    id = db.Column(db.Integer, primary_key=True)
-    key = db.Column(db.String(64), unique=True, nullable=False)
-    user_id = db.Column(db.Integer, nullable=False)
-    created_at = db.Column(db.DateTime, default=datetime.utcnow)
-    expires_at = db.Column(db.DateTime, nullable=False)
-    is_active = db.Column(db.Boolean, default=True)
+    id = Column(Integer, primary_key=True)
+    key = Column(String(64), unique=True, nullable=False)
+    user_id = Column(Integer, nullable=False)
+    created_at = Column(DateTime, default=datetime.utcnow)
+    expires_at = Column(DateTime, nullable=False)
+    is_active = Column(Boolean, default=True)
 
     @property
     def is_expired(self):
@@ -17,11 +18,16 @@ class APIKey(db.Model):
     def check_expiration(self):
         if self.is_expired and self.is_active:
             self.is_active = False
+            session = SessionLocal()
             try:
-                db.session.commit()
+                session.add(self)
+                session.commit()
             except Exception as e:
-                db.session.rollback()   
-                         
+                session.rollback()
+                raise e
+            finally:
+                session.close()
+
     def json(self):
         self.check_expiration()  # Ensure status is up-to-date
         return {

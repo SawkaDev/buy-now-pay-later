@@ -1,0 +1,54 @@
+syntax = "proto3";
+
+package apikey;
+
+service APIKeyService {
+  rpc GenerateAPIKey(GenerateAPIKeyRequest) returns (APIKeyResponse);
+  rpc ValidateAPIKey(ValidateAPIKeyRequest) returns (ValidateAPIKeyResponse);
+  rpc RevokeAPIKey(RevokeAPIKeyRequest) returns (RevokeAPIKeyResponse);
+  rpc GetAPIKeysForUser(GetAPIKeysForUserRequest) returns (GetAPIKeysForUserResponse);
+}
+
+message GenerateAPIKeyRequest {
+  int32 user_id = 1;
+}
+
+message APIKeyResponse {
+  APIKey api_key = 1;
+}
+
+message ValidateAPIKeyRequest {
+  int32 key_id = 1;
+}
+
+message ValidateAPIKeyResponse {
+  bool is_valid = 1;
+  string message = 2;
+}
+
+message RevokeAPIKeyRequest {
+  int32 key_id = 1;
+}
+
+message RevokeAPIKeyResponse {
+  bool success = 1;
+  string message = 2;
+}
+
+message GetAPIKeysForUserRequest {
+  int32 user_id = 1;
+}
+
+message GetAPIKeysForUserResponse {
+  repeated APIKey api_keys = 1;
+}
+
+message APIKey {
+  int32 id = 1;
+  string key = 2;
+  int32 user_id = 3;
+  string created_at = 4;
+  string expires_at = 5;
+  bool is_active = 6;
+  bool is_expired = 7;
+}

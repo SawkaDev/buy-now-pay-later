@@ -1,13 +1,12 @@
-from flask import Blueprint, jsonify, request
-from google.protobuf.json_format import MessageToDict
-from client.v1 import WebhookClientV1
 import uuid
 import time
-from app.utils.logging_utils import log_request_info, log_response_info, logger
 import logging
+from flask import Blueprint, jsonify, request
+from google.protobuf.json_format import MessageToDict
+from client.v1.webhook import WebhookClientV1
+from app.utils.logging_utils import log_request_info, log_response_info, logger
 
 logger = logging.getLogger(__name__)
-
 
 webhook_bp = Blueprint('webhook', __name__)
 webhook_client = WebhookClientV1(host='merchant-integration-service', port=50051)

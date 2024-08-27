@@ -4,8 +4,7 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.sql import func
 from sqlalchemy.orm import validates
 import re
-
-Base = declarative_base()
+from core.base import Base
 
 class LoanStatus(enum.Enum):
     PENDING = "pending"
@@ -36,7 +35,7 @@ class Loan(Base):
         Index('idx_user_id_status', 'user_id', 'status'),
     )
 
-    @validates('loan_amount', 'loan_term_months', 'interest_rate', 'purpose', 'idempotency_key')
+    @validates('loan_amount', 'loan_term_months', 'interest_rate', 'purpose')
     def validate_fields(self, key, value):
         if key == 'loan_amount' and value <= 0:
             raise ValueError("Loan amount must be positive")

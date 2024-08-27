@@ -6,7 +6,7 @@ class LoanClientV1:
         self.channel = grpc.insecure_channel(f'{host}:{port}')
         self.stub = loan_service_pb2_grpc.LoanServiceStub(self.channel)
 
-    def create_loan(self, user_id, loan_amount, loan_term_months, interest_rate, purpose, merchant_id=None, idempotency_key=None):
+    def create_loan(self, user_id, loan_amount, loan_term_months, interest_rate, purpose, merchant_id=None):
         request = loan_service_pb2.CreateLoanRequest(
             user_id=user_id,
             loan_amount=loan_amount,
@@ -14,7 +14,6 @@ class LoanClientV1:
             interest_rate=interest_rate,
             purpose=purpose,
             merchant_id=merchant_id,
-            idempotency_key=idempotency_key
         )
         return self.stub.CreateLoan(request)
 

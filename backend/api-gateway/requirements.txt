@@ -5,3 +5,4 @@ Flask-CORS
 Flask-Session
 redis
 merchant-integration-service-0.1.1.tar.gz
+loan-service-0.1.1.tar.gz

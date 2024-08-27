@@ -1,5 +1,5 @@
 from flask import Blueprint, jsonify, request
-from client.v1 import APIKeyClientV1
+from client.v1.api_key import APIKeyClientV1
 from google.protobuf.json_format import MessageToDict
 
 api_key_bp = Blueprint('api_key', __name__)

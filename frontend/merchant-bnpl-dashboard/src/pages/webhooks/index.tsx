@@ -118,7 +118,7 @@ const APIKeys = () => {
         <Grid item xs={12}>
           <ReactTable
             columns={columns}
-            data={webhooks ? webhooks.webhooks : []}
+            data={webhooks && webhooks.webhooks ? webhooks.webhooks : []}
             getHeaderProps={(column: any) => column.getSortByToggleProps()}
             handleAdd={() => {
               router.push('/webhooks/add');

@@ -24,7 +24,7 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x12loan_service.proto\x12\x04loan\"\xa9\x01\n\x11\x43reateLoanRequest\x12\x0f\n\x07user_id\x18\x01 \x01(\x05\x12\x13\n\x0bloan_amount\x18\x02 \x01(\x02\x12\x18\n\x10loan_term_months\x18\x03 \x01(\x05\x12\x15\n\rinterest_rate\x18\x04 \x01(\x02\x12\x0f\n\x07purpose\x18\x05 \x01(\t\x12\x13\n\x0bmerchant_id\x18\x06 \x01(\x05\x12\x17\n\x0fidempotency_key\x18\x07 \x01(\t\"!\n\x0eGetLoanRequest\x12\x0f\n\x07loan_id\x18\x01 \x01(\x05\">\n\x17UpdateLoanStatusRequest\x12\x0f\n\x07loan_id\x18\x01 \x01(\x05\x12\x12\n\nnew_status\x18\x02 \x01(\t\"(\n\x0cLoanResponse\x12\x18\n\x04loan\x18\x01 \x01(\x0b\x32\n.loan.Loan\"\xc7\x01\n\x04Loan\x12\n\n\x02id\x18\x01 \x01(\x05\x12\x0f\n\x07user_id\x18\x02 \x01(\x05\x12\x13\n\x0bloan_amount\x18\x03 \x01(\x02\x12\x18\n\x10loan_term_months\x18\x04 \x01(\x05\x12\x15\n\rinterest_rate\x18\x05 \x01(\x02\x12\x0f\n\x07purpose\x18\x06 \x01(\t\x12\x0e\n\x06status\x18\x07 \x01(\t\x12\x13\n\x0bmerchant_id\x18\x08 \x01(\x05\x12\x12\n\ncreated_at\x18\t \x01(\t\x12\x12\n\nupdated_at\x18\n \x01(\t\"?\n\x14PaymentUpdateRequest\x12\x0f\n\x07loan_id\x18\x01 \x01(\x05\x12\x16\n\x0epayment_status\x18\x02 \x01(\t\"(\n\x15PaymentUpdateResponse\x12\x0f\n\x07success\x18\x01 \x01(\x08\x32\x96\x02\n\x0bLoanService\x12;\n\nCreateLoan\x12\x17.loan.CreateLoanRequest\x1a\x12.loan.LoanResponse\"\x00\x12\x35\n\x07GetLoan\x12\x14.loan.GetLoanRequest\x1a\x12.loan.LoanResponse\"\x00\x12G\n\x10UpdateLoanStatus\x12\x1d.loan.UpdateLoanStatusRequest\x1a\x12.loan.LoanResponse\"\x00\x12J\n\rUpdatePayment\x12\x1a.loan.PaymentUpdateRequest\x1a\x1b.loan.PaymentUpdateResponse\"\x00\x62\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x12loan_service.proto\x12\x04loan\"\x90\x01\n\x11\x43reateLoanRequest\x12\x0f\n\x07user_id\x18\x01 \x01(\x05\x12\x13\n\x0bloan_amount\x18\x02 \x01(\x02\x12\x18\n\x10loan_term_months\x18\x03 \x01(\x05\x12\x15\n\rinterest_rate\x18\x04 \x01(\x02\x12\x0f\n\x07purpose\x18\x05 \x01(\t\x12\x13\n\x0bmerchant_id\x18\x06 \x01(\x05\"!\n\x0eGetLoanRequest\x12\x0f\n\x07loan_id\x18\x01 \x01(\x05\">\n\x17UpdateLoanStatusRequest\x12\x0f\n\x07loan_id\x18\x01 \x01(\x05\x12\x12\n\nnew_status\x18\x02 \x01(\t\"(\n\x0cLoanResponse\x12\x18\n\x04loan\x18\x01 \x01(\x0b\x32\n.loan.Loan\"\xc7\x01\n\x04Loan\x12\n\n\x02id\x18\x01 \x01(\x05\x12\x0f\n\x07user_id\x18\x02 \x01(\x05\x12\x13\n\x0bloan_amount\x18\x03 \x01(\x02\x12\x18\n\x10loan_term_months\x18\x04 \x01(\x05\x12\x15\n\rinterest_rate\x18\x05 \x01(\x02\x12\x0f\n\x07purpose\x18\x06 \x01(\t\x12\x0e\n\x06status\x18\x07 \x01(\t\x12\x13\n\x0bmerchant_id\x18\x08 \x01(\x05\x12\x12\n\ncreated_at\x18\t \x01(\t\x12\x12\n\nupdated_at\x18\n \x01(\t\"?\n\x14PaymentUpdateRequest\x12\x0f\n\x07loan_id\x18\x01 \x01(\x05\x12\x16\n\x0epayment_status\x18\x02 \x01(\t\"(\n\x15PaymentUpdateResponse\x12\x0f\n\x07success\x18\x01 \x01(\x08\x32\x96\x02\n\x0bLoanService\x12;\n\nCreateLoan\x12\x17.loan.CreateLoanRequest\x1a\x12.loan.LoanResponse\"\x00\x12\x35\n\x07GetLoan\x12\x14.loan.GetLoanRequest\x1a\x12.loan.LoanResponse\"\x00\x12G\n\x10UpdateLoanStatus\x12\x1d.loan.UpdateLoanStatusRequest\x1a\x12.loan.LoanResponse\"\x00\x12J\n\rUpdatePayment\x12\x1a.loan.PaymentUpdateRequest\x1a\x1b.loan.PaymentUpdateResponse\"\x00\x62\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
@@ -32,19 +32,19 @@ _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'loan_service_pb2', _globals
 if not _descriptor._USE_C_DESCRIPTORS:
   DESCRIPTOR._loaded_options = None
   _globals['_CREATELOANREQUEST']._serialized_start=29
-  _globals['_CREATELOANREQUEST']._serialized_end=198
-  _globals['_GETLOANREQUEST']._serialized_start=200
-  _globals['_GETLOANREQUEST']._serialized_end=233
-  _globals['_UPDATELOANSTATUSREQUEST']._serialized_start=235
-  _globals['_UPDATELOANSTATUSREQUEST']._serialized_end=297
-  _globals['_LOANRESPONSE']._serialized_start=299
-  _globals['_LOANRESPONSE']._serialized_end=339
-  _globals['_LOAN']._serialized_start=342
-  _globals['_LOAN']._serialized_end=541
-  _globals['_PAYMENTUPDATEREQUEST']._serialized_start=543
-  _globals['_PAYMENTUPDATEREQUEST']._serialized_end=606
-  _globals['_PAYMENTUPDATERESPONSE']._serialized_start=608
-  _globals['_PAYMENTUPDATERESPONSE']._serialized_end=648
-  _globals['_LOANSERVICE']._serialized_start=651
-  _globals['_LOANSERVICE']._serialized_end=929
+  _globals['_CREATELOANREQUEST']._serialized_end=173
+  _globals['_GETLOANREQUEST']._serialized_start=175
+  _globals['_GETLOANREQUEST']._serialized_end=208
+  _globals['_UPDATELOANSTATUSREQUEST']._serialized_start=210
+  _globals['_UPDATELOANSTATUSREQUEST']._serialized_end=272
+  _globals['_LOANRESPONSE']._serialized_start=274
+  _globals['_LOANRESPONSE']._serialized_end=314
+  _globals['_LOAN']._serialized_start=317
+  _globals['_LOAN']._serialized_end=516
+  _globals['_PAYMENTUPDATEREQUEST']._serialized_start=518
+  _globals['_PAYMENTUPDATEREQUEST']._serialized_end=581
+  _globals['_PAYMENTUPDATERESPONSE']._serialized_start=583
+  _globals['_PAYMENTUPDATERESPONSE']._serialized_end=623
+  _globals['_LOANSERVICE']._serialized_start=626
+  _globals['_LOANSERVICE']._serialized_end=904
 # @@protoc_insertion_point(module_scope)

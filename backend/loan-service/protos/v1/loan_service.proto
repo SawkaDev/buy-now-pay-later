@@ -16,7 +16,6 @@ message CreateLoanRequest {
   float interest_rate = 4;
   string purpose = 5;
   int32 merchant_id = 6;
-  string idempotency_key = 7;
 }
 
 message GetLoanRequest {

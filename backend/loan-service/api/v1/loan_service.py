@@ -14,8 +14,7 @@ class LoanServiceV1(loan_service_pb2_grpc.LoanServiceServicer):
                 loan_term_months=request.loan_term_months,
                 interest_rate=request.interest_rate,
                 purpose=request.purpose,
-                merchant_id=request.merchant_id,
-                idempotency_key=request.idempotency_key
+                merchant_id=request.merchant_id
             )
             db.add(new_loan)
             db.commit()
@@ -60,7 +59,7 @@ class LoanServiceV1(loan_service_pb2_grpc.LoanServiceServicer):
                 context.set_code(grpc.StatusCode.INVALID_ARGUMENT)
                 context.set_details('Invalid loan status')
                 return loan_service_pb2.LoanResponse()
-            
+             
             loan.status = new_status
             db.commit()
             db.refresh(loan)

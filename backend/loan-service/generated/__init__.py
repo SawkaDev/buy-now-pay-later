@@ -1,3 +1,3 @@
-from .v1 import webhook_service_pb2, webhook_service_pb2_grpc
+from .v1 import loan_service_pb2, loan_service_pb2_grpc
 
-__all__ = ['webhook_service_pb2', 'webhook_service_pb2_grpc']
+__all__ = ['loan_service_pb2', 'loan_service_pb2_grpc']

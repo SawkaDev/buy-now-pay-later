@@ -3,7 +3,7 @@
 import grpc
 import warnings
 
-from . import api_key_service_pb2 as api__key__service__pb2
+from . import loan_service_pb2 as loan__service__pb2
 
 GRPC_GENERATED_VERSION = '1.66.0'
 GRPC_VERSION = grpc.__version__
@@ -18,14 +18,14 @@ except ImportError:
 if _version_not_supported:
     raise RuntimeError(
         f'The grpc package installed is at version {GRPC_VERSION},'
-        + f' but the generated code in api_key_service_pb2_grpc.py depends on'
+        + f' but the generated code in loan_service_pb2_grpc.py depends on'
         + f' grpcio>={GRPC_GENERATED_VERSION}.'
         + f' Please upgrade your grpc module to grpcio>={GRPC_GENERATED_VERSION}'
         + f' or downgrade your generated code using grpcio-tools<={GRPC_VERSION}.'
     )
 
 
-class APIKeyServiceStub(object):
+class LoanServiceStub(object):
     """Missing associated documentation comment in .proto file."""
 
     def __init__(self, channel):
@@ -34,91 +34,91 @@ class APIKeyServiceStub(object):
         Args:
             channel: A grpc.Channel.
         """
-        self.GenerateAPIKey = channel.unary_unary(
-                '/apikey.APIKeyService/GenerateAPIKey',
-                request_serializer=api__key__service__pb2.GenerateAPIKeyRequest.SerializeToString,
-                response_deserializer=api__key__service__pb2.APIKeyResponse.FromString,
+        self.CreateLoan = channel.unary_unary(
+                '/loan.LoanService/CreateLoan',
+                request_serializer=loan__service__pb2.CreateLoanRequest.SerializeToString,
+                response_deserializer=loan__service__pb2.LoanResponse.FromString,
                 _registered_method=True)
-        self.ValidateAPIKey = channel.unary_unary(
-                '/apikey.APIKeyService/ValidateAPIKey',
-                request_serializer=api__key__service__pb2.ValidateAPIKeyRequest.SerializeToString,
-                response_deserializer=api__key__service__pb2.ValidateAPIKeyResponse.FromString,
+        self.GetLoan = channel.unary_unary(
+                '/loan.LoanService/GetLoan',
+                request_serializer=loan__service__pb2.GetLoanRequest.SerializeToString,
+                response_deserializer=loan__service__pb2.LoanResponse.FromString,
                 _registered_method=True)
-        self.RevokeAPIKey = channel.unary_unary(
-                '/apikey.APIKeyService/RevokeAPIKey',
-                request_serializer=api__key__service__pb2.RevokeAPIKeyRequest.SerializeToString,
-                response_deserializer=api__key__service__pb2.RevokeAPIKeyResponse.FromString,
+        self.UpdateLoanStatus = channel.unary_unary(
+                '/loan.LoanService/UpdateLoanStatus',
+                request_serializer=loan__service__pb2.UpdateLoanStatusRequest.SerializeToString,
+                response_deserializer=loan__service__pb2.LoanResponse.FromString,
                 _registered_method=True)
-        self.GetAPIKeysForUser = channel.unary_unary(
-                '/apikey.APIKeyService/GetAPIKeysForUser',
-                request_serializer=api__key__service__pb2.GetAPIKeysForUserRequest.SerializeToString,
-                response_deserializer=api__key__service__pb2.GetAPIKeysForUserResponse.FromString,
+        self.UpdatePayment = channel.unary_unary(
+                '/loan.LoanService/UpdatePayment',
+                request_serializer=loan__service__pb2.PaymentUpdateRequest.SerializeToString,
+                response_deserializer=loan__service__pb2.PaymentUpdateResponse.FromString,
                 _registered_method=True)
 
 
-class APIKeyServiceServicer(object):
+class LoanServiceServicer(object):
     """Missing associated documentation comment in .proto file."""
 
-    def GenerateAPIKey(self, request, context):
+    def CreateLoan(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def ValidateAPIKey(self, request, context):
+    def GetLoan(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def RevokeAPIKey(self, request, context):
+    def UpdateLoanStatus(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def GetAPIKeysForUser(self, request, context):
+    def UpdatePayment(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
 
-def add_APIKeyServiceServicer_to_server(servicer, server):
+def add_LoanServiceServicer_to_server(servicer, server):
     rpc_method_handlers = {
-            'GenerateAPIKey': grpc.unary_unary_rpc_method_handler(
-                    servicer.GenerateAPIKey,
-                    request_deserializer=api__key__service__pb2.GenerateAPIKeyRequest.FromString,
-                    response_serializer=api__key__service__pb2.APIKeyResponse.SerializeToString,
+            'CreateLoan': grpc.unary_unary_rpc_method_handler(
+                    servicer.CreateLoan,
+                    request_deserializer=loan__service__pb2.CreateLoanRequest.FromString,
+                    response_serializer=loan__service__pb2.LoanResponse.SerializeToString,
             ),
-            'ValidateAPIKey': grpc.unary_unary_rpc_method_handler(
-                    servicer.ValidateAPIKey,
-                    request_deserializer=api__key__service__pb2.ValidateAPIKeyRequest.FromString,
-                    response_serializer=api__key__service__pb2.ValidateAPIKeyResponse.SerializeToString,
+            'GetLoan': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetLoan,
+                    request_deserializer=loan__service__pb2.GetLoanRequest.FromString,
+                    response_serializer=loan__service__pb2.LoanResponse.SerializeToString,
             ),
-            'RevokeAPIKey': grpc.unary_unary_rpc_method_handler(
-                    servicer.RevokeAPIKey,
-                    request_deserializer=api__key__service__pb2.RevokeAPIKeyRequest.FromString,
-                    response_serializer=api__key__service__pb2.RevokeAPIKeyResponse.SerializeToString,
+            'UpdateLoanStatus': grpc.unary_unary_rpc_method_handler(
+                    servicer.UpdateLoanStatus,
+                    request_deserializer=loan__service__pb2.UpdateLoanStatusRequest.FromString,
+                    response_serializer=loan__service__pb2.LoanResponse.SerializeToString,
             ),
-            'GetAPIKeysForUser': grpc.unary_unary_rpc_method_handler(
-                    servicer.GetAPIKeysForUser,
-                    request_deserializer=api__key__service__pb2.GetAPIKeysForUserRequest.FromString,
-                    response_serializer=api__key__service__pb2.GetAPIKeysForUserResponse.SerializeToString,
+            'UpdatePayment': grpc.unary_unary_rpc_method_handler(
+                    servicer.UpdatePayment,
+                    request_deserializer=loan__service__pb2.PaymentUpdateRequest.FromString,
+                    response_serializer=loan__service__pb2.PaymentUpdateResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
-            'apikey.APIKeyService', rpc_method_handlers)
+            'loan.LoanService', rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
-    server.add_registered_method_handlers('apikey.APIKeyService', rpc_method_handlers)
+    server.add_registered_method_handlers('loan.LoanService', rpc_method_handlers)
 
 
  # This class is part of an EXPERIMENTAL API.
-class APIKeyService(object):
+class LoanService(object):
     """Missing associated documentation comment in .proto file."""
 
     @staticmethod
-    def GenerateAPIKey(request,
+    def CreateLoan(request,
             target,
             options=(),
             channel_credentials=None,
@@ -131,9 +131,9 @@ class APIKeyService(object):
         return grpc.experimental.unary_unary(
             request,
             target,
-            '/apikey.APIKeyService/GenerateAPIKey',
-            api__key__service__pb2.GenerateAPIKeyRequest.SerializeToString,
-            api__key__service__pb2.APIKeyResponse.FromString,
+            '/loan.LoanService/CreateLoan',
+            loan__service__pb2.CreateLoanRequest.SerializeToString,
+            loan__service__pb2.LoanResponse.FromString,
             options,
             channel_credentials,
             insecure,
@@ -145,7 +145,7 @@ class APIKeyService(object):
             _registered_method=True)
 
     @staticmethod
-    def ValidateAPIKey(request,
+    def GetLoan(request,
             target,
             options=(),
             channel_credentials=None,
@@ -158,9 +158,9 @@ class APIKeyService(object):
         return grpc.experimental.unary_unary(
             request,
             target,
-            '/apikey.APIKeyService/ValidateAPIKey',
-            api__key__service__pb2.ValidateAPIKeyRequest.SerializeToString,
-            api__key__service__pb2.ValidateAPIKeyResponse.FromString,
+            '/loan.LoanService/GetLoan',
+            loan__service__pb2.GetLoanRequest.SerializeToString,
+            loan__service__pb2.LoanResponse.FromString,
             options,
             channel_credentials,
             insecure,
@@ -172,7 +172,7 @@ class APIKeyService(object):
             _registered_method=True)
 
     @staticmethod
-    def RevokeAPIKey(request,
+    def UpdateLoanStatus(request,
             target,
             options=(),
             channel_credentials=None,
@@ -185,9 +185,9 @@ class APIKeyService(object):
         return grpc.experimental.unary_unary(
             request,
             target,
-            '/apikey.APIKeyService/RevokeAPIKey',
-            api__key__service__pb2.RevokeAPIKeyRequest.SerializeToString,
-            api__key__service__pb2.RevokeAPIKeyResponse.FromString,
+            '/loan.LoanService/UpdateLoanStatus',
+            loan__service__pb2.UpdateLoanStatusRequest.SerializeToString,
+            loan__service__pb2.LoanResponse.FromString,
             options,
             channel_credentials,
             insecure,
@@ -199,7 +199,7 @@ class APIKeyService(object):
             _registered_method=True)
 
     @staticmethod
-    def GetAPIKeysForUser(request,
+    def UpdatePayment(request,
             target,
             options=(),
             channel_credentials=None,
@@ -212,9 +212,9 @@ class APIKeyService(object):
         return grpc.experimental.unary_unary(
             request,
             target,
-            '/apikey.APIKeyService/GetAPIKeysForUser',
-            api__key__service__pb2.GetAPIKeysForUserRequest.SerializeToString,
-            api__key__service__pb2.GetAPIKeysForUserResponse.FromString,
+            '/loan.LoanService/UpdatePayment',
+            loan__service__pb2.PaymentUpdateRequest.SerializeToString,
+            loan__service__pb2.PaymentUpdateResponse.FromString,
             options,
             channel_credentials,
             insecure,

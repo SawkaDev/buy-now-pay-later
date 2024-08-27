@@ -18,7 +18,7 @@ ENV PYTHONUNBUFFERED=1
 ENV PYTHONPATH=/app
 
 # Expose the port the app runs on
-EXPOSE 50051
+EXPOSE 50052
 
 # Run the application
 CMD ["python", "app.py"]

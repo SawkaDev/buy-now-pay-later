@@ -21,6 +21,25 @@ services:
     depends_on:
       - db
 
+  loan-service:
+    container_name: loan-service
+    image: loan-service:1.0.0
+    build:
+      context: ./backend/loan-service
+      dockerfile: loan.dockerfile
+    ports:
+      - "50052:50051"
+    environment:
+      - DB_HOST=db
+      - DB_PORT=5432
+      - DB_USER=postgres
+      - DB_PASSWORD=postgres
+      - DB_NAME=loan_service_db
+    volumes:
+      - ./backend/loan-service:/app
+    depends_on:
+      - db
+
   # New user-service
   user-service:
     container_name: user-service

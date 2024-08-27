@@ -1,12 +1,12 @@
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 class Settings(BaseSettings):
-    SERVER_PORT: int = 50051
+    SERVER_PORT: int = 50052
     DB_HOST: str = "localhost"  # Default to localhost
     DB_PORT: int = 5432
     DB_USER: str = "postgres"
     DB_PASSWORD: str = "postgres"
-    DB_NAME: str = "api_key_service_db"
+    DB_NAME: str = "loan_service_db"
 
     @property
     def DATABASE_URL(self):

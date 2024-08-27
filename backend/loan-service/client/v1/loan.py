@@ -2,7 +2,7 @@ import grpc
 from generated.v1 import loan_service_pb2, loan_service_pb2_grpc
 
 class LoanClientV1:
-    def __init__(self, host='localhost', port=50051):
+    def __init__(self, host='localhost', port=50052):
         self.channel = grpc.insecure_channel(f'{host}:{port}')
         self.stub = loan_service_pb2_grpc.LoanServiceStub(self.channel)
 

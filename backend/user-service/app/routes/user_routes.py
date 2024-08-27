@@ -4,8 +4,8 @@ from app.extensions import db
 
 user_bp = Blueprint('user', __name__)
 
-@user_bp.route('/users', methods=['POST'])
-def create_user():
+@user_bp.route('/v1/users', methods=['POST'])
+def create_user_v1():
     try:
         data = request.get_json()
         new_user = User(name=data['name'], email=data['email'])
@@ -15,15 +15,15 @@ def create_user():
     except Exception as e:
         return make_response(jsonify({'message': 'error creating user', 'error': str(e)}), 500)
 
-@user_bp.route('/users', methods=['GET'])
-def get_users():
+@user_bp.route('/v1/users', methods=['GET'])
+def get_users_v1():
     try:
         users = User.query.all()
         return jsonify([user.json() for user in users]), 200
     except Exception as e:
         return make_response(jsonify({'message': 'error getting users', 'error': str(e)}), 500)
 
-@user_bp.route('/users/<int:id>', methods=['GET'])
+@user_bp.route('/v1/users/<int:id>', methods=['GET'])
 def get_user(id):
     try:
         user = User.query.get_or_404(id)
@@ -31,7 +31,7 @@ def get_user(id):
     except Exception as e:
         return make_response(jsonify({'message': 'error getting user', 'error': str(e)}), 500)
 
-@user_bp.route('/users/<int:id>', methods=['PUT'])
+@user_bp.route('/v1/users/<int:id>', methods=['PUT'])
 def update_user(id):
     try:
         user = User.query.get_or_404(id)
@@ -43,7 +43,7 @@ def update_user(id):
     except Exception as e:
         return make_response(jsonify({'message': 'error updating user', 'error': str(e)}), 500)
 
-@user_bp.route('/users/<int:id>', methods=['DELETE'])
+@user_bp.route('/v1/users/<int:id>', methods=['DELETE'])
 def delete_user(id):
     try:
         user = User.query.get_or_404(id)
@@ -53,7 +53,7 @@ def delete_user(id):
     except Exception as e:
         return make_response(jsonify({'message': 'error deleting user', 'error': str(e)}), 500)
 
-@user_bp.route('/user/register', methods=['POST'])
+@user_bp.route('/v1/user/register', methods=['POST'])
 def register():
     data = request.json
     email = data.get('email')

@@ -25,7 +25,7 @@ class APIKeyServiceV1(api_key_service_pb2_grpc.APIKeyServiceServicer):
             new_key = APIKey(
                 key=create_api_key_token(),
                 user_id=request.user_id,
-                expires_at=datetime.utcnow() + timedelta(days=30)
+                expires_at=datetime.utcnow() + timedelta(days=90)
             )
             db.add(new_key)
             db.commit()

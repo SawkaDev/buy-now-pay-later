@@ -8,7 +8,7 @@ auth_bp = Blueprint('auth', __name__)
 @auth_bp.route('/auth/register', methods=['POST'])
 def register():
     data = request.json
-    response = requests.post(f'http://user-service:4000/user-service/auth/register', json=data)
+    response = requests.post(f'http://user-service:4000/user-service/v1/auth/register', json=data)
     
     if response.status_code == 201:
         return jsonify({"message": "User registered successfully"}), 201
@@ -20,7 +20,7 @@ def register():
 @auth_bp.route('/auth/login', methods=['POST'])
 def login():
     data = request.json
-    response = requests.post(f'http://user-service:4000/user-service/auth/login', json=data)
+    response = requests.post(f'http://user-service:4000/user-service/v1/auth/login', json=data)
     if response.status_code == 200:
         user_data = response.json()
         if user_data.get('user'):

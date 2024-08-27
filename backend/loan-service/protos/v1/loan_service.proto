@@ -1,0 +1,55 @@
+syntax = "proto3";
+
+package loan;
+
+service LoanService {
+  rpc CreateLoan (CreateLoanRequest) returns (LoanResponse) {}
+  rpc GetLoan (GetLoanRequest) returns (LoanResponse) {}
+  rpc UpdateLoanStatus (UpdateLoanStatusRequest) returns (LoanResponse) {}
+  rpc UpdatePayment (PaymentUpdateRequest) returns (PaymentUpdateResponse) {}
+}
+
+message CreateLoanRequest {
+  int32 user_id = 1;
+  float loan_amount = 2;
+  int32 loan_term_months = 3;
+  float interest_rate = 4;
+  string purpose = 5;
+  int32 merchant_id = 6;
+  string idempotency_key = 7;
+}
+
+message GetLoanRequest {
+  int32 loan_id = 1;
+}
+
+message UpdateLoanStatusRequest {
+  int32 loan_id = 1;
+  string new_status = 2;
+}
+
+message LoanResponse {
+  Loan loan = 1;
+}
+
+message Loan {
+  int32 id = 1;
+  int32 user_id = 2;
+  float loan_amount = 3;
+  int32 loan_term_months = 4;
+  float interest_rate = 5;
+  string purpose = 6;
+  string status = 7;
+  int32 merchant_id = 8;
+  string created_at = 9;
+  string updated_at = 10;
+}
+
+message PaymentUpdateRequest {
+  int32 loan_id = 1;
+  string payment_status = 2;
+}
+
+message PaymentUpdateResponse {
+  bool success = 1;
+}

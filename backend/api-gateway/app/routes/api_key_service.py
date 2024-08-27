@@ -20,7 +20,7 @@ def generate_api_key():
         api_key_dict = MessageToDict(response.api_key,preserving_proto_field_name=True)
         return jsonify({'message': 'API key generated successfully', 'api_key': api_key_dict}), 201
     except Exception as e:
-        return jsonify({'error': str(e)}), 500
+        return jsonify({'error': str(e.details())}), 500
 
 @api_key_bp.route('/key/validate', methods=['POST'])
 def validate_api_key():

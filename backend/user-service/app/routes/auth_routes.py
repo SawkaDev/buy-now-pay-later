@@ -7,8 +7,8 @@ from sqlalchemy.exc import IntegrityError
 
 auth_bp = Blueprint('auth', __name__)
 
-@auth_bp.route('/auth/register', methods=['POST'])
-def register():
+@auth_bp.route('/v1/auth/register', methods=['POST'])
+def register_v1():
     data = request.json
     email = data.get('email')
     password = data.get('password')
@@ -37,8 +37,8 @@ def register():
         return jsonify({"error": str(e)}), 500
 
 
-@auth_bp.route('/auth/login', methods=['POST'])
-def login():
+@auth_bp.route('/v1/auth/login', methods=['POST'])
+def login_v1():
     data = request.json
     email = data.get('email')
     password = data.get('password')

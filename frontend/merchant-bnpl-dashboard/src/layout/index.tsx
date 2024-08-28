@@ -7,6 +7,8 @@ import LinearProgress, { LinearProgressProps } from '@mui/material/LinearProgres
 import MainLayout from './MainLayout';
 import AuthGuard from 'utils/route-guard/AuthGuard';
 import GuestGuard from 'utils/route-guard/GuestGuard';
+import { Container, Toolbar } from '@mui/material';
+import ComponentLayout from './ComponentLayout';
 
 const Header = lazy(() => import('./Header'));
 const FooterBlock = lazy(() => import('./FooterBlock'));
@@ -36,7 +38,7 @@ const Loader = () => (
 
 interface Props {
   children: ReactElement;
-  variant?: 'main' | 'blank' | 'landing' | 'simple' | 'component' | 'auth';
+  variant?: 'main' | 'blank' | 'landing' | 'simple' | 'component' | 'auth' | 'component';
 }
 
 export default function Layout({ variant = 'main', children }: Props) {
@@ -46,6 +48,21 @@ export default function Layout({ variant = 'main', children }: Props) {
         <Header layout={variant} />
         {children}
         <FooterBlock isFull={variant === 'landing'} />
+      </Suspense>
+    );
+  }
+
+  if (variant === 'component') {
+    return (
+      <Suspense fallback={<Loader />}>
+        <Container maxWidth="lg" sx={{ px: { xs: 0, sm: 2 },py:{sm:5} }}>
+          <Header handleDrawerOpen={() => {}} layout="component" />
+          <Toolbar sx={{ my: 2 }} />
+          <ComponentLayout handleDrawerOpen={() => {}} componentDrawerOpen={false}>
+            {children}
+          </ComponentLayout>
+        </Container>
+        <FooterBlock isFull={false} layout={variant} />
       </Suspense>
     );
   }

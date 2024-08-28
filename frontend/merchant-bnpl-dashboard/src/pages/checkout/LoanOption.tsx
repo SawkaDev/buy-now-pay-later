@@ -1,20 +1,10 @@
-// material-ui
 import { useTheme } from '@mui/material/styles';
 import { Button, Chip, Grid, Stack, Typography } from '@mui/material';
-
-// project imports
 import MainCard from 'components/MainCard';
-
-// types
-import { Address } from 'types/e-commerce';
-
-// assets
 import { EditOutlined } from '@ant-design/icons';
 
-// ==============================|| CHECKOUT - ADDRESS CARD ||============================== //
-
 interface AddressCardProps {
-  address: Address | null;
+  address: any | null;
   change?: boolean;
 }
 

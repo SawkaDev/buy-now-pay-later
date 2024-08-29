@@ -61,5 +61,3 @@ def get_api_keys_for_user(user_id):
         return jsonify({'api_keys': api_keys}), 200
     except Exception as e:
         return jsonify({'error': str(e)}), 500
-
-# ... (keep other existing routes)

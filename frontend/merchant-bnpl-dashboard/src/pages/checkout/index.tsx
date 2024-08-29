@@ -11,6 +11,7 @@ import { StyledTab, TabPanel, tabsOption } from './tabs/tab_helper';
 import { CheckOutlined } from '@ant-design/icons';
 import Avatar from 'components/@extended/Avatar';
 import UserLogin from './tabs/UserLogin';
+import OrderComplete from 'sections/apps/e-commerce/checkout/OrderComplete';
 
 // ==============================|| CART - MAIN ||============================== //
 
@@ -157,7 +158,9 @@ const Cart = () => {
                 </Grid>
               </Grid>
             </TabPanel>
-            <TabPanel value={value} index={2}></TabPanel>
+            <TabPanel value={value} index={2}>
+              <OrderComplete open={true} />
+            </TabPanel>
           </Grid>
         </Grid>
       </Stack>

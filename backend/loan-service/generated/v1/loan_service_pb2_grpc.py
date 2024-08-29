@@ -34,11 +34,6 @@ class LoanServiceStub(object):
         Args:
             channel: A grpc.Channel.
         """
-        self.CreateLoan = channel.unary_unary(
-                '/loan.LoanService/CreateLoan',
-                request_serializer=loan__service__pb2.CreateLoanRequest.SerializeToString,
-                response_deserializer=loan__service__pb2.LoanResponse.FromString,
-                _registered_method=True)
         self.GetLoan = channel.unary_unary(
                 '/loan.LoanService/GetLoan',
                 request_serializer=loan__service__pb2.GetLoanRequest.SerializeToString,
@@ -54,16 +49,15 @@ class LoanServiceStub(object):
                 request_serializer=loan__service__pb2.PaymentUpdateRequest.SerializeToString,
                 response_deserializer=loan__service__pb2.PaymentUpdateResponse.FromString,
                 _registered_method=True)
+        self.GenerateCheckoutSession = channel.unary_unary(
+                '/loan.LoanService/GenerateCheckoutSession',
+                request_serializer=loan__service__pb2.CheckoutSessionRequest.SerializeToString,
+                response_deserializer=loan__service__pb2.CheckoutSessionResponse.FromString,
+                _registered_method=True)
 
 
 class LoanServiceServicer(object):
     """Missing associated documentation comment in .proto file."""
-
-    def CreateLoan(self, request, context):
-        """Missing associated documentation comment in .proto file."""
-        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details('Method not implemented!')
-        raise NotImplementedError('Method not implemented!')
 
     def GetLoan(self, request, context):
         """Missing associated documentation comment in .proto file."""
@@ -83,14 +77,15 @@ class LoanServiceServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def GenerateCheckoutSession(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_LoanServiceServicer_to_server(servicer, server):
     rpc_method_handlers = {
-            'CreateLoan': grpc.unary_unary_rpc_method_handler(
-                    servicer.CreateLoan,
-                    request_deserializer=loan__service__pb2.CreateLoanRequest.FromString,
-                    response_serializer=loan__service__pb2.LoanResponse.SerializeToString,
-            ),
             'GetLoan': grpc.unary_unary_rpc_method_handler(
                     servicer.GetLoan,
                     request_deserializer=loan__service__pb2.GetLoanRequest.FromString,
@@ -106,6 +101,11 @@ def add_LoanServiceServicer_to_server(servicer, server):
                     request_deserializer=loan__service__pb2.PaymentUpdateRequest.FromString,
                     response_serializer=loan__service__pb2.PaymentUpdateResponse.SerializeToString,
             ),
+            'GenerateCheckoutSession': grpc.unary_unary_rpc_method_handler(
+                    servicer.GenerateCheckoutSession,
+                    request_deserializer=loan__service__pb2.CheckoutSessionRequest.FromString,
+                    response_serializer=loan__service__pb2.CheckoutSessionResponse.SerializeToString,
+            ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
             'loan.LoanService', rpc_method_handlers)
@@ -116,33 +116,6 @@ def add_LoanServiceServicer_to_server(servicer, server):
  # This class is part of an EXPERIMENTAL API.
 class LoanService(object):
     """Missing associated documentation comment in .proto file."""
-
-    @staticmethod
-    def CreateLoan(request,
-            target,
-            options=(),
-            channel_credentials=None,
-            call_credentials=None,
-            insecure=False,
-            compression=None,
-            wait_for_ready=None,
-            timeout=None,
-            metadata=None):
-        return grpc.experimental.unary_unary(
-            request,
-            target,
-            '/loan.LoanService/CreateLoan',
-            loan__service__pb2.CreateLoanRequest.SerializeToString,
-            loan__service__pb2.LoanResponse.FromString,
-            options,
-            channel_credentials,
-            insecure,
-            call_credentials,
-            compression,
-            wait_for_ready,
-            timeout,
-            metadata,
-            _registered_method=True)
 
     @staticmethod
     def GetLoan(request,
@@ -215,6 +188,33 @@ class LoanService(object):
             '/loan.LoanService/UpdatePayment',
             loan__service__pb2.PaymentUpdateRequest.SerializeToString,
             loan__service__pb2.PaymentUpdateResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def GenerateCheckoutSession(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/loan.LoanService/GenerateCheckoutSession',
+            loan__service__pb2.CheckoutSessionRequest.SerializeToString,
+            loan__service__pb2.CheckoutSessionResponse.FromString,
             options,
             channel_credentials,
             insecure,

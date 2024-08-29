@@ -3,9 +3,7 @@ import Box from '@mui/material/Box';
 
 import Main from 'layouts/Main';
 import Container from 'components/Container';
-
-import { Headline, Products, SidebarFilters } from './components';
-import Newsletter from 'components/Newsletter';
+import { Headline, Products } from './components';
 
 const Listing = (): JSX.Element => {
   return (
@@ -16,15 +14,8 @@ const Listing = (): JSX.Element => {
         </Container>
       </Box>
       <Container>
-        <SidebarFilters>
-          <Products />
-        </SidebarFilters>
+        <Products />
       </Container>
-      <Box bgcolor={'alternate.main'}>
-        <Container>
-          <Newsletter />
-        </Container>
-      </Box>
     </Main>
   );
 };

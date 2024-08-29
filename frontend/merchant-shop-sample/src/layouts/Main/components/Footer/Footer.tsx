@@ -24,19 +24,22 @@ const Footer = (): JSX.Element => {
             display={'flex'}
             component="a"
             href="/"
-            title="theFront"
-            width={80}
+            title="Merchant Shop"
+            sx={{
+              textDecoration: 'none',
+              color: 'black',
+            }}
           >
-            <Box
-              component={'img'}
-              src={
-                mode === 'light'
-                  ? 'https://assets.maccarianagency.com/the-front/logos/logo.svg'
-                  : 'https://assets.maccarianagency.com/the-front/logos/logo-negative.svg'
-              }
-              height={1}
-              width={1}
-            />
+            <Typography
+              variant="h5"
+              sx={{
+                fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
+                fontWeight: 500,
+                letterSpacing: '0.5px',
+              }}
+            >
+              Merchant Shop
+            </Typography>
           </Box>
           <Box display="flex" flexWrap={'wrap'} alignItems={'center'}>
             <Box marginTop={1} marginRight={2}>
@@ -50,18 +53,8 @@ const Footer = (): JSX.Element => {
                 Home
               </Link>
             </Box>
-            <Box marginTop={1} marginRight={2}>
-              <Link
-                underline="none"
-                component="a"
-                href="/faq"
-                color="text.primary"
-                variant={'subtitle2'}
-              >
-                FAQ
-              </Link>
-            </Box>
-            <Box marginTop={1}>
+
+            {/* <Box marginTop={1}>
               <Button
                 variant="outlined"
                 color="primary"
@@ -71,7 +64,7 @@ const Footer = (): JSX.Element => {
               >
                 Sign In
               </Button>
-            </Box>
+            </Box> */}
           </Box>
         </Box>
       </Grid>
@@ -83,17 +76,6 @@ const Footer = (): JSX.Element => {
           gutterBottom
         >
           &copy; BNPL Merchant. 2024. All rights reserved
-        </Typography>
-        <Typography
-          align={'center'}
-          variant={'caption'}
-          color="text.secondary"
-          component={'p'}
-        >
-          When you visit or interact with our sites, services or tools, we or
-          our authorised service providers may use cookies for storing
-          information to help provide you with a better, faster and safer
-          experience and for marketing purposes.
         </Typography>
       </Grid>
     </Grid>

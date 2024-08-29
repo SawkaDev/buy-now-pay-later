@@ -27,10 +27,12 @@ const UserLogin = ({ onNext }: UserLoginInterface) => {
     setSelectedUser(event.target.value as string);
   };
 
+
+
   const users = [
-    { id: '1', name: 'John Doe', email: 'john@example.com', phone: '123-456-7890' },
-    { id: '2', name: 'Jane Smith', email: 'jane@example.com', phone: '098-765-4321' },
-    { id: '3', name: 'Bob Johnson', email: 'bob@example.com', phone: '111-222-3333' }
+    { id: '1', name: 'John Doe' },
+    { id: '2', name: 'Jane Smith' },
+    { id: '3', name: 'Bob Johnson' }
   ];
 
   const selectedUserData = users.find((user) => user.id === selectedUser);
@@ -64,21 +66,21 @@ const UserLogin = ({ onNext }: UserLoginInterface) => {
                     <TableCell />
                   </TableRow>
                   <TableRow>
+                    <TableCell sx={{ borderBottom: 'none', opacity: 0.5 }}>Merchant</TableCell>
+                    <TableCell align="right" sx={{ borderBottom: 'none' }}>
+                      <Typography variant="subtitle1">Merchant</Typography>
+                    </TableCell>
+                  </TableRow>
+                  <TableRow>
                     <TableCell sx={{ borderBottom: 'none', opacity: 0.5 }}>Name</TableCell>
                     <TableCell align="right" sx={{ borderBottom: 'none' }}>
                       <Typography variant="subtitle1">{selectedUserData?.name || 'N/A'}</Typography>
                     </TableCell>
                   </TableRow>
                   <TableRow>
-                    <TableCell sx={{ borderBottom: 'none', opacity: 0.5 }}>Email</TableCell>
+                    <TableCell sx={{ borderBottom: 'none', opacity: 0.5 }}>Loan Total</TableCell>
                     <TableCell align="right" sx={{ borderBottom: 'none' }}>
-                      <Typography variant="subtitle1">{selectedUserData?.email || 'N/A'}</Typography>
-                    </TableCell>
-                  </TableRow>
-                  <TableRow>
-                    <TableCell sx={{ borderBottom: 'none', opacity: 0.5 }}>Phone</TableCell>
-                    <TableCell align="right" sx={{ borderBottom: 'none' }}>
-                      <Typography variant="subtitle1">{selectedUserData?.phone || 'N/A'}</Typography>
+                      <Typography variant="subtitle1">Loan Total</Typography>
                     </TableCell>
                   </TableRow>
                 </TableBody>

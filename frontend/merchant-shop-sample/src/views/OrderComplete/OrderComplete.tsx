@@ -7,8 +7,6 @@ import Link from '@mui/material/Link';
 import Main from 'layouts/Main';
 import Container from 'components/Container';
 
-import Newsletter from 'components/Newsletter';
-
 const OrderComplete = (): JSX.Element => {
   return (
     <Main>
@@ -68,11 +66,6 @@ const OrderComplete = (): JSX.Element => {
           </Button>
         </Box>
       </Container>
-      <Box bgcolor={'alternate.main'}>
-        <Container>
-          <Newsletter />
-        </Container>
-      </Box>
     </Main>
   );
 };

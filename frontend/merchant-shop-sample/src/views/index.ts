@@ -1,15 +1,5 @@
-export { default as Faq } from './Faq';
-export { default as PasswordResetCover } from './PasswordResetCover';
-export { default as PasswordResetSimple } from './PasswordResetSimple';
-export { default as SigninSimple } from './SignIn';
-export { default as SignupSimple } from './SignUp';
-export { default as AccountBilling } from './Account/Billing';
-export { default as AccountGeneral } from './Account/General';
-export { default as AccountNotifications } from './Account/Notifications';
-export { default as AccountSecurity } from './Account/Security';
 export { default as NotFound } from './NotFound';
 export { default as Cart } from './Cart';
-export { default as Checkout } from './Checkout';
 export { default as EmptyCart } from './EmptyCart';
 export { default as IndexView } from './IndexView';
 export { default as Listing } from './Listing';

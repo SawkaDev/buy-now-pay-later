@@ -7,7 +7,6 @@ import { Headline, Image, Details } from './components';
 
 import Main from 'layouts/Main';
 import Container from 'components/Container';
-import Newsletter from 'components/Newsletter';
 import NotFoundPage from 'app/not-found';
 import { getProduct } from 'app/lib/ProductWrapper';
 import { useQuery } from '@tanstack/react-query';
@@ -60,11 +59,6 @@ const ProductOverview = ({ slug }: ProductOverviewProps) => {
       <Container>
         <TrendingItems />
       </Container>
-      <Box bgcolor={'alternate.main'}>
-        <Container>
-          <Newsletter />
-        </Container>
-      </Box>
     </Main>
   );
 };

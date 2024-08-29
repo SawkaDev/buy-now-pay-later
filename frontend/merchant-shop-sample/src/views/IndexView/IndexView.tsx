@@ -5,7 +5,6 @@ import Main from 'layouts/Main';
 import Container from 'components/Container';
 
 import { PromoGrid, Features } from './components';
-import Newsletter from 'components/Newsletter';
 import TrendingItems from 'components/TrendingItems';
 
 const IndexView = (): JSX.Element => {
@@ -22,11 +21,6 @@ const IndexView = (): JSX.Element => {
       <Box bgcolor={'alternate.main'}>
         <Container>
           <TrendingItems />
-        </Container>
-      </Box>
-      <Box>
-        <Container>
-          <Newsletter />
         </Container>
       </Box>
     </Main>

@@ -6,6 +6,7 @@ import { alpha, useTheme } from '@mui/material/styles';
 import MenuIcon from '@mui/icons-material/Menu';
 
 import { NavItem } from './components';
+import { Typography } from '@mui/material';
 
 interface NavItemProps {
   title: string;
@@ -39,19 +40,22 @@ const Topbar = ({ handleMobileMenuClick, pages = [] }: Props): JSX.Element => {
         display={'flex'}
         component="a"
         href="/"
-        title="theFront"
-        width={{ xs: 100, md: 120 }}
+        title="Merchant Shop"
+        sx={{
+          textDecoration: 'none',
+          color: 'black',
+        }}
       >
-        <Box
-          component={'img'}
-          src={
-            mode === 'light'
-              ? 'https://assets.maccarianagency.com/the-front/logos/logo.svg'
-              : 'https://assets.maccarianagency.com/the-front/logos/logo-negative.svg'
-          }
-          height={1}
-          width={1}
-        />
+        <Typography
+          variant="h5"
+          sx={{
+            fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
+            fontWeight: 500,
+            letterSpacing: '0.5px',
+          }}
+        >
+          Merchant Shop
+        </Typography>
       </Box>
       <Box sx={{ display: { xs: 'none', md: 'flex' } }} alignItems={'center'}>
         {pages.map((p, i) => (
@@ -74,8 +78,8 @@ const Topbar = ({ handleMobileMenuClick, pages = [] }: Props): JSX.Element => {
             )}
           </Box>
         ))}
-        <Box marginLeft={3}>
-          <Button
+        <Box marginLeft={3} p={3}>
+          {/* <Button
             variant="contained"
             color="primary"
             component="a"
@@ -83,7 +87,7 @@ const Topbar = ({ handleMobileMenuClick, pages = [] }: Props): JSX.Element => {
             size="large"
           >
             Sign In
-          </Button>
+          </Button> */}
         </Box>
       </Box>
       <Box sx={{ display: { xs: 'block', md: 'none' } }} alignItems={'center'}>

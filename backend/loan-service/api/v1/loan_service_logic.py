@@ -67,7 +67,7 @@ class LoanService:
             self.db.flush()  # This assigns an id to the checkout session
 
             # Generate the checkout URL
-            base_url = "https://test-service.com/checkout/"
+            base_url = "http://localhost:8081/checkout/"
             checkout_url = f"{base_url}{checkout_session.id}"
             checkout_session.checkout_url = checkout_url
 

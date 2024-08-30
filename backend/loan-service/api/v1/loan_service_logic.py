@@ -3,13 +3,15 @@
 from datetime import datetime, timedelta
 from sqlalchemy.exc import SQLAlchemyError
 from models.loan import Loan, LoanStatus, CheckoutSession
+from sqlalchemy.orm import joinedload
+import random
 
 class LoanService:
     def __init__(self, db_session):
         self.db = db_session
 
     def get_loan(self, loan_id: int) -> Loan:
-        loan = self.db.query(Loan).get(loan_id)
+        loan = self.db.query(Loan).options(joinedload(Loan.checkout_session)).filter(Loan.id == loan_id).first()
         if not loan:
             raise LookupError(f"Loan with id {loan_id} not found")
         return loan
@@ -39,13 +41,12 @@ class LoanService:
         self.db.commit()
         return True
 
-    def generate_checkout_session(self, user_id: int, loan_amount_cents: int, 
+    def generate_checkout_session(self,loan_amount_cents: int, 
                                   merchant_id: int, order_id: str, 
                                   success_redirect_url: str, cancel_redirect_url: str) -> str:
         try:
             # Create a new loan
             new_loan = Loan(
-                user_id=user_id,
                 loan_amount_cents=loan_amount_cents,
                 merchant_id=merchant_id,
                 status=LoanStatus.PENDING
@@ -77,3 +78,19 @@ class LoanService:
         except SQLAlchemyError as e:
             self.db.rollback()
             raise RuntimeError(f"Database error occurred: {str(e)}")
+
+    def get_loan_options(self, user_id: int, session_id: str) -> list:
+        # Mock loan options
+        loan_options = []
+        for i in range(4):  # Generate 3 mock loan options
+            loan_option = {
+                "id": f"loan-option-{i+1}",
+                "loan_amount_cents": random.randint(50000, 500000),  # 500 to 5000 dollars
+                "loan_term_months": random.choice([6, 12, 24]),
+                "interest_rate": round(random.uniform(5, 20), 2),
+                "monthly_payment": round(random.uniform(50, 500), 2),
+                "total_payment_amount": round(random.uniform(600, 6000), 2)
+            }
+            loan_options.append(loan_option)
+        
+        return loan_options

@@ -13,16 +13,19 @@ loan_client = LoanClientV1(host='loan-service', port=50052)
 def get_loan(loan_id):
     try:
         response = loan_client.get_loan(loan_id)
-        loan_dict = MessageToDict(response.loan, preserving_proto_field_name=True)
-        return jsonify(loan_dict), 200
+        
+        result = {
+            **MessageToDict(response, preserving_proto_field_name=True)
+        }
+    
+        return jsonify(result), 200
     except grpc.RpcError as e:
-        status_code = e.code()
-        if status_code == StatusCode.NOT_FOUND:
-            return jsonify({'error': 'Loan not found'}), 404
-        elif status_code == StatusCode.INTERNAL:
-            return jsonify({'error': 'Internal server error'}), 500
-        else:
-            return jsonify({'error': str(e.details())}), 500
+        error_messages = {
+            grpc.StatusCode.NOT_FOUND: ('Loan not found', 404),
+            grpc.StatusCode.INTERNAL: ('Internal server error', 500)
+        }
+        message, status_code = error_messages.get(e.code(), (str(e.details()), 500))
+        return jsonify({'error': message}), status_code
 
 @loan_bp.route('/api/loan-service/loan/status/update', methods=['POST'])
 def update_loan_status():
@@ -77,19 +80,18 @@ def update_payment():
 @loan_bp.route('/api/loan-service/checkout/generate', methods=['POST'])
 def generate_checkout_session():
     data = request.get_json()
-    user_id = data.get('user_id')
     loan_amount_cents = data.get('loan_amount_cents')
     merchant_id = data.get('merchant_id')
     order_id = data.get('order_id')
     success_redirect_url = data.get('success_redirect_url')
     cancel_redirect_url = data.get('cancel_redirect_url')
 
-    if not all([user_id, loan_amount_cents, merchant_id, order_id, success_redirect_url, cancel_redirect_url]):
+    if not all([loan_amount_cents, merchant_id, order_id, success_redirect_url, cancel_redirect_url]):
         return jsonify({'error': 'Missing required fields'}), 400
 
     try:
         response = loan_client.generate_checkout_session(
-            user_id, loan_amount_cents, 
+            loan_amount_cents, 
             merchant_id, order_id, success_redirect_url, cancel_redirect_url
         )
         return jsonify({'checkout_url': response.checkout_url}), 200
@@ -99,6 +101,30 @@ def generate_checkout_session():
             return jsonify({'error': 'Invalid arguments'}), 400
         elif status_code == StatusCode.PERMISSION_DENIED:
             return jsonify({'error': 'Permission denied'}), 403
+        elif status_code == StatusCode.INTERNAL:
+            return jsonify({'error': 'Internal server error'}), 500
+        else:
+            return jsonify({'error': str(e.details())}), 500
+
+@loan_bp.route('/api/loan-service/loan-options', methods=['POST'])
+def get_loan_options():
+    data = request.get_json()
+    user_id = data.get('user_id')
+    session_id = data.get('session_id')
+
+    if not user_id or not session_id:
+        return jsonify({'error': 'User ID and session ID are required'}), 400
+
+    try:
+        response = loan_client.get_loan_options(user_id, session_id)
+        loan_options = MessageToDict(response, preserving_proto_field_name=True)
+        return jsonify(loan_options), 200
+    except grpc.RpcError as e:
+        status_code = e.code()
+        if status_code == StatusCode.NOT_FOUND:
+            return jsonify({'error': 'Loan options not found'}), 404
+        elif status_code == StatusCode.INVALID_ARGUMENT:
+            return jsonify({'error': 'Invalid arguments'}), 400
         elif status_code == StatusCode.INTERNAL:
             return jsonify({'error': 'Internal server error'}), 500
         else:

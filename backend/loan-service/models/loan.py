@@ -27,7 +27,7 @@ class Loan(Base):
     __tablename__ = 'loans'
 
     id = Column(Integer, primary_key=True)
-    user_id = Column(Integer, nullable=False, index=True)
+    user_id = Column(Integer, nullable=True, index=True)
     merchant_id = Column(Integer, nullable=False)
     loan_amount_cents = Column(BigInteger, nullable=False)
     loan_term_months = Column(Integer, nullable=True)

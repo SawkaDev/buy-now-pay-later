@@ -1,11 +1,6 @@
 import * as React from 'react';
 import { useState } from 'react';
-
-// next
 import NextLink from 'next/link';
-import { useSession } from 'next-auth/react';
-
-// material-ui
 import AppBar from '@mui/material/AppBar';
 import { useTheme } from '@mui/material/styles';
 import {
@@ -25,21 +20,11 @@ import {
   Typography,
   useScrollTrigger
 } from '@mui/material';
-
-// project import
 import { APP_DEFAULT_PATH } from 'config';
 import IconButton from 'components/@extended/IconButton';
-
-import AnimateButton from 'components/@extended/AnimateButton';
 import Logo from 'components/logo';
-
-// types
 import { ThemeMode } from 'types/config';
-
-// assets
 import { MenuOutlined, LineOutlined } from '@ant-design/icons';
-
-// ==============================|| COMPONENTS - APP BAR ||============================== //
 
 // elevation scroll
 function ElevationScroll({ layout, children, window }: any) {
@@ -68,7 +53,6 @@ interface Props {
 
 const Header = ({ handleDrawerOpen, layout, ...others }: Props) => {
   const theme = useTheme();
-  const { data: session } = useSession();
 
   const matchDownMd = useMediaQuery(theme.breakpoints.down('md'));
   const [drawerToggle, setDrawerToggle] = useState<boolean>(false);
@@ -87,8 +71,8 @@ const Header = ({ handleDrawerOpen, layout, ...others }: Props) => {
         <Container disableGutters={matchDownMd}>
           <Toolbar sx={{ px: { xs: 1.5, md: 0, lg: 0 }, py: 2 }}>
             <Stack direction="row" sx={{ flexGrow: 1, display: { xs: 'none', md: 'block' } }} alignItems="center">
-              <Typography component="div" sx={{ textAlign: 'left', display: 'inline-block' }}>
-                <Logo reverse to="/" />
+              <Typography variant="h3" component="div" sx={{ textAlign: 'left', display: 'inline-block', color: 'white' }}>
+                BNPL Service
               </Typography>
             </Stack>
             <Stack
@@ -99,7 +83,7 @@ const Header = ({ handleDrawerOpen, layout, ...others }: Props) => {
               }}
               spacing={2}
             >
-              {session ? (
+              {/* {session ? (
                 <NextLink href={APP_DEFAULT_PATH} passHref legacyBehavior>
                   <Link className="header-link" color="white" target="_blank" underline="none">
                     Dashboard
@@ -111,17 +95,17 @@ const Header = ({ handleDrawerOpen, layout, ...others }: Props) => {
                     Login
                   </Link>
                 </NextLink>
-              )}
-              <Link className="header-link" color="white" href="" target="_blank" underline="none">
-                Documentation
+              )} */}
+              <Link className="header-link" color="white" href="#" underline="none">
+                Contact Support
               </Link>
-              <Box sx={{ display: 'inline-block' }}>
+              {/* <Box sx={{ display: 'inline-block' }}>
                 <AnimateButton>
                   <Button component={Link} href="" disableElevation color="primary" variant="contained">
                     Purchase Now
                   </Button>
                 </AnimateButton>
-              </Box>
+              </Box> */}
             </Stack>
             <Box
               sx={{

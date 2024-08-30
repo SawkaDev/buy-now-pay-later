@@ -18,10 +18,9 @@ class LoanClientV1:
         request = loan_service_pb2.PaymentUpdateRequest(loan_id=loan_id, payment_status=payment_status)
         return self.stub.UpdatePayment(request)
 
-    def generate_checkout_session(self, user_id, loan_amount_cents, merchant_id, order_id, 
+    def generate_checkout_session(self, loan_amount_cents, merchant_id, order_id, 
                                   success_redirect_url, cancel_redirect_url):
         request = loan_service_pb2.CheckoutSessionRequest(
-            user_id=user_id,
             loan_amount_cents=loan_amount_cents,
             merchant_id=merchant_id,
             order_id=order_id,
@@ -29,3 +28,7 @@ class LoanClientV1:
             cancel_redirect_url=cancel_redirect_url
         )
         return self.stub.GenerateCheckoutSession(request)
+
+    def get_loan_options(self, user_id, session_id):
+        request = loan_service_pb2.GetLoanOptionsRequest(user_id=user_id, session_id=session_id)
+        return self.stub.GetLoanOptions(request)

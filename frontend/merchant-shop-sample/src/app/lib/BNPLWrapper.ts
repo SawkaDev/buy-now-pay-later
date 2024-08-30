@@ -1,5 +1,4 @@
 export async function createCheckoutSession(params: {
-  user_id: string;
   loan_amount_cents: number;
   merchant_id: string;
   order_id: string;

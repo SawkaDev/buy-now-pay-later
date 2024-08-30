@@ -38,10 +38,9 @@ const SummaryBox = ({ subTotal }: SummaryBoxProps): JSX.Element => {
 
   const handleCreateCheckout = () => {
     createCheckoutSessionMutation({
-      user_id: 999,
       loan_amount_cents: Math.round(total * 100), // Convert to cents
       merchant_id: 12,
-      order_id: 'order_999_1',
+      order_id: 'order_9f99_1',
       success_redirect_url: 'http://localhost:3010/success',
       cancel_redirect_url: 'http://localhost:3010/cart',
     });

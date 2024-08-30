@@ -1,64 +1,29 @@
 import { ReactElement, useState } from 'react';
-import { Button, Divider, Grid, Stack, Tabs, Typography } from '@mui/material';
+import { Alert, AlertTitle, Button, Divider, Grid, Stack, Tabs, Typography } from '@mui/material';
 import MainCard from 'components/MainCard';
-import LoanOption from './LoanOption';
 import Layout from 'layout';
 import { useTheme } from '@mui/material/styles';
 import Page from 'components/Page';
 import { LoanApplicationInterface } from 'types/LoanApplication';
 import LoanSummary from 'sections/apps/e-commerce/checkout/LoanSummary';
 import { StyledTab, TabPanel, tabsOption } from './tabs/tab_helper';
-import { CheckOutlined } from '@ant-design/icons';
+import { CheckOutlined, InfoCircleFilled } from '@ant-design/icons';
 import Avatar from 'components/@extended/Avatar';
 import UserLogin from './tabs/UserLogin';
 import OrderComplete from 'sections/apps/e-commerce/checkout/OrderComplete';
-
-// ==============================|| CART - MAIN ||============================== //
+import LoanSelections from './tabs/LogSelection';
+import { useRouter } from 'next/router';
 
 const Cart = () => {
   const [value, setValue] = useState(0);
   const theme = useTheme();
+  const router = useRouter();
+
+  const { session } = router.query;
 
   const onNext = () => {
     setValue((index) => index + 1);
   };
-
-  const loanOptions = [
-    <Grid item xs={12} lg={12} pt={2}>
-      <LoanOption
-        address={{
-          building: 'asasdf',
-          city: 'asdf',
-          country: 'usa',
-          destination: 'asdf',
-          isDefault: true,
-          name: 'mat',
-          phone: '10',
-          post: '4242',
-          state: 'asdf',
-          street: 'asdfsd'
-        }}
-        change={true}
-      />
-    </Grid>,
-    <Grid item xs={12} lg={12} pt={2}>
-      <LoanOption
-        address={{
-          building: 'asasdf',
-          city: 'asdf',
-          country: 'usa',
-          destination: 'asdf',
-          isDefault: true,
-          name: 'mat',
-          phone: '10',
-          post: '4242',
-          state: 'asdf',
-          street: 'asdfsd'
-        }}
-        change={true}
-      />
-    </Grid>
-  ];
 
   const selectedLoan: LoanApplicationInterface = {
     interest: 10,
@@ -67,9 +32,22 @@ const Cart = () => {
     merchant: 'Sample Merchant'
   };
 
+  const [user, setUser] = useState();
+
   return (
     <Page title="Checkout">
       <Stack spacing={2}>
+        {value == 0 && (
+          <Alert color={'info'} variant="border" icon={<InfoCircleFilled />} style={{ marginBottom: 0 }}>
+            <AlertTitle>
+              <b>
+                After being redirected from the merchant to this checkout session page, users would normally log in to the Buy Now Pay Later
+                service. For easier testing, we simulate the login by allowing you to select a user from a list to "log in" as and click
+                "Next." This user will be used for credit decisioning, fraud detection, etc.
+              </b>
+            </AlertTitle>
+          </Alert>
+        )}
         <MainCard content={false}>
           <Grid container spacing={3}>
             <Grid item xs={12}>
@@ -125,7 +103,7 @@ const Cart = () => {
         <Grid container>
           <Grid item xs={12}>
             <TabPanel value={value} index={0}>
-              <UserLogin onNext={onNext} />
+              <UserLogin onNext={onNext} setUser={setUser} />
             </TabPanel>
             <TabPanel value={value} index={1}>
               <Grid container spacing={3}>
@@ -142,7 +120,7 @@ const Cart = () => {
                           <Divider />
                         </Grid>
                         <Grid item xs={12} sx={{ p: 2.5 }}>
-                          {loanOptions}
+                          {user && session && <LoanSelections user={user} sessionId={session as string} />}
                         </Grid>
                       </Grid>
                     </MainCard>

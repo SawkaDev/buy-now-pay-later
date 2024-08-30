@@ -14,28 +14,32 @@ import {
   TableContainer
 } from '@mui/material';
 import MainCard from 'components/MainCard';
-import { useState } from 'react';
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import { User } from 'types/common';
 
 interface UserLoginInterface {
   onNext: () => void;
+  setUser: Dispatch<SetStateAction<any>>;
 }
 
-const UserLogin = ({ onNext }: UserLoginInterface) => {
-  const [selectedUser, setSelectedUser] = useState('');
+const UserLogin = ({ onNext, setUser }: UserLoginInterface) => {
+  const [selectedUser, setSelectedUser] = useState();
 
   const handleUserChange = (event: any) => {
-    setSelectedUser(event.target.value as string);
+    setSelectedUser(event.target.value);
   };
 
-
-
-  const users = [
-    { id: '1', name: 'John Doe' },
-    { id: '2', name: 'Jane Smith' },
-    { id: '3', name: 'Bob Johnson' }
+  const users: Array<User> = [
+    { id: 1, name: 'John Doe' },
+    { id: 2, name: 'Jane Smith' },
+    { id: 3, name: 'Bob Johnson' }
   ];
 
   const selectedUserData = users.find((user) => user.id === selectedUser);
+
+  useEffect(() => {
+    setUser(selectedUserData);
+  }, [selectedUserData]);
 
   return (
     <Grid container spacing={3}>
@@ -61,15 +65,9 @@ const UserLogin = ({ onNext }: UserLoginInterface) => {
                 <TableBody>
                   <TableRow>
                     <TableCell>
-                      <Typography variant="subtitle1">User Summary</Typography>
+                      <Typography variant="subtitle1">User Login Summary</Typography>
                     </TableCell>
                     <TableCell />
-                  </TableRow>
-                  <TableRow>
-                    <TableCell sx={{ borderBottom: 'none', opacity: 0.5 }}>Merchant</TableCell>
-                    <TableCell align="right" sx={{ borderBottom: 'none' }}>
-                      <Typography variant="subtitle1">Merchant</Typography>
-                    </TableCell>
                   </TableRow>
                   <TableRow>
                     <TableCell sx={{ borderBottom: 'none', opacity: 0.5 }}>Name</TableCell>
@@ -78,9 +76,9 @@ const UserLogin = ({ onNext }: UserLoginInterface) => {
                     </TableCell>
                   </TableRow>
                   <TableRow>
-                    <TableCell sx={{ borderBottom: 'none', opacity: 0.5 }}>Loan Total</TableCell>
+                    <TableCell sx={{ borderBottom: 'none', opacity: 0.5 }}>User ID</TableCell>
                     <TableCell align="right" sx={{ borderBottom: 'none' }}>
-                      <Typography variant="subtitle1">Loan Total</Typography>
+                      <Typography variant="subtitle1">{selectedUserData?.id || 'N/A'}</Typography>
                     </TableCell>
                   </TableRow>
                 </TableBody>

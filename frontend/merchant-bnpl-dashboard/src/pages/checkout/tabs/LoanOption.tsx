@@ -17,6 +17,7 @@ const LoanOption = ({ address, change }: AddressCardProps) => {
         '&:hover': {
           boxShadow: theme.customShadows.primary
         },
+        mt: 2,
         cursor: 'pointer'
       }}
       onClick={() => {

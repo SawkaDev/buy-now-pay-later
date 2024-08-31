@@ -1,4 +1,5 @@
 import grpc
+from google.protobuf import empty_pb2
 from generated.v1 import credit_service_pb2, credit_service_pb2_grpc
 
 class CreditClientV1:
@@ -20,3 +21,7 @@ class CreditClientV1:
             judgments=judgments
         )
         return self.stub.CreateCreditProfile(request)
+
+    def get_all_credit_profiles(self):
+        request = empty_pb2.Empty()
+        return self.stub.GetAllCreditProfiles(request)

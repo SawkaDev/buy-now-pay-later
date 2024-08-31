@@ -2,8 +2,11 @@ syntax = "proto3";
 
 package credit;
 
+import "google/protobuf/empty.proto";
+
 service CreditService {
   rpc CreateCreditProfile (CreateCreditProfileRequest) returns (CreditProfileResponse) {}
+  rpc GetAllCreditProfiles (google.protobuf.Empty) returns (GetAllCreditProfilesResponse) {}
 }
 
 message CreateCreditProfileRequest {
@@ -30,4 +33,8 @@ message CreditProfileResponse {
   int32 judgments = 10;
   string created_at = 11;
   string updated_at = 12;
+}
+
+message GetAllCreditProfilesResponse {
+  repeated CreditProfileResponse profiles = 1;
 }

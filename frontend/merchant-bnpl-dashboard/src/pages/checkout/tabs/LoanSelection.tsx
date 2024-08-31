@@ -20,8 +20,9 @@ const LoanSelections = ({ sessionId, user, onNext }: LoanSelections) => {
     isLoading,
     error
   } = useQuery<UseQueryResult<LoanOptionInterface[], Error>>({
-    queryKey: ['loanOptions', user?.id, sessionId],
-    queryFn: () => LoanService.getLoanOptions(user?.id, sessionId)
+    queryKey: ['loanOptions', user?.user_id, sessionId],
+    queryFn: () => LoanService.getLoanOptions(user?.user_id, sessionId),
+    refetchOnWindowFocus: false
   });
 
   const [selectedLoan, setSelectedLoan] = useState<LoanOptionInterface>();

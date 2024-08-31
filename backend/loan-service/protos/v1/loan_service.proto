@@ -71,7 +71,7 @@ message CheckoutSessionResponse {
 }
 
 message GetLoanOptionsRequest {
-  int32 user_id = 1;
+  string user_id = 1;
   string session_id = 2;
 }
 

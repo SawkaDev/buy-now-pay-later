@@ -4,6 +4,7 @@ import grpc
 import warnings
 
 from . import credit_service_pb2 as credit__service__pb2
+from google.protobuf import empty_pb2 as google_dot_protobuf_dot_empty__pb2
 
 GRPC_GENERATED_VERSION = '1.66.0'
 GRPC_VERSION = grpc.__version__
@@ -39,12 +40,23 @@ class CreditServiceStub(object):
                 request_serializer=credit__service__pb2.CreateCreditProfileRequest.SerializeToString,
                 response_deserializer=credit__service__pb2.CreditProfileResponse.FromString,
                 _registered_method=True)
+        self.GetAllCreditProfiles = channel.unary_unary(
+                '/credit.CreditService/GetAllCreditProfiles',
+                request_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+                response_deserializer=credit__service__pb2.GetAllCreditProfilesResponse.FromString,
+                _registered_method=True)
 
 
 class CreditServiceServicer(object):
     """Missing associated documentation comment in .proto file."""
 
     def CreateCreditProfile(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def GetAllCreditProfiles(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -57,6 +69,11 @@ def add_CreditServiceServicer_to_server(servicer, server):
                     servicer.CreateCreditProfile,
                     request_deserializer=credit__service__pb2.CreateCreditProfileRequest.FromString,
                     response_serializer=credit__service__pb2.CreditProfileResponse.SerializeToString,
+            ),
+            'GetAllCreditProfiles': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetAllCreditProfiles,
+                    request_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+                    response_serializer=credit__service__pb2.GetAllCreditProfilesResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -86,6 +103,33 @@ class CreditService(object):
             '/credit.CreditService/CreateCreditProfile',
             credit__service__pb2.CreateCreditProfileRequest.SerializeToString,
             credit__service__pb2.CreditProfileResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def GetAllCreditProfiles(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/credit.CreditService/GetAllCreditProfiles',
+            google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+            credit__service__pb2.GetAllCreditProfilesResponse.FromString,
             options,
             channel_credentials,
             insecure,

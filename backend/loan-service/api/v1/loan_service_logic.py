@@ -79,7 +79,7 @@ class LoanService:
             self.db.rollback()
             raise RuntimeError(f"Database error occurred: {str(e)}")
 
-    def get_loan_options(self, user_id: int, session_id: str) -> list:
+    def get_loan_options(self, user_id: str, session_id: str) -> list:
         loan_options = []
         
         loan_amount = random.randint(2, 20) * 5000

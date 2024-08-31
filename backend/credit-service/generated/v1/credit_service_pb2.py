@@ -22,19 +22,22 @@ _runtime_version.ValidateProtobufRuntimeVersion(
 _sym_db = _symbol_database.Default()
 
 
+from google.protobuf import empty_pb2 as google_dot_protobuf_dot_empty__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x14\x63redit_service.proto\x12\x06\x63redit\"\xd9\x01\n\x1a\x43reateCreditProfileRequest\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x14\n\x0c\x63redit_score\x18\x02 \x01(\x05\x12\x1a\n\x12number_of_accounts\x18\x03 \x01(\x05\x12 \n\x18\x63redit_utilization_ratio\x18\x04 \x01(\x02\x12\x1d\n\x15recent_soft_inquiries\x18\x05 \x01(\x05\x12\x14\n\x0c\x62\x61nkruptcies\x18\x06 \x01(\x05\x12\x11\n\ttax_liens\x18\x07 \x01(\x05\x12\x11\n\tjudgments\x18\x08 \x01(\x05\"\x99\x02\n\x15\x43reditProfileResponse\x12\n\n\x02id\x18\x01 \x01(\t\x12\x0f\n\x07user_id\x18\x02 \x01(\t\x12\x0c\n\x04name\x18\x03 \x01(\t\x12\x14\n\x0c\x63redit_score\x18\x04 \x01(\x05\x12\x1a\n\x12number_of_accounts\x18\x05 \x01(\x05\x12 \n\x18\x63redit_utilization_ratio\x18\x06 \x01(\x02\x12\x1d\n\x15recent_soft_inquiries\x18\x07 \x01(\x05\x12\x14\n\x0c\x62\x61nkruptcies\x18\x08 \x01(\x05\x12\x11\n\ttax_liens\x18\t \x01(\x05\x12\x11\n\tjudgments\x18\n \x01(\x05\x12\x12\n\ncreated_at\x18\x0b \x01(\t\x12\x12\n\nupdated_at\x18\x0c \x01(\t2k\n\rCreditService\x12Z\n\x13\x43reateCreditProfile\x12\".credit.CreateCreditProfileRequest\x1a\x1d.credit.CreditProfileResponse\"\x00\x62\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x14\x63redit_service.proto\x12\x06\x63redit\x1a\x1bgoogle/protobuf/empty.proto\"\xd9\x01\n\x1a\x43reateCreditProfileRequest\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x14\n\x0c\x63redit_score\x18\x02 \x01(\x05\x12\x1a\n\x12number_of_accounts\x18\x03 \x01(\x05\x12 \n\x18\x63redit_utilization_ratio\x18\x04 \x01(\x02\x12\x1d\n\x15recent_soft_inquiries\x18\x05 \x01(\x05\x12\x14\n\x0c\x62\x61nkruptcies\x18\x06 \x01(\x05\x12\x11\n\ttax_liens\x18\x07 \x01(\x05\x12\x11\n\tjudgments\x18\x08 \x01(\x05\"\x99\x02\n\x15\x43reditProfileResponse\x12\n\n\x02id\x18\x01 \x01(\t\x12\x0f\n\x07user_id\x18\x02 \x01(\t\x12\x0c\n\x04name\x18\x03 \x01(\t\x12\x14\n\x0c\x63redit_score\x18\x04 \x01(\x05\x12\x1a\n\x12number_of_accounts\x18\x05 \x01(\x05\x12 \n\x18\x63redit_utilization_ratio\x18\x06 \x01(\x02\x12\x1d\n\x15recent_soft_inquiries\x18\x07 \x01(\x05\x12\x14\n\x0c\x62\x61nkruptcies\x18\x08 \x01(\x05\x12\x11\n\ttax_liens\x18\t \x01(\x05\x12\x11\n\tjudgments\x18\n \x01(\x05\x12\x12\n\ncreated_at\x18\x0b \x01(\t\x12\x12\n\nupdated_at\x18\x0c \x01(\t\"O\n\x1cGetAllCreditProfilesResponse\x12/\n\x08profiles\x18\x01 \x03(\x0b\x32\x1d.credit.CreditProfileResponse2\xc3\x01\n\rCreditService\x12Z\n\x13\x43reateCreditProfile\x12\".credit.CreateCreditProfileRequest\x1a\x1d.credit.CreditProfileResponse\"\x00\x12V\n\x14GetAllCreditProfiles\x12\x16.google.protobuf.Empty\x1a$.credit.GetAllCreditProfilesResponse\"\x00\x62\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'credit_service_pb2', _globals)
 if not _descriptor._USE_C_DESCRIPTORS:
   DESCRIPTOR._loaded_options = None
-  _globals['_CREATECREDITPROFILEREQUEST']._serialized_start=33
-  _globals['_CREATECREDITPROFILEREQUEST']._serialized_end=250
-  _globals['_CREDITPROFILERESPONSE']._serialized_start=253
-  _globals['_CREDITPROFILERESPONSE']._serialized_end=534
-  _globals['_CREDITSERVICE']._serialized_start=536
-  _globals['_CREDITSERVICE']._serialized_end=643
+  _globals['_CREATECREDITPROFILEREQUEST']._serialized_start=62
+  _globals['_CREATECREDITPROFILEREQUEST']._serialized_end=279
+  _globals['_CREDITPROFILERESPONSE']._serialized_start=282
+  _globals['_CREDITPROFILERESPONSE']._serialized_end=563
+  _globals['_GETALLCREDITPROFILESRESPONSE']._serialized_start=565
+  _globals['_GETALLCREDITPROFILESRESPONSE']._serialized_end=644
+  _globals['_CREDITSERVICE']._serialized_start=647
+  _globals['_CREDITSERVICE']._serialized_end=842
 # @@protoc_insertion_point(module_scope)

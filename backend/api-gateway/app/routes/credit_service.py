@@ -30,59 +30,14 @@ def create_credit_profile():
         message, status_code = error_messages.get(e.code(), (str(e.details()), 500))
         return jsonify({'error': message}), status_code
 
-@credit_bp.route('/api/credit-service/profile/<string:user_id>', methods=['GET'])
-def get_credit_profile(user_id):
+@credit_bp.route('/api/credit-service/profiles', methods=['GET'])
+def get_all_credit_profiles():
     try:
-        response = credit_client.get_credit_profile(user_id)
+        response = credit_client.get_all_credit_profiles()
         result = MessageToDict(response, preserving_proto_field_name=True)
         return jsonify(result), 200
     except grpc.RpcError as e:
         error_messages = {
-            grpc.StatusCode.NOT_FOUND: ('Credit profile not found', 404),
-            grpc.StatusCode.INTERNAL: ('Internal server error', 500)
-        }
-        message, status_code = error_messages.get(e.code(), (str(e.details()), 500))
-        return jsonify({'error': message}), status_code
-
-@credit_bp.route('/api/credit-service/profile/<string:user_id>', methods=['PUT'])
-def update_credit_profile(user_id):
-    data = request.get_json()
-    data['user_id'] = user_id
-    
-    try:
-        response = credit_client.update_credit_profile(**data)
-        result = MessageToDict(response, preserving_proto_field_name=True)
-        return jsonify(result), 200
-    except grpc.RpcError as e:
-        error_messages = {
-            grpc.StatusCode.NOT_FOUND: ('Credit profile not found', 404),
-            grpc.StatusCode.INVALID_ARGUMENT: ('Invalid input', 400),
-            grpc.StatusCode.INTERNAL: ('Internal server error', 500)
-        }
-        message, status_code = error_messages.get(e.code(), (str(e.details()), 500))
-        return jsonify({'error': message}), status_code
-
-@credit_bp.route('/api/credit-service/profile/<string:user_id>/score', methods=['GET'])
-def get_credit_score(user_id):
-    try:
-        response = credit_client.get_credit_profile(user_id)
-        return jsonify({'credit_score': response.credit_score}), 200
-    except grpc.RpcError as e:
-        error_messages = {
-            grpc.StatusCode.NOT_FOUND: ('Credit profile not found', 404),
-            grpc.StatusCode.INTERNAL: ('Internal server error', 500)
-        }
-        message, status_code = error_messages.get(e.code(), (str(e.details()), 500))
-        return jsonify({'error': message}), status_code
-
-@credit_bp.route('/api/credit-service/profile/<string:user_id>/risk', methods=['GET'])
-def get_credit_risk(user_id):
-    try:
-        response = credit_client.calculate_credit_risk(user_id)
-        return jsonify({'credit_risk': response.risk_level}), 200
-    except grpc.RpcError as e:
-        error_messages = {
-            grpc.StatusCode.NOT_FOUND: ('Credit profile not found', 404),
             grpc.StatusCode.INTERNAL: ('Internal server error', 500)
         }
         message, status_code = error_messages.get(e.code(), (str(e.details()), 500))

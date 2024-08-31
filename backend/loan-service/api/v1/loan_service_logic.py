@@ -87,7 +87,7 @@ class LoanService:
         loan_terms = [6, 12, 18, 24]
         interest_rates = [5, 7, 9, 11]
 
-        for i in range(4): 
+        for i in range(4):
             term = random.choice(loan_terms)
             rate = random.choice(interest_rates)
 
@@ -101,8 +101,10 @@ class LoanService:
                 "loan_term_months": term,
                 "interest_rate": rate,
                 "monthly_payment": round(monthly_payment * 100),
-                "total_payment_amount": round(total_payment * 100) 
+                "total_payment_amount": round(total_payment * 100)
             }
             loan_options.append(loan_option)
+        
+        loan_options.sort(key=lambda x: x['loan_term_months'])
         
         return loan_options

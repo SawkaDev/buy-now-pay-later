@@ -4,3 +4,4 @@ sqlalchemy
 psycopg2-binary
 pydantic
 pydantic_settings
+credit-service-0.1.1.tar.gz

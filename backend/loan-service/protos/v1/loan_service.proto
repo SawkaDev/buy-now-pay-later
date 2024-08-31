@@ -3,59 +3,7 @@ syntax = "proto3";
 package loan;
 
 service LoanService {
-  rpc GetLoan (GetLoanRequest) returns (LoanResponse) {}
-  rpc UpdateLoanStatus (UpdateLoanStatusRequest) returns (LoanResponse) {}
-  rpc UpdatePayment (PaymentUpdateRequest) returns (PaymentUpdateResponse) {}
   rpc GenerateCheckoutSession (CheckoutSessionRequest) returns (CheckoutSessionResponse) {}
-  rpc GetLoanOptions (GetLoanOptionsRequest) returns (GetLoanOptionsResponse) {}
-}
-
-message GetLoanRequest {
-  int32 loan_id = 1;
-}
-
-message UpdateLoanStatusRequest {
-  int32 loan_id = 1;
-  string new_status = 2;
-}
-
-message LoanResponse {
-  Loan loan = 1;
-  CheckoutSession checkout_session = 2;
-}
-
-message Loan {
-  int32 id = 1;
-  int32 user_id = 2;
-  int64 loan_amount_cents = 3;
-  int32 loan_term_months = 4;
-  int32 interest_rate = 5;
-  string status = 6;
-  int32 merchant_id = 7;
-  string created_at = 8;
-  string updated_at = 9;
-}
-
-message CheckoutSession {
-  string id = 1;
-  int32 loan_id = 2;
-  string order_id = 3;
-  string success_redirect_url = 4;
-  string cancel_redirect_url = 5;
-  string checkout_url = 6;
-  string status = 7;
-  string expires_at = 8;
-  string created_at = 9;
-  string updated_at = 10;
-}
-
-message PaymentUpdateRequest {
-  int32 loan_id = 1;
-  string payment_status = 2;
-}
-
-message PaymentUpdateResponse {
-  bool success = 1;
 }
 
 message CheckoutSessionRequest {
@@ -68,22 +16,4 @@ message CheckoutSessionRequest {
 
 message CheckoutSessionResponse {
   string checkout_url = 1;
-}
-
-message GetLoanOptionsRequest {
-  string user_id = 1;
-  string session_id = 2;
-}
-
-message GetLoanOptionsResponse {
-  repeated LoanOption loan_options = 1;
-}
-
-message LoanOption {
-  string id = 1;
-  int32 loan_amount_cents = 2;
-  int32 loan_term_months = 3;
-  float interest_rate = 4;
-  float monthly_payment = 5;
-  float total_payment_amount = 6;
 }

@@ -27,8 +27,8 @@ services:
     container_name: loan-service
     image: loan-service:1.0.0
     build:
-      context: ./backend/loan-service
-      dockerfile: loan.dockerfile
+      context: .
+      dockerfile: ./backend/loan-service/loan.dockerfile
     ports:
       - "50052:50051"
     environment:
@@ -48,8 +48,8 @@ services:
     container_name: credit-service
     image: credit-service:1.0.0
     build:
-      context: ./backend/credit-service
-      dockerfile: credit.dockerfile
+      context: .
+      dockerfile: ./backend/credit-service/credit.dockerfile
     ports:
       - "50053:50051"
     environment:

@@ -5,7 +5,8 @@ FROM python:3.10-slim
 WORKDIR /app
 
 # Copy the requirements file into the container
-COPY requirements.txt .
+COPY /backend/loan-service/requirements.txt .
+COPY /backend/shared/credit-service-0.1.1.tar.gz .
 
 # Install the project dependencies
 RUN pip install --no-cache-dir -r requirements.txt

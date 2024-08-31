@@ -1,69 +1,66 @@
 import { useTheme } from '@mui/material/styles';
-import { Button, Chip, Grid, Stack, Typography } from '@mui/material';
+import { Grid, Stack, Typography, Box } from '@mui/material';
 import MainCard from 'components/MainCard';
-import { EditOutlined } from '@ant-design/icons';
+import { DollarOutlined, CalendarOutlined, PercentageOutlined } from '@ant-design/icons';
+import { Dispatch, SetStateAction } from 'react';
+import { LoanOptionInterface } from 'types/common';
 
-interface AddressCardProps {
-  address: any | null;
-  change?: boolean;
+interface LoanOptionProps {
+  loan: LoanOptionInterface;
+  selectLoan: Dispatch<SetStateAction<any>>;
+  selected: boolean;
 }
 
-const LoanOption = ({ address, change }: AddressCardProps) => {
+const LoanOption = ({ loan, selectLoan, selected }: LoanOptionProps) => {
   const theme = useTheme();
+
+  const selectedBoxShadow = `0 0 0 2px ${theme.palette.success.main}`;
+  const selectedBoxShadowNext = `0 0 0 2px ${theme.palette.secondary.light}`;
 
   return (
     <MainCard
       sx={{
+        boxShadow: selected ? selectedBoxShadow : 'none',
         '&:hover': {
-          boxShadow: theme.customShadows.primary
+          boxShadow: selected ? selectedBoxShadow : selectedBoxShadowNext,
+          transform: selected ? 'none' : 'translateY(-4px)',
+          transition: 'all 0.3s'
         },
         mt: 2,
-        cursor: 'pointer'
+        cursor: selected ? 'default' : 'pointer'
       }}
-      onClick={() => {
-        console.log('clicked');
-      }}
+      onClick={() => !selected && selectLoan(loan)}
     >
-      {address && (
-        <Grid container spacing={0.5}>
-          <Grid item xs={12}>
-            <Stack direction="row" justifyContent="space-between">
-              <Stack direction="row" alignItems="center" spacing={0.5}>
-                <Typography variant="subtitle1">{address.name}</Typography>
-                <Typography variant="caption" color="textSecondary" sx={{ textTransform: 'capitalize' }}>
-                  ({address.destination})
-                </Typography>
-                {address.isDefault && (
-                  <Chip sx={{ color: 'primary.main', bgcolor: 'primary.lighter', borderRadius: '10px' }} label="Default" size="small" />
-                )}
-              </Stack>
-              {change && (
-                <Button
-                  variant="outlined"
-                  size="small"
-                  color="secondary"
-                  startIcon={<EditOutlined />}
-                  onClick={() => {
-                    console.log('change');
-                  }}
-                >
-                  Change
-                </Button>
-              )}
-            </Stack>
-          </Grid>
-          <Grid item xs={12}>
-            <Stack spacing={2}>
-              <Typography variant="body2" color="textSecondary">
-                {`${address.building}, ${address.street}, ${address.city}, ${address.state}, ${address.country} - ${address.post}`}
-              </Typography>
-              <Typography variant="caption" color="textSecondary">
-                {address.phone}
-              </Typography>
-            </Stack>
-          </Grid>
+      <Grid container spacing={2}>
+        <Grid item xs={12}>
+          <Stack direction="row" justifyContent="space-between" alignItems="center">
+            <Typography variant="h4" fontWeight="bold">
+              ${(loan.monthly_payment / 100).toFixed(2)}
+            </Typography>
+            <Typography variant="subtitle1" color="textSecondary">
+              per month
+            </Typography>
+          </Stack>
         </Grid>
-      )}
+        <Grid item xs={12}>
+          <Box bgcolor={theme.palette.grey[100]} p={2} borderRadius={1}>
+            <Stack spacing={1}>
+              <Typography variant="body2" display="flex" alignItems="center">
+                <CalendarOutlined style={{ marginRight: 8 }} />
+                {loan.loan_term_months} monthly payments
+              </Typography>
+              <Typography variant="body2" display="flex" alignItems="center">
+                <PercentageOutlined style={{ marginRight: 8 }} />
+                {loan.interest_rate} APR
+              </Typography>
+              <Typography variant="body2" display="flex" alignItems="center">
+                <DollarOutlined style={{ marginRight: 8 }} />${((loan.total_payment_amount - loan.loan_amount_cents) / 100).toFixed(2)}{' '}
+                interest paid
+              </Typography>
+            </Stack>
+          </Box>
+        </Grid>
+      </Grid>
     </MainCard>
   );
 };

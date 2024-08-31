@@ -1,17 +1,15 @@
 import { ReactElement, useState } from 'react';
-import { Alert, AlertTitle, Button, Divider, Grid, Stack, Tabs, Typography } from '@mui/material';
+import { Alert, AlertTitle, Grid, Stack, Tabs, Typography } from '@mui/material';
 import MainCard from 'components/MainCard';
 import Layout from 'layout';
 import { useTheme } from '@mui/material/styles';
 import Page from 'components/Page';
-import { LoanApplicationInterface } from 'types/LoanApplication';
-import LoanSummary from 'sections/apps/e-commerce/checkout/LoanSummary';
 import { StyledTab, TabPanel, tabsOption } from './tabs/tab_helper';
 import { CheckOutlined, InfoCircleFilled } from '@ant-design/icons';
 import Avatar from 'components/@extended/Avatar';
 import UserLogin from './tabs/UserLogin';
 import OrderComplete from 'sections/apps/e-commerce/checkout/OrderComplete';
-import LoanSelections from './tabs/LogSelection';
+import LoanSelections from './tabs/LoanSelection';
 import { useRouter } from 'next/router';
 
 const Cart = () => {
@@ -23,13 +21,6 @@ const Cart = () => {
 
   const onNext = () => {
     setValue((index) => index + 1);
-  };
-
-  const selectedLoan: LoanApplicationInterface = {
-    interest: 10,
-    loanAmount: 100,
-    loanTermMonths: 5,
-    merchant: 'Sample Merchant'
   };
 
   const [user, setUser] = useState();
@@ -106,35 +97,7 @@ const Cart = () => {
               <UserLogin onNext={onNext} setUser={setUser} />
             </TabPanel>
             <TabPanel value={value} index={1}>
-              <Grid container spacing={3}>
-                <Grid item xs={12} md={8}>
-                  <Stack spacing={2}>
-                    <MainCard content={false}>
-                      <Grid container>
-                        <Grid item xs={12} sx={{ py: 2.5, pl: 2.5 }}>
-                          <Stack direction="row" alignItems="center" spacing={1}>
-                            <Typography variant="subtitle1">Loan Options</Typography>
-                          </Stack>
-                        </Grid>
-                        <Grid item xs={12}>
-                          <Divider />
-                        </Grid>
-                        <Grid item xs={12} sx={{ p: 2.5 }}>
-                          {user && session && <LoanSelections user={user} sessionId={session as string} />}
-                        </Grid>
-                      </Grid>
-                    </MainCard>
-                  </Stack>
-                </Grid>
-                <Grid item xs={12} md={4}>
-                  <Stack spacing={3}>
-                    <LoanSummary loan={selectedLoan} show />
-                    <Button variant="contained" sx={{ textTransform: 'none' }} fullWidth onClick={onNext}>
-                      Confirm Loan Selection
-                    </Button>
-                  </Stack>
-                </Grid>
-              </Grid>
+              {user && session && <LoanSelections user={user} onNext={onNext} sessionId={session as string} />}
             </TabPanel>
             <TabPanel value={value} index={2}>
               <OrderComplete open={true} />

@@ -80,16 +80,28 @@ class LoanService:
             raise RuntimeError(f"Database error occurred: {str(e)}")
 
     def get_loan_options(self, user_id: int, session_id: str) -> list:
-        # Mock loan options
         loan_options = []
-        for i in range(4):  # Generate 3 mock loan options
+        
+        loan_amount = random.randint(2, 20) * 5000
+        
+        loan_terms = [6, 12, 18, 24]
+        interest_rates = [5, 7, 9, 11]
+
+        for i in range(4): 
+            term = random.choice(loan_terms)
+            rate = random.choice(interest_rates)
+
+            interest = (loan_amount / 100) * (rate / 100) * (term / 12)
+            total_payment = loan_amount / 100 + interest
+            monthly_payment = total_payment / term
+
             loan_option = {
-                "id": f"loan-option-{i+1}",
-                "loan_amount_cents": random.randint(50000, 500000),  # 500 to 5000 dollars
-                "loan_term_months": random.choice([6, 12, 24]),
-                "interest_rate": round(random.uniform(5, 20), 2),
-                "monthly_payment": round(random.uniform(50, 500), 2),
-                "total_payment_amount": round(random.uniform(600, 6000), 2)
+                "id": f"Loan-Ref-{i+1}",
+                "loan_amount_cents": loan_amount,
+                "loan_term_months": term,
+                "interest_rate": rate,
+                "monthly_payment": round(monthly_payment * 100),
+                "total_payment_amount": round(total_payment * 100) 
             }
             loan_options.append(loan_option)
         

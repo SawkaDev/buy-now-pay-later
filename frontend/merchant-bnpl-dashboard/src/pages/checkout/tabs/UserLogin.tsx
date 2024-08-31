@@ -47,7 +47,7 @@ const UserLogin = ({ onNext, setUser }: UserLoginInterface) => {
         <MainCard>
           <FormControl fullWidth>
             <InputLabel id="user-select-label">Select User</InputLabel>
-            <Select labelId="user-select-label" id="user-select" value={selectedUser} label="Select User" onChange={handleUserChange}>
+            <Select labelId="user-select-label" id="user-select" value={selectedUser} label="Simulate Login As" onChange={handleUserChange}>
               {users.map((user) => (
                 <MenuItem key={user.id} value={user.id}>
                   {user.name}
@@ -55,6 +55,7 @@ const UserLogin = ({ onNext, setUser }: UserLoginInterface) => {
               ))}
             </Select>
           </FormControl>
+          <Button sx={{mt:2}}>Create New User</Button>
         </MainCard>
       </Grid>
       <Grid item xs={12} md={4}>

@@ -6,5 +6,7 @@ Flask-Session
 redis
 merchant-integration-service-0.1.1.tar.gz
 loan-service-0.1.1.tar.gz
+credit-service-0.1.1.tar.gz
+
 grpcio
 grpcio-tools

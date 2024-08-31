@@ -1,4 +1,4 @@
-version: '3.8'
+version: '3.9'
 
 services:
   # Webhook service
@@ -37,6 +37,25 @@ services:
       - DB_NAME=loan_service_db
     volumes:
       - ./backend/loan-service:/app
+    depends_on:
+      - db
+
+  credit-service:
+    container_name: credit-service
+    image: credit-service:1.0.0
+    build:
+      context: ./backend/credit-service
+      dockerfile: credit.dockerfile
+    ports:
+      - "50053:50051"
+    environment:
+      - DB_HOST=db
+      - DB_PORT=5432
+      - DB_USER=postgres
+      - DB_PASSWORD=postgres
+      - DB_NAME=credit_service_db
+    volumes:
+      - ./backend/credit-service:/app
     depends_on:
       - db
 

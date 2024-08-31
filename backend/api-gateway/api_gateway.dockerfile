@@ -6,6 +6,7 @@ WORKDIR /app
 COPY /backend/api-gateway/requirements.txt .
 COPY /backend/shared/merchant-integration-service-0.1.1.tar.gz .
 COPY /backend/shared/loan-service-0.1.1.tar.gz .
+COPY /backend/shared/credit-service-0.1.1.tar.gz .
 
 RUN pip install -r requirements.txt
 # COPY . .

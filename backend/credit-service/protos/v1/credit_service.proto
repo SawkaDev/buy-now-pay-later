@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+package credit;
+
+service CreditService {
+  rpc CreateCreditProfile (CreateCreditProfileRequest) returns (CreditProfileResponse) {}
+}
+
+message CreateCreditProfileRequest {
+  string name = 1;
+  int32 credit_score = 2;
+  int32 number_of_accounts = 3;
+  float credit_utilization_ratio = 4;
+  int32 recent_soft_inquiries = 5;
+  int32 bankruptcies = 6;
+  int32 tax_liens = 7;
+  int32 judgments = 8;
+}
+
+message CreditProfileResponse {
+  string id = 1;
+  string user_id = 2;
+  string name = 3;
+  int32 credit_score = 4;
+  int32 number_of_accounts = 5;
+  float credit_utilization_ratio = 6;
+  int32 recent_soft_inquiries = 7;
+  int32 bankruptcies = 8;
+  int32 tax_liens = 9;
+  int32 judgments = 10;
+  string created_at = 11;
+  string updated_at = 12;
+}

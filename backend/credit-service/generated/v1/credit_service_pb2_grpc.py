@@ -45,6 +45,11 @@ class CreditServiceStub(object):
                 request_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
                 response_deserializer=credit__service__pb2.GetAllCreditProfilesResponse.FromString,
                 _registered_method=True)
+        self.CreateDefaultLoanApplication = channel.unary_unary(
+                '/credit.CreditService/CreateDefaultLoanApplication',
+                request_serializer=credit__service__pb2.CreateDefaultLoanApplicationRequest.SerializeToString,
+                response_deserializer=credit__service__pb2.CreateDefaultLoanApplicationResponse.FromString,
+                _registered_method=True)
 
 
 class CreditServiceServicer(object):
@@ -62,6 +67,12 @@ class CreditServiceServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def CreateDefaultLoanApplication(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_CreditServiceServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -74,6 +85,11 @@ def add_CreditServiceServicer_to_server(servicer, server):
                     servicer.GetAllCreditProfiles,
                     request_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
                     response_serializer=credit__service__pb2.GetAllCreditProfilesResponse.SerializeToString,
+            ),
+            'CreateDefaultLoanApplication': grpc.unary_unary_rpc_method_handler(
+                    servicer.CreateDefaultLoanApplication,
+                    request_deserializer=credit__service__pb2.CreateDefaultLoanApplicationRequest.FromString,
+                    response_serializer=credit__service__pb2.CreateDefaultLoanApplicationResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -130,6 +146,33 @@ class CreditService(object):
             '/credit.CreditService/GetAllCreditProfiles',
             google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
             credit__service__pb2.GetAllCreditProfilesResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def CreateDefaultLoanApplication(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/credit.CreditService/CreateDefaultLoanApplication',
+            credit__service__pb2.CreateDefaultLoanApplicationRequest.SerializeToString,
+            credit__service__pb2.CreateDefaultLoanApplicationResponse.FromString,
             options,
             channel_credentials,
             insecure,

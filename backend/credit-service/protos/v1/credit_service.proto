@@ -7,6 +7,7 @@ import "google/protobuf/empty.proto";
 service CreditService {
   rpc CreateCreditProfile (CreateCreditProfileRequest) returns (CreditProfileResponse) {}
   rpc GetAllCreditProfiles (google.protobuf.Empty) returns (GetAllCreditProfilesResponse) {}
+  rpc CreateDefaultLoanApplication (CreateDefaultLoanApplicationRequest) returns (CreateDefaultLoanApplicationResponse) {}
 }
 
 message CreateCreditProfileRequest {
@@ -37,4 +38,16 @@ message CreditProfileResponse {
 
 message GetAllCreditProfilesResponse {
   repeated CreditProfileResponse profiles = 1;
+}
+
+message CreateDefaultLoanApplicationRequest {
+  string user_id = 1;
+  int64 loan_amount_cents = 2;
+  int32 loan_term_months = 3;
+  int32 merchant_id = 4;
+  string session_id = 5;
+}
+
+message CreateDefaultLoanApplicationResponse {
+  bool success = 1;
 }

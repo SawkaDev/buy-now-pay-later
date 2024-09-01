@@ -60,6 +60,31 @@ class CreditServiceV1(credit_service_pb2_grpc.CreditServiceServicer):
             db.close()
         return credit_service_pb2.GetAllCreditProfilesResponse()
 
+    def CreateDefaultLoanApplication(self, request, context):
+        logger.info(f"Received create default loan application request for user ID {request.user_id}")
+        db = SessionLocal()
+        try:
+            credit_service = CreditService(db)
+            success = credit_service.create_default_loan_application(
+                user_id=request.user_id,
+                loan_amount_cents=request.loan_amount_cents,
+                loan_term_months=request.loan_term_months,
+                merchant_id=request.merchant_id,
+                session_id=request.session_id
+            )
+            return credit_service_pb2.CreateDefaultLoanApplicationResponse(success=success)
+        except ValueError as e:
+            logger.warning(f"Invalid input: {str(e)}")
+            context.set_code(grpc.StatusCode.INVALID_ARGUMENT)
+            context.set_details(str(e))
+        except Exception as e:
+            logger.error(f"Error creating default loan application: {str(e)}", exc_info=True)
+            context.set_code(grpc.StatusCode.INTERNAL)
+            context.set_details('An internal error occurred')
+        finally:
+            db.close()
+        return credit_service_pb2.CreateDefaultLoanApplicationResponse(success=False)
+        
     def _credit_profile_to_proto(self, profile):
         profile_proto = credit_service_pb2.CreditProfileResponse()
         self._populate_credit_profile_proto(profile, profile_proto)

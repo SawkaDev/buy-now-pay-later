@@ -1,7 +1,6 @@
 import grpc
 from google.protobuf import empty_pb2
-from generated.v1 import credit_service_pb2, credit_service_pb2_grpc
-
+from . import credit_service_pb2, credit_service_pb2_grpc
 class CreditClientV1:
     def __init__(self, host='localhost', port=50053):
         self.channel = grpc.insecure_channel(f'{host}:{port}')

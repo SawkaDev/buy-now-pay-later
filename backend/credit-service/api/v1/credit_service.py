@@ -3,7 +3,7 @@
 import logging
 import grpc
 from google.protobuf import empty_pb2
-from generated.v1 import credit_service_pb2, credit_service_pb2_grpc
+from client.v1 import credit_service_pb2, credit_service_pb2_grpc
 from core.db import SessionLocal
 from .credit_service_logic import CreditService
 

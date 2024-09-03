@@ -12,7 +12,7 @@ COPY /backend/shared/credit-service-0.1.1.tar.gz .
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy the project files into the container
-COPY . .
+# COPY . .
 
 # Set environment variables
 ENV PYTHONUNBUFFERED=1

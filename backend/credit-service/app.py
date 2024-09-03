@@ -6,7 +6,7 @@ import logging
 from api.v1 import credit_service
 from core.config import settings
 from core.db import init_db
-from generated.v1 import credit_service_pb2_grpc
+from client.v1 import credit_service_pb2_grpc
 
 def serve():
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))

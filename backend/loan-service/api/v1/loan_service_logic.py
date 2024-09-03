@@ -1,4 +1,9 @@
-# loan_service.py
+import sys
+import os
+
+# Add the site-packages directory to the Python path
+site_packages_path = '/usr/local/lib/python3.10/site-packages'
+sys.path.insert(0, site_packages_path)
 
 from datetime import datetime, timedelta
 from sqlalchemy.exc import SQLAlchemyError
@@ -6,19 +11,22 @@ from models.loan import CheckoutSession
 from sqlalchemy.orm import joinedload
 import random
 import uuid
-# from credit_service import CreditClientV1
 
-# credit_client = CreditClientV1(host='credit-service', port=50053)
+from client.v1.credit import CreditClientV1
 
 class LoanService:
     def __init__(self, db_session):
         self.db = db_session
+        self.credit_client = CreditClientV1(host='credit-service', port=50053)
 
-    def generate_checkout_session(self,loan_amount_cents: int, 
+    def generate_checkout_session(self, loan_amount_cents: int, 
                                   merchant_id: int, order_id: str, 
                                   success_redirect_url: str, cancel_redirect_url: str) -> str:
         try:
-            # TODO: Create default loan
+            # Perform credit check
+            # credit_check_result = self.credit_client.check_credit(merchant_id)  # Assuming merchant_id is used for credit check
+            # if not credit_check_result.approved:
+            #     raise PermissionError("Credit check failed")
 
             # Create a new checkout session
             checkout_session = CheckoutSession(

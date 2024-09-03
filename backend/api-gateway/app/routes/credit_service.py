@@ -42,3 +42,28 @@ def get_all_credit_profiles():
         }
         message, status_code = error_messages.get(e.code(), (str(e.details()), 500))
         return jsonify({'error': message}), status_code
+
+
+@credit_bp.route('/api/credit-service/loan-options', methods=['POST'])
+def get_loan_options():
+    data = request.get_json()
+    user_id = data.get('user_id')
+    session_id = data.get('session_id')
+
+    if not user_id or not session_id:
+        return jsonify({'error': 'User ID and session ID are required'}), 400
+
+    try:
+        response = credit_client.get_loan_options(user_id, session_id)
+        loan_options = MessageToDict(response, preserving_proto_field_name=True)
+        return jsonify(loan_options), 200
+    except grpc.RpcError as e:
+        status_code = e.code()
+        if status_code == StatusCode.NOT_FOUND:
+            return jsonify({'error': 'Loan options not found'}), 404
+        elif status_code == StatusCode.INVALID_ARGUMENT:
+            return jsonify({'error': 'Invalid arguments'}), 400
+        elif status_code == StatusCode.INTERNAL:
+            return jsonify({'error': 'Internal server error'}), 500
+        else:
+            return jsonify({'error': str(e.details())}), 500

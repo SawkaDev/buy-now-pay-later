@@ -101,5 +101,48 @@ class CreditServiceV1(credit_service_pb2_grpc.CreditServiceServicer):
         profile_proto.created_at = profile.created_at.isoformat() if profile.created_at else ""
         profile_proto.updated_at = profile.updated_at.isoformat() if profile.updated_at else ""
 
+
+    def GetLoanOptions(self, request, context):
+        logger.info(f"Received get loan options request for user ID {request.user_id} / session {request.session_id}")
+
+        db = SessionLocal()
+        try:
+            credit_service = CreditService(db)
+            loan_options = credit_service.get_loan_options(request.user_id, request.session_id)
+
+            response = credit_service_pb2.GetLoanOptionsResponse()
+            for option in loan_options:
+                loan_option = response.loan_options.add()
+                loan_option.id = option['id']
+                loan_option.loan_amount_cents = option['loan_amount_cents']
+                loan_option.loan_term_months = option['loan_term_months']
+                loan_option.interest_rate = option['interest_rate']
+                loan_option.monthly_payment = option['monthly_payment']
+                loan_option.total_payment_amount = option['total_payment_amount']
+
+            return response
+
+        except Exception as e:
+            logger.error(f"Error retrieving loan options: {str(e)}", exc_info=True)
+            context.set_code(grpc.StatusCode.INTERNAL)
+            context.set_details('An internal error occurred')
+        finally:
+            db.close()
+
+        return credit_service_pb2.GetLoanOptionsResponse()
+
+    def _loan_to_proto(self, loan):
+        return credit_service_pb2.Loan(
+            id=loan.id,
+            user_id=loan.user_id,
+            loan_amount_cents=loan.loan_amount_cents,
+            loan_term_months=loan.loan_term_months,
+            interest_rate=loan.interest_rate,
+            status=loan.status.value,
+            merchant_id=loan.merchant_id,
+            created_at=loan.created_at.isoformat() if loan.created_at else None,
+            updated_at=loan.updated_at.isoformat() if loan.updated_at else None
+        )
+        
 def add_to_server(server):
     credit_service_pb2_grpc.add_CreditServiceServicer_to_server(CreditServiceV1(), server)

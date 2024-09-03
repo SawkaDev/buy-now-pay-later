@@ -5,6 +5,7 @@ from models.credit import CreditProfile, LoanStatus, Loan
 from sqlalchemy.orm import joinedload
 from uuid import uuid4
 from typing import List
+import random
 
 class CreditService:
     def __init__(self, db_session):
@@ -52,3 +53,33 @@ class CreditService:
         except SQLAlchemyError as e:
             self.db.rollback()
             raise RuntimeError(f"Database error occurred: {str(e)}")
+
+    def get_loan_options(self, user_id: str, session_id: str) -> list:
+        loan_options = []
+
+        loan_amount = random.randint(2, 20) * 5000
+
+        loan_terms = [6, 12, 18, 24]
+        interest_rates = [5, 7, 9, 11]
+
+        for i in range(4):
+            term = random.choice(loan_terms)
+            rate = random.choice(interest_rates)
+
+            interest = (loan_amount / 100) * (rate / 100) * (term / 12)
+            total_payment = loan_amount / 100 + interest
+            monthly_payment = total_payment / term
+
+            loan_option = {
+                "id": f"Loan-Ref-{i+1}",
+                "loan_amount_cents": loan_amount,
+                "loan_term_months": term,
+                "interest_rate": rate,
+                "monthly_payment": round(monthly_payment * 100),
+                "total_payment_amount": round(total_payment * 100)
+            }
+            loan_options.append(loan_option)
+
+        loan_options.sort(key=lambda x: x['loan_term_months'])
+
+        return loan_options

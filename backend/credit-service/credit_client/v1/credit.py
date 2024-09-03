@@ -31,3 +31,10 @@ class CreditClientV1:
             merchant_id=merchant_id,
         )
         return self.stub.CreateDefaultLoanApplication(request)
+
+    def get_loan_options(self, user_id, session_id):
+        request = credit_service_pb2.GetLoanOptionsRequest(
+            user_id=user_id,
+            session_id=session_id,
+        )
+        return self.stub.GetLoanOptions(request)

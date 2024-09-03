@@ -40,20 +40,15 @@ class CreditService:
         except SQLAlchemyError as e:
             raise RuntimeError(f"Database error occurred: {str(e)}")
 
-    def create_default_loan_application(self, user_id: str, loan_amount_cents: int, 
-                                        loan_term_months: int, merchant_id: int, 
-                                        session_id: str) -> bool:
+    def create_default_loan_application(self, loan_amount_cents: int,  merchant_id: int) -> bool:
         try:
             new_loan = Loan(
-                user_id=user_id,
                 loan_amount_cents=loan_amount_cents,
-                loan_term_months=loan_term_months,
                 merchant_id=merchant_id,
-                checkout_session_id=session_id
             )
             self.db.add(new_loan)
             self.db.commit()
-            return True
+            return True, str(new_loan.id)  # Return a tuple with True and the new loan ID
         except SQLAlchemyError as e:
             self.db.rollback()
             raise RuntimeError(f"Database error occurred: {str(e)}")

@@ -4,6 +4,9 @@ from models.loan import CheckoutSession
 from sqlalchemy.orm import joinedload
 import random
 import uuid
+import logging
+
+logger = logging.getLogger(__name__)
 
 from credit_client.v1.credit import CreditClientV1
 
@@ -16,14 +19,10 @@ class LoanService:
                                   merchant_id: int, order_id: str, 
                                   success_redirect_url: str, cancel_redirect_url: str) -> str:
         try:
-            # Perform credit check
-            # credit_check_result = self.credit_client.check_credit(merchant_id)  # Assuming merchant_id is used for credit check
-            # if not credit_check_result.approved:
-            #     raise PermissionError("Credit check failed")
-
-            # Create a new checkout session
+            # Create default loan application
+            response = self.credit_client.create_default_loan_application(loan_amount_cents=loan_amount_cents, merchant_id=merchant_id)
             checkout_session = CheckoutSession(
-                loan_id=uuid.uuid4(),
+                loan_id=uuid.UUID(response.loan_id),
                 order_id=order_id,
                 success_redirect_url=success_redirect_url,
                 cancel_redirect_url=cancel_redirect_url,
@@ -45,4 +44,3 @@ class LoanService:
         except SQLAlchemyError as e:
             self.db.rollback()
             raise RuntimeError(f"Database error occurred: {str(e)}")
-

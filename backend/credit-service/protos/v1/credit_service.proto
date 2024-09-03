@@ -41,13 +41,11 @@ message GetAllCreditProfilesResponse {
 }
 
 message CreateDefaultLoanApplicationRequest {
-  string user_id = 1;
-  int64 loan_amount_cents = 2;
-  int32 loan_term_months = 3;
-  int32 merchant_id = 4;
-  string session_id = 5;
+  int64 loan_amount_cents = 1;
+  int32 merchant_id = 2;
 }
 
 message CreateDefaultLoanApplicationResponse {
   bool success = 1;
+  string loan_id = 2;
 }

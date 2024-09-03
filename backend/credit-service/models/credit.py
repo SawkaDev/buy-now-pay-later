@@ -23,6 +23,8 @@ class CreditProfile(Base):
     created_at = Column(DateTime, nullable=False, default=datetime.utcnow)
     updated_at = Column(DateTime, nullable=False, default=datetime.utcnow, onupdate=datetime.utcnow)
 
+    loans = relationship("Loan", back_populates="credit_profile")
+
     __table_args__ = (
         Index('idx_credit_profile_user_id', 'user_id'),
     )
@@ -53,10 +55,10 @@ class LoanStatus(enum.Enum):
 class Loan(Base):
     __tablename__ = 'loans'
 
-    id = Column(Integer, primary_key=True)
-    user_id = Column(UUID(as_uuid=True), ForeignKey('credit_profiles.user_id'), nullable=False)
+    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    user_id = Column(UUID(as_uuid=True), ForeignKey('credit_profiles.user_id'), nullable=True)
     merchant_id = Column(Integer, nullable=False)
-    checkout_session_id = Column(UUID(as_uuid=True), nullable=False)
+    checkout_session_id = Column(UUID(as_uuid=True), nullable=True)
     loan_amount_cents = Column(BigInteger, nullable=False)
     loan_term_months = Column(Integer, nullable=True)
     interest_rate = Column(Integer, nullable=True)  # Stored as basis points (e.g., 500 for 5.00%)
@@ -116,5 +118,3 @@ class Loan(Base):
 
     def __repr__(self):
         return f"<Loan(id={self.id}, user_id='{self.user_id}', amount=${self.loan_amount_dollars:.2f}, status={self.status.value})>"
-
-CreditProfile.loans = relationship("Loan", back_populates="credit_profile")

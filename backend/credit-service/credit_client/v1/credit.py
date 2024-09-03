@@ -25,13 +25,9 @@ class CreditClientV1:
         request = empty_pb2.Empty()
         return self.stub.GetAllCreditProfiles(request)
 
-    def create_default_loan_application(self, user_id, loan_amount_cents, 
-                                        loan_term_months, merchant_id, session_id):
+    def create_default_loan_application(self, loan_amount_cents, merchant_id):
         request = credit_service_pb2.CreateDefaultLoanApplicationRequest(
-            user_id=user_id,
             loan_amount_cents=loan_amount_cents,
-            loan_term_months=loan_term_months,
             merchant_id=merchant_id,
-            session_id=session_id
         )
         return self.stub.CreateDefaultLoanApplication(request)

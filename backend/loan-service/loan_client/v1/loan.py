@@ -1,5 +1,5 @@
 import grpc
-from generated.v1 import loan_service_pb2, loan_service_pb2_grpc
+from . import loan_service_pb2, loan_service_pb2_grpc
 
 class LoanClientV1:
     def __init__(self, host='localhost', port=50052):

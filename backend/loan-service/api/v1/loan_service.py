@@ -2,7 +2,7 @@
 
 import logging
 import grpc
-from generated.v1 import loan_service_pb2, loan_service_pb2_grpc
+from loan_client.v1 import loan_service_pb2, loan_service_pb2_grpc
 from core.db import SessionLocal
 from .loan_service_logic import LoanService
 

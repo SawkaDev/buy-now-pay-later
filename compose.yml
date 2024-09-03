@@ -106,8 +106,7 @@ services:
     depends_on:
       - redis
       - db
-      - merchant-integration-service
-
+      
   # db service
   db:
     container_name: db

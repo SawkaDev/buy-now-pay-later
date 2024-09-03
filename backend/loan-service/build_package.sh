@@ -6,9 +6,9 @@ cd ./protos/v1 || exit 1
 
 # Run the gRPC tools command
 python -m grpc_tools.protoc -I. \
-    --python_out=./../../credit_client/v1 \
-    --grpc_python_out=./../../credit_client/v1 \
-    credit_service.proto
+    --python_out=./../../loan_client/v1 \
+    --grpc_python_out=./../../loan_client/v1 \
+    loan_service.proto
 
 cd "$ORIGINAL_DIR" || exit 1
 
@@ -23,8 +23,8 @@ def fix_imports(file_path):
     
     # Replace absolute import with relative import
     content = re.sub(
-        r'import credit_service_pb2 as credit__service__pb2',
-        'from . import credit_service_pb2 as credit__service__pb2',
+        r'import loan_service_pb2 as loan__service__pb2',
+        'from . import loan_service_pb2 as loan__service__pb2',
         content
     )
     
@@ -32,7 +32,7 @@ def fix_imports(file_path):
         file.write(content)
 
 # Fix imports in the generated files
-fix_imports('./credit_client/v1/credit_service_pb2_grpc.py')
+fix_imports('./loan_client/v1/loan_service_pb2_grpc.py')
 
 print("Imports fixed successfully.")
 EOF

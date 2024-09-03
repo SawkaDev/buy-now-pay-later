@@ -1,10 +1,3 @@
-import sys
-import os
-
-# Add the site-packages directory to the Python path
-site_packages_path = '/usr/local/lib/python3.10/site-packages'
-sys.path.insert(0, site_packages_path)
-
 from datetime import datetime, timedelta
 from sqlalchemy.exc import SQLAlchemyError
 from models.loan import CheckoutSession
@@ -12,7 +5,7 @@ from sqlalchemy.orm import joinedload
 import random
 import uuid
 
-from client.v1.credit import CreditClientV1
+from credit_client.v1.credit import CreditClientV1
 
 class LoanService:
     def __init__(self, db_session):

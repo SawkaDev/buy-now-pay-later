@@ -1,12 +1,11 @@
 # loan_service/main.py
-
 import grpc
 from concurrent import futures
 import logging
 from api.v1 import loan_service
 from core.config import settings
 from core.db import init_db
-from generated.v1 import loan_service_pb2_grpc
+from loan_client.v1 import loan_service_pb2_grpc
 
 def serve():
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))

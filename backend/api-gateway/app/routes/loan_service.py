@@ -1,5 +1,5 @@
 from flask import Blueprint, jsonify, request
-from client.v1.loan import LoanClientV1
+from loan_client.v1.loan import LoanClientV1
 from google.protobuf.json_format import MessageToDict
 import grpc
 from grpc import StatusCode

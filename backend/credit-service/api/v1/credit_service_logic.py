@@ -83,3 +83,18 @@ class CreditService:
         loan_options.sort(key=lambda x: x['loan_term_months'])
 
         return loan_options
+
+    def update_checkout_session_for_loan(self, loan_id: str, checkout_session_id: str) -> bool:
+        try:
+            loan = self.db.query(Loan).filter(Loan.id == loan_id).first()
+            if not loan:
+                raise ValueError(f"Loan with id {loan_id} not found")
+            
+            loan.checkout_session_id = checkout_session_id
+            self.db.commit()
+            return True
+        except SQLAlchemyError as e:
+            self.db.rollback()
+            raise RuntimeError(f"Database error occurred: {str(e)}")
+        except ValueError as e:
+            raise e

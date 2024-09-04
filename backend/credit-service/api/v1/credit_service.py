@@ -131,6 +131,28 @@ class CreditServiceV1(credit_service_pb2_grpc.CreditServiceServicer):
 
         return credit_service_pb2.GetLoanOptionsResponse()
 
+    def UpdateCheckoutSessionForLoan(self, request, context):
+        logger.info(f"Received update checkout session request for loan ID {request.loan_id}")
+        db = SessionLocal()
+        try:
+            credit_service = CreditService(db)
+            success = credit_service.update_checkout_session_for_loan(
+                loan_id=request.loan_id,
+                checkout_session_id=request.checkout_session_id
+            )
+            return credit_service_pb2.UpdateCheckoutSessionForLoanResponse(success=success)
+        except ValueError as e:
+            logger.warning(f"Invalid input: {str(e)}")
+            context.set_code(grpc.StatusCode.INVALID_ARGUMENT)
+            context.set_details(str(e))
+        except Exception as e:
+            logger.error(f"Error updating checkout session for loan: {str(e)}", exc_info=True)
+            context.set_code(grpc.StatusCode.INTERNAL)
+            context.set_details('An internal error occurred')
+        finally:
+            db.close()
+        return credit_service_pb2.UpdateCheckoutSessionForLoanResponse(success=False)
+        
     def _loan_to_proto(self, loan):
         return credit_service_pb2.Loan(
             id=loan.id,

@@ -38,3 +38,11 @@ class CreditClientV1:
             session_id=session_id,
         )
         return self.stub.GetLoanOptions(request)
+
+    def update_checkout_session_for_loan(self, loan_id, checkout_session_id):
+        request = credit_service_pb2.UpdateCheckoutSessionForLoanRequest(
+            loan_id=loan_id,
+            checkout_session_id=checkout_session_id
+        )
+        response = self.stub.UpdateCheckoutSessionForLoan(request)
+        return response.success

@@ -9,6 +9,7 @@ service CreditService {
   rpc GetAllCreditProfiles (google.protobuf.Empty) returns (GetAllCreditProfilesResponse) {}
   rpc CreateDefaultLoanApplication (CreateDefaultLoanApplicationRequest) returns (CreateDefaultLoanApplicationResponse) {}
   rpc GetLoanOptions (GetLoanOptionsRequest) returns (GetLoanOptionsResponse) {}
+  rpc UpdateCheckoutSessionForLoan (UpdateCheckoutSessionForLoanRequest) returns (UpdateCheckoutSessionForLoanResponse) {}
 }
 
 message CreateCreditProfileRequest {
@@ -67,4 +68,13 @@ message LoanOption {
   float interest_rate = 4;
   float monthly_payment = 5;
   float total_payment_amount = 6;
+}
+
+message UpdateCheckoutSessionForLoanRequest {
+  string loan_id = 1;
+  string checkout_session_id = 2;
+}
+
+message UpdateCheckoutSessionForLoanResponse {
+  bool success = 1;
 }

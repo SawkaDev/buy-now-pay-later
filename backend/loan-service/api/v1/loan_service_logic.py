@@ -39,6 +39,14 @@ class LoanService:
             checkout_session.checkout_url = checkout_url
 
             self.db.commit()
+
+            success = self.credit_client.update_checkout_session_for_loan(
+                loan_id=str(checkout_session.loan_id),
+                checkout_session_id=str(checkout_session.id)
+            )
+
+            if not success:
+                raise RuntimeError("Failed to update checkout session for loan")
             return checkout_url
 
         except SQLAlchemyError as e:

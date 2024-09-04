@@ -193,5 +193,29 @@ class CreditServiceV1(credit_service_pb2_grpc.CreditServiceServicer):
             db.close()
         return credit_service_pb2.SelectLoanResponse(success=False)
         
+    def GetLoanForCheckoutSession(self, request, context):
+        logger.info(f"Received get loan for checkout session request for session ID {request.checkout_session_id} and user ID {request.user_id}")
+        db = SessionLocal()
+        try:
+            credit_service = CreditService(db)
+            status = credit_service.get_loan_for_checkout_session(
+                checkout_session_id=request.checkout_session_id,
+                user_id=request.user_id
+            )
+            logger.warning(f"RETURNING STATUS {status}")
+            return credit_service_pb2.GetLoanForCheckoutSessionResponse(status=status)
+        except ValueError as e:
+            logger.warning(f"Invalid input: {str(e)}")
+            context.set_code(grpc.StatusCode.INVALID_ARGUMENT)
+            context.set_details(str(e))
+        except Exception as e:
+            logger.error(f"Error getting loan for checkout session: {str(e)}", exc_info=True)
+            context.set_code(grpc.StatusCode.INTERNAL)
+            context.set_details('An internal error occurred')
+        finally:
+            db.close()
+        logger.warning(f"DEFAULT RETUNRNRNRNRNRN")
+        return credit_service_pb2.GetLoanForCheckoutSessionResponse(status="")
+
 def add_to_server(server):
     credit_service_pb2_grpc.add_CreditServiceServicer_to_server(CreditServiceV1(), server)

@@ -1,4 +1,4 @@
-import { Grid, Typography, CircularProgress, Stack, Divider, Button, Alert, AlertTitle } from '@mui/material';
+import { Grid, Typography, Stack, Divider, Button, Alert, AlertTitle } from '@mui/material';
 import { LoanOptionInterface, User } from 'types/common';
 import { useMutation, useQuery, UseQueryResult } from '@tanstack/react-query';
 import LoanSelectionOption from './LoanSelectionOptions';
@@ -24,6 +24,16 @@ const LoanSelections = ({ sessionId, user, onNext }: LoanSelections) => {
   } = useQuery<UseQueryResult<LoanOptionInterface[], Error>>({
     queryKey: ['loanOptions', user?.user_id, sessionId],
     queryFn: () => CreditService.getLoanOptions(user?.user_id, sessionId),
+    refetchOnWindowFocus: false
+  });
+
+  const {
+    data: loanStatus,
+    isLoading: loanStatusLoading,
+    error: loanStatusError
+  } = useQuery({
+    queryKey: [sessionId],
+    queryFn: () => CreditService.getLoanStatus(sessionId, user.user_id),
     refetchOnWindowFocus: false
   });
 
@@ -68,25 +78,41 @@ const LoanSelections = ({ sessionId, user, onNext }: LoanSelections) => {
     selectLoan();
   };
 
-  if (isLoading) {
+  if (isLoading || loanStatusLoading) {
+    return <></>;
+  }
+
+  if (error || loanStatusError) {
     return (
-      <Grid container justifyContent="center" alignItems="center" style={{ height: '25vh', textAlign: 'center' }}>
-        <Grid item>
-          <CircularProgress />
-          <Typography variant="h5" style={{ marginTop: '16px' }}>
-            Performing credit check and fetching loans
-          </Typography>
-        </Grid>
+      <Grid container justifyContent="center" alignItems="center" style={{ height: '25vh' }}>
+        <Typography variant="h6" color="error">
+          Error fetching loan options for user / checkout session.
+        </Typography>
       </Grid>
     );
   }
 
-  if (error) {
+  if (loanStatus === 'Unauthorized') {
     return (
-      <Grid container justifyContent="center" alignItems="center" style={{ height: '100vh' }}>
-        <Typography variant="h6" color="error">
-          Error fetching loan options.
-        </Typography>
+      <Grid container justifyContent="center" alignItems="center" style={{ height: '20vh' }}>
+        <Stack spacing={2}>
+          <Typography variant="h6" color="error">
+            Unauthorized to access this page.
+          </Typography>
+        </Stack>
+      </Grid>
+    );
+  }
+
+  if (loanStatus === 'approved') {
+    return (
+      <Grid container justifyContent="center" alignItems="center" style={{ height: '20vh' }}>
+        <Stack spacing={2}>
+          <Typography variant="h6" color="success">
+            Your loan has already been approved. Loan checkout session is invalid.
+          </Typography>
+          <Button variant="contained">Continue to BNPL (Customer) Dashboard</Button>
+        </Stack>
       </Grid>
     );
   }

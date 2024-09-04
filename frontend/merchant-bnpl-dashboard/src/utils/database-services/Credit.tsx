@@ -22,10 +22,25 @@ const getLoanOptions = async (userId: string, sessionId: string) => {
   }
 };
 
+const getLoanStatus = async (checkoutSessionId: string, userId: string) => {
+  try {
+    const response = await axios.get(`${serverBaseUrl}/api/credit-service/loan-status`, {
+      params: {
+        checkout_session_id: checkoutSessionId,
+        user_id: userId
+      }
+    });
+    return response.data.status;
+  } catch (error) {
+    console.error('Error Getting Loan Status:', error);
+    throw error;
+  }
+};
 
 const CreditService = {
   getCreditProfiles,
-  getLoanOptions
+  getLoanOptions,
+  getLoanStatus
 };
 
 export default CreditService;

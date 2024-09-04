@@ -6,6 +6,11 @@ from sqlalchemy.orm import joinedload
 from uuid import uuid4
 from typing import List
 import random
+import logging
+
+
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.DEBUG)
 
 class CreditService:
     def __init__(self, db_session):
@@ -119,6 +124,26 @@ class CreditService:
             return True
         except SQLAlchemyError as e:
             self.db.rollback()
+            raise RuntimeError(f"Database error occurred: {str(e)}")
+        except ValueError as e:
+            raise e
+
+    def get_loan_for_checkout_session(self, checkout_session_id: str, user_id: str) -> str:
+ 
+        try:
+            loan = self.db.query(Loan).filter(Loan.checkout_session_id == checkout_session_id).first()
+            logger.info(f"Loan found: {loan.user_id}")
+            if not loan:
+                raise ValueError(f"Loan not found for checkout session {checkout_session_id}")
+
+            if loan.user_id is None:
+                return ""
+            else:
+                if str(loan.user_id) != str(user_id):
+                    return "Unauthorized"
+                else:
+                    return loan.status.value
+        except SQLAlchemyError as e:
             raise RuntimeError(f"Database error occurred: {str(e)}")
         except ValueError as e:
             raise e

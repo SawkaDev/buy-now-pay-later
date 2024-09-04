@@ -11,6 +11,7 @@ service CreditService {
   rpc GetLoanOptions (GetLoanOptionsRequest) returns (GetLoanOptionsResponse) {}
   rpc UpdateCheckoutSessionForLoan (UpdateCheckoutSessionForLoanRequest) returns (UpdateCheckoutSessionForLoanResponse) {}
   rpc SelectLoan (SelectLoanRequest) returns (SelectLoanResponse) {}
+  rpc GetLoanForCheckoutSession (GetLoanForCheckoutSessionRequest) returns (GetLoanForCheckoutSessionResponse) {}
 }
 
 message CreateCreditProfileRequest {
@@ -91,4 +92,13 @@ message UpdateCheckoutSessionForLoanResponse {
 
 message SelectLoanResponse {
   bool success = 1;
+}
+
+message GetLoanForCheckoutSessionRequest {
+  string checkout_session_id = 1;
+  string user_id = 2;
+}
+
+message GetLoanForCheckoutSessionResponse {
+  string status = 1;
 }

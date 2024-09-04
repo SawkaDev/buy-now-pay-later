@@ -96,3 +96,23 @@ def select_loan():
         }
         message, status_code = error_messages.get(e.code(), (str(e.details()), 500))
         return jsonify({'error': message}), status_code
+
+@credit_bp.route('/api/credit-service/loan-status', methods=['GET'])
+def get_loan_status():
+    checkout_session_id = request.args.get('checkout_session_id')
+    user_id = request.args.get('user_id')
+
+    if not checkout_session_id or not user_id:
+        return jsonify({'error': 'Checkout session ID and user ID are required'}), 400
+
+    try:
+        status = credit_client.get_loan_for_checkout_session(checkout_session_id, user_id)
+        return jsonify({'status': status}), 200
+    except grpc.RpcError as e:
+        error_messages = {
+            grpc.StatusCode.INVALID_ARGUMENT: ('Invalid input', 400),
+            grpc.StatusCode.NOT_FOUND: ('Loan not found', 404),
+            grpc.StatusCode.INTERNAL: ('Internal server error', 500)
+        }
+        message, status_code = error_messages.get(e.code(), (str(e.details()), 500))
+        return jsonify({'error': message}), status_code

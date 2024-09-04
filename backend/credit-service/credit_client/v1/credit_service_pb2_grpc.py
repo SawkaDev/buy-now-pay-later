@@ -65,6 +65,11 @@ class CreditServiceStub(object):
                 request_serializer=credit__service__pb2.SelectLoanRequest.SerializeToString,
                 response_deserializer=credit__service__pb2.SelectLoanResponse.FromString,
                 _registered_method=True)
+        self.GetLoanForCheckoutSession = channel.unary_unary(
+                '/credit.CreditService/GetLoanForCheckoutSession',
+                request_serializer=credit__service__pb2.GetLoanForCheckoutSessionRequest.SerializeToString,
+                response_deserializer=credit__service__pb2.GetLoanForCheckoutSessionResponse.FromString,
+                _registered_method=True)
 
 
 class CreditServiceServicer(object):
@@ -106,6 +111,12 @@ class CreditServiceServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def GetLoanForCheckoutSession(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_CreditServiceServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -138,6 +149,11 @@ def add_CreditServiceServicer_to_server(servicer, server):
                     servicer.SelectLoan,
                     request_deserializer=credit__service__pb2.SelectLoanRequest.FromString,
                     response_serializer=credit__service__pb2.SelectLoanResponse.SerializeToString,
+            ),
+            'GetLoanForCheckoutSession': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetLoanForCheckoutSession,
+                    request_deserializer=credit__service__pb2.GetLoanForCheckoutSessionRequest.FromString,
+                    response_serializer=credit__service__pb2.GetLoanForCheckoutSessionResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -302,6 +318,33 @@ class CreditService(object):
             '/credit.CreditService/SelectLoan',
             credit__service__pb2.SelectLoanRequest.SerializeToString,
             credit__service__pb2.SelectLoanResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def GetLoanForCheckoutSession(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/credit.CreditService/GetLoanForCheckoutSession',
+            credit__service__pb2.GetLoanForCheckoutSessionRequest.SerializeToString,
+            credit__service__pb2.GetLoanForCheckoutSessionResponse.FromString,
             options,
             channel_credentials,
             insecure,

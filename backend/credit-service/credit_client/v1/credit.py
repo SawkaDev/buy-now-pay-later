@@ -59,3 +59,11 @@ class CreditClientV1:
             total_payment_amount_cents=total_payment_amount_cents
         )
         return self.stub.SelectLoan(request)
+
+    def get_loan_for_checkout_session(self, checkout_session_id, user_id):
+        request = credit_service_pb2.GetLoanForCheckoutSessionRequest(
+            checkout_session_id=checkout_session_id,
+            user_id=user_id
+        )
+        response = self.stub.GetLoanForCheckoutSession(request)
+        return response.status

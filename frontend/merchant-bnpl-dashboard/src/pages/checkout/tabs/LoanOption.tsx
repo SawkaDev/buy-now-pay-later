@@ -35,7 +35,7 @@ const LoanOption = ({ loan, selectLoan, selected }: LoanOptionProps) => {
         <Grid item xs={12}>
           <Stack direction="row" justifyContent="space-between" alignItems="center">
             <Typography variant="h4" fontWeight="bold">
-              ${(loan.monthly_payment / 100).toFixed(2)}
+              ${(loan.monthly_payment_cents / 100).toFixed(2)}
             </Typography>
             <Typography variant="subtitle1" color="textSecondary">
               per month
@@ -54,7 +54,7 @@ const LoanOption = ({ loan, selectLoan, selected }: LoanOptionProps) => {
                 {loan.interest_rate} APR
               </Typography>
               <Typography variant="body2" display="flex" alignItems="center">
-                <DollarOutlined style={{ marginRight: 8 }} />${((loan.total_payment_amount - loan.loan_amount_cents) / 100).toFixed(2)}{' '}
+                <DollarOutlined style={{ marginRight: 8 }} />${((loan.total_payment_amount_cents - loan.loan_amount_cents) / 100).toFixed(2)}{' '}
                 interest paid
               </Typography>
             </Stack>

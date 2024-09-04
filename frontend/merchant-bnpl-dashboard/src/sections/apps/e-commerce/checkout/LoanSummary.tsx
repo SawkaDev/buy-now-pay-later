@@ -38,7 +38,7 @@ const LoanSummary = ({ loan, show }: { loan: LoanOptionInterface | undefined; sh
               <TableRow>
                 <TableCell sx={{ borderBottom: 'none', opacity: 0.5 }}>Installement</TableCell>
                 <TableCell align="right" sx={{ borderBottom: 'none' }}>
-                  <Typography variant="subtitle1">{loan ? '$' + (loan?.monthly_payment / 100).toFixed(2) + ' /mo' : 'n/a'} </Typography>
+                  <Typography variant="subtitle1">{loan ? '$' + (loan?.monthly_payment_cents / 100).toFixed(2) + ' /mo' : 'n/a'} </Typography>
                 </TableCell>
               </TableRow>
             </TableBody>
@@ -49,7 +49,7 @@ const LoanSummary = ({ loan, show }: { loan: LoanOptionInterface | undefined; sh
         <Stack direction="row" justifyContent="space-between" alignItems="center">
           <Typography variant="subtitle1">Total of Payments</Typography>
           <Typography variant="subtitle1" color={'success.main'} align="right">
-            {loan ? '$' + (loan.total_payment_amount / 100).toFixed(2) : 'n/a'}
+            {loan ? '$' + (loan.total_payment_amount_cents / 100).toFixed(2) : 'n/a'}
           </Typography>
         </Stack>
       </MainCard>

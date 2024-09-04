@@ -46,3 +46,16 @@ class CreditClientV1:
         )
         response = self.stub.UpdateCheckoutSessionForLoan(request)
         return response.success
+
+
+    def select_loan(self, user_id, checkout_session_id, loan_term_months, 
+                    interest_rate, monthly_payment_cents, total_payment_amount_cents):
+        request = credit_service_pb2.SelectLoanRequest(
+            user_id=user_id,
+            checkout_session_id=checkout_session_id,
+            loan_term_months=loan_term_months,
+            interest_rate=interest_rate,
+            monthly_payment_cents=monthly_payment_cents,
+            total_payment_amount_cents=total_payment_amount_cents
+        )
+        return self.stub.SelectLoan(request)

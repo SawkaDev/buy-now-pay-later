@@ -12,8 +12,20 @@ const getCreditProfiles = async () => {
   }
 };
 
+const getLoanOptions = async (userId: string, sessionId: string) => {
+  try {
+    const response = await axios.post(`${serverBaseUrl}/api/credit-service/loan-options`, { user_id: userId, session_id: sessionId });
+    return response.data.loan_options;
+  } catch (error) {
+    console.error('Error Getting Loan Opions:', error);
+    throw error;
+  }
+};
+
+
 const CreditService = {
-  getCreditProfiles
+  getCreditProfiles,
+  getLoanOptions
 };
 
 export default CreditService;

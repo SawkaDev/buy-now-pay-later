@@ -91,7 +91,6 @@ const Cart = () => {
             </Grid>
           </Grid>
         </MainCard>
-        {JSON.stringify(user)}
         <Grid container>
           <Grid item xs={12}>
             <TabPanel value={value} index={0}>

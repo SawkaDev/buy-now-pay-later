@@ -108,6 +108,7 @@ class CreditServiceV1(credit_service_pb2_grpc.CreditServiceServicer):
         db = SessionLocal()
         try:
             credit_service = CreditService(db)
+
             loan_options = credit_service.get_loan_options(request.user_id, request.session_id)
 
             response = credit_service_pb2.GetLoanOptionsResponse()
@@ -117,8 +118,8 @@ class CreditServiceV1(credit_service_pb2_grpc.CreditServiceServicer):
                 loan_option.loan_amount_cents = option['loan_amount_cents']
                 loan_option.loan_term_months = option['loan_term_months']
                 loan_option.interest_rate = option['interest_rate']
-                loan_option.monthly_payment = option['monthly_payment']
-                loan_option.total_payment_amount = option['total_payment_amount']
+                loan_option.monthly_payment_cents = option['monthly_payment_cents']
+                loan_option.total_payment_amount_cents = option['total_payment_amount_cents']
 
             return response
 
@@ -165,6 +166,32 @@ class CreditServiceV1(credit_service_pb2_grpc.CreditServiceServicer):
             created_at=loan.created_at.isoformat() if loan.created_at else None,
             updated_at=loan.updated_at.isoformat() if loan.updated_at else None
         )
+
+    def SelectLoan(self, request, context):
+        logger.info(f"Received select loan request for user ID {request.user_id}")
+        db = SessionLocal()
+        try:
+            credit_service = CreditService(db)
+            success = credit_service.select_loan(
+                user_id=request.user_id,
+                checkout_session_id=request.checkout_session_id,
+                loan_term_months=request.loan_term_months,
+                interest_rate=request.interest_rate,
+                monthly_payment_cents=request.monthly_payment_cents,
+                total_payment_amount_cents=request.total_payment_amount_cents
+            )
+            return credit_service_pb2.SelectLoanResponse(success=success)
+        except ValueError as e:
+            logger.warning(f"Invalid input: {str(e)}")
+            context.set_code(grpc.StatusCode.INVALID_ARGUMENT)
+            context.set_details(str(e))
+        except Exception as e:
+            logger.error(f"Error selecting loan: {str(e)}", exc_info=True)
+            context.set_code(grpc.StatusCode.INTERNAL)
+            context.set_details('An internal error occurred')
+        finally:
+            db.close()
+        return credit_service_pb2.SelectLoanResponse(success=False)
         
 def add_to_server(server):
     credit_service_pb2_grpc.add_CreditServiceServicer_to_server(CreditServiceV1(), server)

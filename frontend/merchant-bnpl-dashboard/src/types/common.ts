@@ -12,6 +12,6 @@ export interface LoanOptionInterface {
   loan_amount_cents: number;
   loan_term_months: number;
   interest_rate: number;
-  monthly_payment: number;
-  total_payment_amount: number;
+  monthly_payment_cents: number;
+  total_payment_amount_cents: number;
 }

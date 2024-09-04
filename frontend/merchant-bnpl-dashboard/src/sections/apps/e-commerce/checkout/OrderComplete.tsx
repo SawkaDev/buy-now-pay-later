@@ -42,31 +42,12 @@ const OrderComplete = ({ open }: { open: boolean }) => {
                 />
               </Box>
               <Typography variant={matchDownMD ? 'h3' : 'h1'} align="center">
-                Thank you for Purchase!
+                Thank you for checking out with BNPL!
               </Typography>
-              <Box sx={{ px: 2.5 }}>
-                <Typography align="center" color="textSecondary">
-                  We will send a process notification, before it delivered.
-                </Typography>
-                <Typography align="center" color="textSecondary">
-                  Your order id:{' '}
-                  <Typography variant="subtitle1" component="span" color="primary">
-                    1000
-                  </Typography>
-                </Typography>
-              </Box>
-              <Typography variant="h5" sx={{ py: { xs: 1, sm: 3 } }}>
-                (219) 404-5468
-              </Typography>
-              <Stack direction="row" justifyContent="center" spacing={3}>
-                <NextLink href="/apps/e-commerce/products" passHref legacyBehavior>
-                  <Button variant="outlined" color="secondary" size={matchDownMD ? 'small' : 'medium'}>
-                    Continue Shopping
-                  </Button>
-                </NextLink>
+              <Stack direction="row" justifyContent="center" spacing={3} pt={2}>
                 <NextLink href="/apps/e-commerce/products" passHref legacyBehavior>
                   <Button variant="contained" color="primary" size={matchDownMD ? 'small' : 'medium'}>
-                    Download Invoice
+                    View BNPL (Consumer) Loan Dashboard
                   </Button>
                 </NextLink>
               </Stack>

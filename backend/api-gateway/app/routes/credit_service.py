@@ -67,3 +67,32 @@ def get_loan_options():
             return jsonify({'error': 'Internal server error'}), 500
         else:
             return jsonify({'error': str(e.details())}), 500
+
+@credit_bp.route('/api/credit-service/select-loan', methods=['POST'])
+def select_loan():
+    data = request.get_json()
+    required_fields = ['user_id', 'checkout_session_id', 'loan_term_months', 
+                       'interest_rate', 'monthly_payment_cents', 'total_payment_amount_cents']
+    
+    if not all(field in data for field in required_fields):
+        return jsonify({'error': 'Missing required fields'}), 400
+
+    try:
+        response = credit_client.select_loan(
+            user_id=data['user_id'],
+            checkout_session_id=data['checkout_session_id'],
+            loan_term_months=data['loan_term_months'],
+            interest_rate=data['interest_rate'],
+            monthly_payment_cents=data['monthly_payment_cents'],
+            total_payment_amount_cents=data['total_payment_amount_cents']
+        )
+        response_dict = MessageToDict(response, preserving_proto_field_name=True)
+        return jsonify(response_dict), 200
+    except grpc.RpcError as e:
+        error_messages = {
+            grpc.StatusCode.INVALID_ARGUMENT: ('Invalid input', 400),
+            grpc.StatusCode.NOT_FOUND: ('Loan not found', 404),
+            grpc.StatusCode.INTERNAL: ('Internal server error', 500)
+        }
+        message, status_code = error_messages.get(e.code(), (str(e.details()), 500))
+        return jsonify({'error': message}), status_code

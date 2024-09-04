@@ -75,14 +75,38 @@ class CreditService:
                 "loan_amount_cents": loan_amount,
                 "loan_term_months": term,
                 "interest_rate": rate,
-                "monthly_payment": round(monthly_payment * 100),
-                "total_payment_amount": round(total_payment * 100)
+                "monthly_payment_cents": round(monthly_payment * 100),
+                "total_payment_amount_cents": round(total_payment * 100)
             }
             loan_options.append(loan_option)
 
         loan_options.sort(key=lambda x: x['loan_term_months'])
 
         return loan_options
+
+    def select_loan(self, user_id: str, checkout_session_id: str, loan_term_months: int, 
+                    interest_rate: float, monthly_payment_cents: int, 
+                    total_payment_amount_cents: int) -> bool:
+        try:
+            loan = self.db.query(Loan).filter(Loan.checkout_session_id == checkout_session_id).first()
+
+            if not loan:
+                raise ValueError(f"Loan with checkout_session_id {checkout_session_id} not found")
+
+            loan.user_id = user_id
+            loan.loan_term_months = loan_term_months
+            loan.interest_rate = interest_rate
+            loan.monthly_payment_cents = monthly_payment_cents
+            loan.total_payment_amount_cents = total_payment_amount_cents
+            loan.status = LoanStatus.APPROVED
+
+            self.db.commit()
+            return True
+        except SQLAlchemyError as e:
+            self.db.rollback()
+            raise RuntimeError(f"Database error occurred: {str(e)}")
+        except ValueError as e:
+            raise e
 
     def update_checkout_session_for_loan(self, loan_id: str, checkout_session_id: str) -> bool:
         try:

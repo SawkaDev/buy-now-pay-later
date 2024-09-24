@@ -1,4 +1,5 @@
 # Buy Now Pay Later Platform
+
 This repository contains the source code for a simple Buy Now Pay Later platform, which includes multiple microservices and a frontend dashboard.
 
 ## Table of Contents
@@ -22,12 +23,16 @@ This repository contains the source code for a simple Buy Now Pay Later platform
 
 ## Screenshots and Demo
 
-- You can view screenshots of the platform in the [`assets` folder](assets).
-- A demo video is available [here](#).
+- You can view screenshots of the platform [here](./assets).
+- A demo video is available [TBD](#).
+
+![
+Architecture Diagram](./assets/architecture.png)
 
 ## Features
 
 - **BNPL Dashboard**:
+
   - Merchants can create accounts.
   - Create API keys.
   - Set up webhook endpoints.
@@ -50,7 +55,6 @@ The platform leverages a variety of technologies to deliver a robust and scalabl
   - Redis: Used for user sessions and caching of data.
   - Rate Limiting: Implemented to control the rate of requests sent or received by the services to ensure fair usage and prevent abuse.
   - JWT Auth: JSON Web Tokens for secure authentication and authorization.
-  
 - **Frontend**:
   - Next.js: A React framework for server-side rendering and static site generation.
   - React: A JavaScript library for building user interfaces.
@@ -84,7 +88,7 @@ The Credit Service is responsible for handling all credit-related operations wit
 - **Credit Scoring**: Calculating a credit score based on user data and transaction history.
 - **Credit Limits**: Setting and managing credit limits for users.
 - **Credit History**: Maintaining a record of users' credit transactions and histories.
-- **Integration with External Credit Bureaus**: Mock communicating with external credit bureaus to fetch and update credit information. 
+- **Integration with External Credit Bureaus**: Mock communicating with external credit bureaus to fetch and update credit information.
 
 ### Loan Service
 
@@ -133,18 +137,22 @@ docker run -p <host-port>:<container-port> <service-name>
 ```
 
 ### Docker Compose
+
 To build and run all services together, use Docker Compose:
 
 ```sh
 docker-compose up --build
 ```
+
 This will use the compose.yml file to build and start all services.
 
 ### Viewing Redis Tokens
+
 docker exec -it redis redis-cli -a yourredispassword
 
 ### Helpful Commands
-- docker exec -it db psql -U postgres -d user_service_db    
+
+- docker exec -it db psql -U postgres -d user_service_db
 - docker exec -it db psql -U postgres -d api_key_service_db
 - \l - view all databases
 - \c DATABASE - change to database

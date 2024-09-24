@@ -133,8 +133,8 @@ const LoanSelections = ({ sessionId, user, onNext }: LoanSelections) => {
                   <Divider />
                 </Grid>
                 <Grid item xs={12}>
-                  <p>UserId: {user.user_id}</p>
-                  <p>SessionId: {sessionId}</p>
+                  {/* <p>UserId: {user.user_id}</p> */}
+                  {/* <p>SessionId: {sessionId}</p> */}
                 </Grid>
 
                 {!selectedLoan && (

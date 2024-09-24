@@ -62,21 +62,23 @@ class CreditService:
     def get_loan_options(self, user_id: str, session_id: str) -> list:
         loan_options = []
 
-        loan_amount = random.randint(2, 20) * 5000
+        loan = self.db.query(Loan).filter(Loan.checkout_session_id == session_id).first()
+
+        if not loan:
+            return []
+
+        loan_amount = loan.loan_amount_cents
 
         loan_terms = [6, 12, 18, 24]
         interest_rates = [5, 7, 9, 11]
 
-        for i in range(4):
-            term = random.choice(loan_terms)
-            rate = random.choice(interest_rates)
-
+        for i, (term, rate) in enumerate(zip(loan_terms, interest_rates), 1):
             interest = (loan_amount / 100) * (rate / 100) * (term / 12)
-            total_payment = loan_amount / 100 + interest
+            total_payment = (loan_amount / 100) + interest
             monthly_payment = total_payment / term
 
             loan_option = {
-                "id": f"Loan-Ref-{i+1}",
+                "id": f"Loan-Ref-{i}",
                 "loan_amount_cents": loan_amount,
                 "loan_term_months": term,
                 "interest_rate": rate,
@@ -84,9 +86,6 @@ class CreditService:
                 "total_payment_amount_cents": round(total_payment * 100)
             }
             loan_options.append(loan_option)
-
-        loan_options.sort(key=lambda x: x['loan_term_months'])
-
         return loan_options
 
     def select_loan(self, user_id: str, checkout_session_id: str, loan_term_months: int, 

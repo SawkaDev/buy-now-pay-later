@@ -35,7 +35,7 @@ def main():
         os.chdir(original_dir)
 
     # Run docker compose
-    run_shell_command("docker compose up --build", cwd=original_dir)
+    # run_shell_command("docker compose up --build", cwd=original_dir)
 
 if __name__ == "__main__":
     main()

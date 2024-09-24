@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import Box from '@mui/material/Box';
-import Link from '@mui/material/Link';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
@@ -9,6 +8,7 @@ import Modal from '@mui/material/Modal';
 import { useMutation } from '@tanstack/react-query';
 import { createCheckoutSession } from 'app/lib/BNPLWrapper';
 import { useRouter } from 'next/navigation';
+import { v4 as uuidv4 } from 'uuid';
 
 interface SummaryBoxProps {
   subTotal: number;
@@ -37,10 +37,12 @@ const SummaryBox = ({ subTotal }: SummaryBoxProps): JSX.Element => {
   });
 
   const handleCreateCheckout = () => {
+    const newOrderId = `order_${uuidv4().slice(0, 8)}`;
+
     createCheckoutSessionMutation({
       loan_amount_cents: Math.round(total * 100), // Convert to cents
       merchant_id: 12,
-      order_id: 'order_9f99_1',
+      order_id: newOrderId,
       success_redirect_url: 'http://localhost:3010/success',
       cancel_redirect_url: 'http://localhost:3010/cart',
     });

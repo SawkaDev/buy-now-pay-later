@@ -21,6 +21,15 @@ This repository contains the source code for a simple Buy Now Pay Later platform
   - [Viewing Redis Tokens](#viewing-redis-tokens)
   - [Helpful Commands](#helpful-commands)
 
+## Planned Features:
+- Send Webhook events to merchants
+- Validate API keys upon checkout session creation
+- Fraud Detection
+- Improve credit underwriting / loan option calculations
+- Notification Service
+- Update Merchant Dashboard to view all purchases from customers
+- Create BNPL Consumer Dashboard to view all loans / make payments
+
 ## Screenshots and Demo
 
 - You can view screenshots of the platform [here](./assets).
